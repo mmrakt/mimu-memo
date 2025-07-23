@@ -78,7 +78,6 @@
       "Bash(pnpm test:*)",
       "Bash(mv:*)",
       "Bash(pnpm check:*)",
-      "Bash(rm -rf ~/)"
     ],
     "deny": []
   },
