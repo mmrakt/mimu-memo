@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [new URL("https://placehold.jp/**")],
   },
   outputFileTracingExcludes: {
-    "*": [".pnpm-store/**/*"],
+    "*": [".pnpm-store/**/*", ".next/cache/**/*"],
   },
   sassOptions: {
     implementation: "sass-embedded",

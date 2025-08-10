@@ -1,8 +1,10 @@
 ---
-title: Vercelデプロイで.pnpm-storeがバンドルに含まれて250MB制限エラーになった件
+title: Vercelデプロイで.pnpm-storeがバンドルに含まれて250MB制限エラーになる
 tag: "npm"
 pubDate: 2025-07-14
 ---
+
+※以下はClaude Codeと一緒に調査した際のやり取りをそのまま文章化させたものです
 
 ## tl;dr
 
@@ -19,17 +21,15 @@ module.exports = {
 };
 ```
 
-## 問題発生
+## 調査ログ
 
-Vercel ビルドで以下エラー：
+Vercel ビルドで以下エラー
 
 ```
 Warning: Max serverless function size of 250 MB uncompressed reached
 Large Dependencies                                   Uncompressed size
 .pnpm-store/v10/files                                       708.41 MB
 ```
-
-## 原因調査の迷走
 
 ### 仮説 1: pnpm バージョン問題
 
@@ -45,7 +45,7 @@ Large Dependencies                                   Uncompressed size
 - pnpm v9.15.9（プロジェクト作成日で自動選択）
 - `.pnpm-store/v9/files`が 700MB
 
-### packageManager で固定してみる
+packageManager で固定してみる。
 
 ```json
 {
@@ -53,7 +53,7 @@ Large Dependencies                                   Uncompressed size
 }
 ```
 
-結果：バージョンは v10 になったが問題変わらず
+バージョンは v10 になったが問題変わらず。
 
 ```
 .pnpm-store/v10/files    708.41 MB
@@ -80,7 +80,7 @@ Removed 25 ignored files defined in .vercelignore
 3. **新しく`.pnpm-store`生成**
 4. Next.js ビルドトレーシングが含んでしまう
 
-## 真の原因
+## 原因
 
 Next.js の`outputFileTracing`が`.pnpm-store`を依存関係として誤認識してた模様。
 
@@ -90,7 +90,7 @@ Next.js の`outputFileTracing`が`.pnpm-store`を依存関係として誤認識�
 
 ## 解決
 
-### 最終解決策
+以下で解決。
 
 ```javascript
 // next.config.js
@@ -104,11 +104,9 @@ const nextConfig = {
 module.exports = nextConfig;
 ```
 
-これで一発解決。
-
 ついでにビルド時間も爆速になった（5min -> 1min）
 
-### 他に考えた案
+### 代案
 
 **ストア場所変更:**
 
