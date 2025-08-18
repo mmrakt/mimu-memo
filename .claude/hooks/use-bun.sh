@@ -14,15 +14,15 @@ if [[ "$tool" != "Bash" ]]; then
     exit 0
 fi
 
-# List of prohibited package managers (now only npm and yarn, pnpm is allowed)
-prohibited_managers=("npm" "yarn")
+# List of prohibited package managers (now only npm and yarn, bun is allowed)
+prohibited_managers=("npm" "yarn" "pnpm")
 
 # Check if the command contains any prohibited package manager
 for manager in "${prohibited_managers[@]}"; do
-    # Use word boundaries to avoid false positives (e.g., "pnpm" containing "npm")
+    # Use word boundaries to avoid false positives (e.g., "bun" containing "npm")
     if [[ "$command" =~ (^|[[:space:]])$manager($|[[:space:]]) ]]; then
-        # Replace the prohibited manager with pnpm
-        modified_command=$(echo "$command" | sed "s/\b$manager\b/pnpm/g")
+        # Replace the prohibited manager with bun
+        modified_command=$(echo "$command" | sed "s/\b$manager\b/bun/g")
         
         # Create response JSON
         response=$(jq -n \
@@ -31,7 +31,7 @@ for manager in "${prohibited_managers[@]}"; do
             --arg manager "$manager" \
             '{
                 decision: "block",
-                reason: ($manager + " commands are not allowed. Use pnpm instead.\nOriginal: " + $original + "\nSuggested: " + $suggested)
+                reason: ($manager + " commands are not allowed. Use bun instead.\nOriginal: " + $original + "\nSuggested: " + $suggested)
             }')
         
         echo "$response"

@@ -6,6 +6,7 @@ import 'highlight.js/styles/github-dark.css';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/_components/Footer';
+import { MainContent } from '@/_components/MainContent';
 import Navigation from '@/_components/Navigation';
 import { generateMetadata } from '@/_utils/metadata';
 
@@ -38,9 +39,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Navigation />
-        <main id="main-content" className="flex-1 pt-16">
-          {children}
-        </main>
+        <MainContent>{children}</MainContent>
         <Footer />
         <Analytics />
         <SpeedInsights />

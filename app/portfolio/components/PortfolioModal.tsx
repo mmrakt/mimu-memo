@@ -1,5 +1,5 @@
 import { ExternalLink, X } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
@@ -13,6 +13,8 @@ interface PortfolioModalProps {
 }
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
+  const titleId = useId();
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -76,7 +78,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         </div>
 
         <div className="p-8">
-          <h2 id="modal-title" className="text-3xl font-bold text-slate-50 mb-4">
+          <h2 id={titleId} className="text-3xl font-bold text-slate-50 mb-4">
             {item.title}
           </h2>
 

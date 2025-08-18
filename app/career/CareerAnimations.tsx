@@ -48,7 +48,9 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     );
 
     const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach((item) => observer.observe(item));
+    timelineItems.forEach((item) => {
+      observer.observe(item);
+    });
 
     // Parallax effect and scroll indicator visibility
     const handleScroll = () => {
@@ -75,7 +77,9 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     return () => {
       window.removeEventListener('scroll', revealOnScroll);
       window.removeEventListener('scroll', handleScroll);
-      timelineItems.forEach((item) => observer.unobserve(item));
+      timelineItems.forEach((item) => {
+        observer.unobserve(item);
+      });
     };
   }, []);
 

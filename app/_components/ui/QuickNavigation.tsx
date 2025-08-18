@@ -2,7 +2,7 @@
 
 import { ArrowRight, Briefcase, Code, FileText } from 'lucide-react';
 import Link from 'next/link';
-import { memo } from 'react';
+import { memo, useId } from 'react';
 
 interface QuickNavItem {
   href: string;
@@ -37,11 +37,13 @@ const quickNavItems: QuickNavItem[] = [
 ];
 
 export const QuickNavigation = memo(function QuickNavigation() {
+  const headingId = useId();
+
   return (
-    <section className="py-20 px-8" aria-labelledby="navigation-heading">
+    <section className="py-20 px-8" aria-labelledby={headingId}>
       <div className="max-w-6xl mx-auto">
         <h2
-          id="navigation-heading"
+          id={headingId}
           className="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-200"
         >
           Navigation

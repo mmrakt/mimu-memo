@@ -120,16 +120,15 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
+        <button
+          type="button"
+          className="fixed inset-0 bg-black/50 z-30 md:hidden border-0 p-0 cursor-default"
           onClick={closeMobileMenu}
           onKeyDown={(e) => {
             if (e.key === 'Escape') {
               closeMobileMenu();
             }
           }}
-          role="button"
-          tabIndex={0}
           aria-label="Close mobile menu"
         />
       )}

@@ -2,11 +2,12 @@
 
 import { ArrowRight, Globe, User } from 'lucide-react';
 import Link from 'next/link';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useId, useState } from 'react';
 import { ABOUT_ME, MY_NAME } from '@/config';
 
 export const HeroSection = memo(function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const headingId = useId();
 
   useEffect(() => {
     setIsVisible(true);
@@ -48,7 +49,7 @@ export const HeroSection = memo(function HeroSection() {
           <div className="relative mb-6 group">
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-indigo-500 via-cyan-400 to-amber-500 bg-clip-text text-transparent animate-gradient-x hover:scale-105 transition-transform duration-500 cursor-default"
-              id="main-heading"
+              id={headingId}
             >
               Hi, I'm {MY_NAME}
             </h1>

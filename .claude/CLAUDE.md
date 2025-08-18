@@ -64,11 +64,11 @@
 #### Other Guidelines
 
 - For import statements, do not use absolute paths; always use import aliases starting with `@/`
-- Use `pnpm` for package management and CLI commands
+- Use `bun` for package management and CLI commands
 
 ### GitHub Usage Rules
 
-- When task completed, execute `pnpm check:fix` to format file changes
+- When task completed, execute `bun check:fix` to format file changes
 - Commit messages must use one of the following prefixes: chore, fix, feat, docs
 - Commit messages should be written in Japanese describing what was changed and why
 - Make commits frequently with very small granularity
@@ -120,10 +120,10 @@
 
 ## Available Scripts
 
-- `pnpm dev`: Start development server
-- `pnpm build`: Build for production
-- `pnpm start`: Start production server
-- `pnpm tc`: Run type checking
-- `pnpm check`: Run linting
-- `pnpm check:fix`: Run linting with auto-fix
-- `pnpm test`: Run test suite
+- `bun run dev`: Start development server
+- `bun run build`: Build for production
+- `bun run start`: Start production server
+- `bun run tc`: Run type checking
+- `bun run check`: Run linting
+- `bun run check:fix`: Run linting with auto-fix
+- `bun run test`: Run test suite

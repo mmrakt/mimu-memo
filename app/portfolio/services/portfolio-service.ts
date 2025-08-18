@@ -71,7 +71,7 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
       // Parse startedAt format (YYYY.MM)
       const parseDate = (dateStr: string) => {
         const [year, month] = dateStr.split('.');
-        return new Date(parseInt(year), parseInt(month) - 1);
+        return new Date(parseInt(year, 10), parseInt(month, 10) - 1);
       };
 
       const dateA = parseDate(a.startedAt);

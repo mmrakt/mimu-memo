@@ -1,7 +1,7 @@
 'use client';
 
 import { ExternalLink } from 'lucide-react';
-import { memo } from 'react';
+import { memo, useId } from 'react';
 import {
   GITHUB_URL_PREFIX,
   QIITA_URL_PREFIX,
@@ -52,11 +52,13 @@ const externalLinks: ExternalLinkItem[] = [
 ];
 
 export const ExternalLinks = memo(function ExternalLinks() {
+  const headingId = useId();
+
   return (
-    <section className="py-20 px-8" aria-labelledby="external-links-heading">
+    <section className="py-20 px-8" aria-labelledby={headingId}>
       <div className="max-w-6xl mx-auto">
         <h2
-          id="external-links-heading"
+          id={headingId}
           className="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-200"
         >
           External links

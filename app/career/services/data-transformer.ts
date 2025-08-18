@@ -133,7 +133,11 @@ export function calculateStats(
   const totalYearsExperience = new Date().getFullYear() - CAREER_CONFIG.DEFAULTS.START_YEAR;
   const totalProjects = timeline.length;
   const uniqueTechnologies = new Set<string>();
-  timeline.forEach((item) => item.technologies.forEach((tech) => uniqueTechnologies.add(tech)));
+  timeline.forEach((item) => {
+    item.technologies.forEach((tech) => {
+      uniqueTechnologies.add(tech);
+    });
+  });
 
   return [
     { number: `${totalYearsExperience}+`, label: 'Years of Experience' },

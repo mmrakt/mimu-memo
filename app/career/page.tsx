@@ -1,3 +1,6 @@
+'use client';
+
+import { useId } from 'react';
 import { CareerAnimations } from '@/career/CareerAnimations';
 import { EducationSection } from '@/career/components/EducationSection';
 import { PersonalInfo } from '@/career/components/PersonalInfo';
@@ -8,6 +11,7 @@ import { getCareerData } from '@/career/data';
 
 export default function CareerPage() {
   const careerData = getCareerData();
+  const timelineId = useId();
 
   const heroContent = (
     <section className="min-h-screen flex items-center justify-center relative px-8">
@@ -41,7 +45,7 @@ export default function CareerPage() {
       <SelfPRSection selfPR={careerData.selfPR} />
 
       {/* Timeline Section */}
-      <section id="timeline" className="py-20 relative">
+      <section id={timelineId} className="py-20 relative">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 reveal opacity-0 translate-y-8 transition-all duration-1000">
           Career Timeline
         </h2>

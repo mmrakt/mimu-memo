@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 export default async function TagPagePaginated({ params }: PageProps) {
   const { tag, page } = await params;
   const decodedTag = decodeURIComponent(tag);
-  const pageNumber = parseInt(page);
+  const pageNumber = parseInt(page, 10);
 
   if (Number.isNaN(pageNumber) || pageNumber < 1) {
     notFound();
