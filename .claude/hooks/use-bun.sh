@@ -31,7 +31,7 @@ for manager in "${prohibited_managers[@]}"; do
             --arg manager "$manager" \
             '{
                 decision: "block",
-                reason: ($manager + " commands are not allowed. Use bun instead.\nOriginal: " + $original + "\nSuggested: " + $suggested)
+                reason: ($manager + " commands are not allowed. Use bun instead.)
             }')
         
         echo "$response"
