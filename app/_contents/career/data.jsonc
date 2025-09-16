@@ -210,7 +210,7 @@
         { "name": "Python", "level": 1, "experience": 1 }
       ],
       "frontend": [
-        { "name": "React.js", "level": 3, "experience": 3 },
+        { "name": "React", "level": 3, "experience": 3 },
         { "name": "Vue.js", "level": 2, "experience": 2 },
         { "name": "Next.js", "level": 2, "experience": 2 },
         { "name": "Nuxt.js", "level": 1, "experience": 1 },
