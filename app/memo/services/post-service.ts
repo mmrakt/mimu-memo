@@ -126,10 +126,7 @@ export async function getAllMemoSlugs(): Promise<string[]> {
   }
 }
 
-export function getAdjacentPostsFromList(
-  posts: PostListItem[],
-  slug: string,
-): AdjacentPostsResult {
+export function getAdjacentPostsFromList(posts: PostListItem[], slug: string): AdjacentPostsResult {
   if (!posts.length) {
     return { previous: null, next: null };
   }

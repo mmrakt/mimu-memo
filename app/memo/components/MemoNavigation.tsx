@@ -1,16 +1,13 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Link from "next/link";
-import type { PostListItem } from "@/memo/lib/types";
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import type { PostListItem } from '@/memo/lib/types';
 
 interface MemoNavigationProps {
   previous: PostListItem | null;
   next: PostListItem | null;
 }
 
-export default function MemoNavigation({
-  previous,
-  next,
-}: MemoNavigationProps) {
+export default function MemoNavigation({ previous, next }: MemoNavigationProps) {
   if (!previous && !next) {
     return null;
   }

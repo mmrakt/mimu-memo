@@ -59,7 +59,6 @@ export default function CareerClient({ careerData }: CareerClientProps) {
       <EducationSection
         education={careerData.education}
         certifications={careerData.certifications}
-        awards={careerData.awards}
         languages={careerData.personalInfo.languages}
       />
     </>

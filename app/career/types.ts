@@ -69,7 +69,6 @@ export interface CareerData {
   skills: SkillCategory[];
   education: EducationItem[];
   certifications: CertificationItem[];
-  awards: AwardItem[];
   stats: StatItem[];
   // Raw data access
   personalInfo: RawCareerData['personalInfo'];
@@ -145,13 +144,6 @@ export interface CertificationItem {
   expiryDate?: string;
   credentialId?: string;
   link?: string;
-}
-
-export interface AwardItem {
-  title: string;
-  issuer: string;
-  date: string;
-  description: string;
 }
 
 export interface StatItem {

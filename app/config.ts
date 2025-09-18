@@ -25,11 +25,11 @@ export const MEDIA_TYPE_LIST = ['owned', 'qiita', 'zenn', 'note'] as const;
 export const MEDIA_TYPE_LIST_FOR_DISPLAY = ['mimu-memo', 'Qiita', 'Zenn', 'note'] as const;
 
 export const SNS_ID = 'mmrakt';
-export const X_ID = 'mimu_pg';
+export const X_ID = 'mimu_alc';
 export const ZENN_FEED_URL = `${ZENN_URL_PREFIX}/${SNS_ID}/feed?all=1`;
 export const NOTE_FEED_URL = `${NOTE_URL_PREFIX}/${SNS_ID}/rss`;
 export const QIITA_API_ENDPOINT = `${QIITA_URL_PREFIX}/api/v2/authenticated_user/items`;
 
-export const X_PROFILE_URL = `${X_URL_PREFIX}/mimu_pg`;
+export const X_PROFILE_URL = `${X_URL_PREFIX}/${X_ID}`;
 export const GITHUB_PROFILE_URL = `${GITHUB_URL_PREFIX}/mmrakt`;
 export const LINKEDIN_PROFILE_URL = `https://www.linkedin.com/in/mmrakt`;

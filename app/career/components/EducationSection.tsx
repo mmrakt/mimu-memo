@@ -1,22 +1,16 @@
 'use client';
 
 import { CAREER_CONFIG } from '@/career/config/constants';
-import type { AwardItem, CertificationItem, EducationItem } from '@/career/types';
+import type { CertificationItem, EducationItem } from '@/career/types';
 import { formatDateRangeForDisplay } from '@/career/utils/date';
 
 interface EducationSectionProps {
   education: EducationItem[];
   certifications: CertificationItem[];
-  awards: AwardItem[];
   languages?: Array<{ name: string; level: string }>;
 }
 
-export function EducationSection({
-  education,
-  certifications,
-  awards,
-  languages,
-}: EducationSectionProps) {
+export function EducationSection({ education, certifications, languages }: EducationSectionProps) {
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-8">
@@ -25,7 +19,7 @@ export function EducationSection({
         </h2>
 
         <div
-          className={`grid grid-cols-1 ${languages ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-8`}
+          className={`grid grid-cols-1 ${languages ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-8`}
         >
           {/* Education */}
           <div className="reveal opacity-0 translate-y-8 transition-all duration-700">
@@ -110,39 +104,11 @@ export function EducationSection({
             </div>
           </div>
 
-          {/* Awards */}
-          <div
-            className="reveal opacity-0 translate-y-8 transition-all duration-700"
-            style={{ transitionDelay: '0.2s' }}
-          >
-            <h3 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-              Awards & Recognition
-            </h3>
-            <div className="space-y-4">
-              {awards.map((award, index) => (
-                <div
-                  key={`award-${award.title}-${index}`}
-                  className="bg-slate-800/50 p-6 rounded-xl border border-amber-600/10 hover:border-amber-600/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <h4 className="text-lg font-semibold text-white mb-2">{award.title}</h4>
-                  <p className="text-amber-400 font-medium mb-1">{award.issuer}</p>
-                  <p className="text-slate-400 text-sm mb-3">
-                    {new Date(award.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                    })}
-                  </p>
-                  <p className="text-slate-300 text-sm leading-relaxed">{award.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Languages */}
           {languages && (
             <div
               className="reveal opacity-0 translate-y-8 transition-all duration-700"
-              style={{ transitionDelay: '0.3s' }}
+              style={{ transitionDelay: '0.2s' }}
             >
               <h3 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
                 Languages
