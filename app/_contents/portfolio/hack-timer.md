@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "hack-timer"
 description: "ポモドーロテクニック用のChrome拡張"
 url: "https://chrome.google.com/webstore/detail/hack-timer/pcnppkgggfifkggfbikfacnheemmlbfa/related"

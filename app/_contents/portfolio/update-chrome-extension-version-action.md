@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "update-chrome-extension-version-action"
 description: "Chrome拡張の更新作業の自動化用のGitHub Actions"
 url: "https://github.com/marketplace/actions/update-chrome-extension-version-action"

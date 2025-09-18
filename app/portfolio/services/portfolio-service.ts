@@ -33,8 +33,8 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
           content: string;
         };
 
-        // All portfolio items are solo development
-        const category: CategoryKey = 'solo-development';
+        // Use category from frontmatter, fallback to 'solo-development'
+        const category: CategoryKey = (data.category as CategoryKey) || 'solo-development';
 
         // Handle image path - prepend /portfolio/ if it's a relative path
         let imagePath = data.image || 'https://placehold.jp/400x250.png';
@@ -115,8 +115,8 @@ export async function getPortfolioItemBySlug(slug: string): Promise<PortfolioIte
       content: string;
     };
 
-    // All portfolio items are solo development
-    const category: CategoryKey = 'solo-development';
+    // Use category from frontmatter, fallback to 'solo-development'
+    const category: CategoryKey = (data.category as CategoryKey) || 'solo-development';
 
     // Handle image path - prepend /portfolio/ if it's a relative path
     let imagePath = data.image || 'https://placehold.jp/400x250.png';

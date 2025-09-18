@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "Pretty Git UI"
 description: "Rust製のGit TUIアプリ"
 url: "https://github.com/mmrakt/pretty-git-ui"

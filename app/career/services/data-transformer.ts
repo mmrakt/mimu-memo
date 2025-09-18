@@ -163,7 +163,6 @@ export function transformToCareerData(rawData: RawCareerData): CareerData {
     skills,
     education,
     certifications,
-    awards: [],
     stats,
     // Raw data access
     personalInfo: rawData.personalInfo,

@@ -17,7 +17,7 @@ export interface FilterOption {
   label: string;
 }
 
-export type CategoryKey = 'solo-development';
+export type CategoryKey = 'solo-development' | 'work';
 
 export interface PortfolioFrontmatter {
   title?: string;
@@ -28,4 +28,5 @@ export interface PortfolioFrontmatter {
   github?: string;
   startedAt?: string;
   isActive?: boolean;
+  category?: string;
 }

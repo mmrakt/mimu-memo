@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "mimu-memo"
 description: "mimuのパーソナルサイト"
 url: "https://mimu-memo.com/page/1"

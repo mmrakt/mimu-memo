@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "Syntax Swap"
 description: "コードブロックのシンタックスハイライトを上書きするChrome拡張"
 url: "https://chrome.google.com/webstore/detail/syntax-swap/amfgpgpncobmcpnleadbkdofcclhmngc"

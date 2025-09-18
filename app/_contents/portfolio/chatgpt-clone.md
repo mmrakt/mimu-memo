@@ -1,4 +1,5 @@
 ---
+category: "solo-development"
 title: "ChatGPT Clone"
 description: "ChatGPTのクローンアプリ"
 url: "https://clone-chatgpt-app.vercel.app/"
