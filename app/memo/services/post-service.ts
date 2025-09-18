@@ -13,6 +13,11 @@ import {
 import type { MemoBySlugResult, PostListItem } from '@/memo/lib/types';
 import { validateTag } from '@/memo/services/tag-service';
 
+export interface AdjacentPostsResult {
+  previous: PostListItem | null;
+  next: PostListItem | null;
+}
+
 export async function getAllPosts(): Promise<PostListItem[]> {
   try {
     const postsDirectory = await getPostsDirectory();
@@ -119,4 +124,32 @@ export async function getAllMemoSlugs(): Promise<string[]> {
     console.error('Error reading posts directory:', error);
     return [];
   }
+}
+
+export function getAdjacentPostsFromList(
+  posts: PostListItem[],
+  slug: string,
+): AdjacentPostsResult {
+  if (!posts.length) {
+    return { previous: null, next: null };
+  }
+
+  const currentIndex = posts.findIndex((post) => post.id === slug);
+
+  if (currentIndex === -1) {
+    return { previous: null, next: null };
+  }
+
+  const previous = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
+  const next = currentIndex > 0 ? posts[currentIndex - 1] : null;
+
+  return { previous, next };
+}
+
+export async function getAdjacentPosts(
+  slug: string,
+  fetchPosts: () => Promise<PostListItem[]> = getAllPosts,
+): Promise<AdjacentPostsResult> {
+  const posts = await fetchPosts();
+  return getAdjacentPostsFromList(posts, slug);
 }

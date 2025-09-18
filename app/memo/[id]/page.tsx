@@ -7,7 +7,9 @@ import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import AnimatedBackground from '@/_components/AnimatedBackground';
+import MemoNavigation from '@/memo/components/MemoNavigation';
 import { getTagIconPath } from '@/memo/components/utils';
+import { getAdjacentPosts } from '@/memo/services/post-service';
 import { getAllMemoSlugs, getMemoBySlug } from '@/memo/utils';
 import styles from './markdown.module.css';
 
@@ -54,6 +56,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
   }
 
   const { metadata, Component, content, isMarkdown } = memo;
+  const { previous, next } = await getAdjacentPosts(id);
 
   return (
     <div className="relative min-h-screen">
@@ -107,6 +110,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
               <Component />
             ) : null}
           </div>
+          <MemoNavigation previous={previous} next={next} />
         </article>
       </div>
     </div>
