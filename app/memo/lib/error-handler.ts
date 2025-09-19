@@ -34,10 +34,13 @@ export class ExternalServiceError extends PostServiceError {
  * Centralized error logging with context
  */
 export function logError(error: Error, context?: string): void {
-  const _timestamp = new Date().toISOString();
-  const _contextStr = context ? `[${context}] ` : '';
+  const timestamp = new Date().toISOString();
+  const contextStr = context ? `[${context}] ` : '';
+
+  console.error(`${timestamp} ${contextStr}${error.name}: ${error.message}`);
 
   if (error.stack) {
+    console.error(error.stack);
   }
 }
 
