@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 import { isValidTag, TAG_LIST, validateTag, validateTagSafe } from '@/memo/services/tag-service';
 
+const EXPECTED_TAG_COUNT = 12;
+
 describe('Tag Service', () => {
   describe('TAG_LIST', () => {
     it('should contain expected tags', () => {
@@ -17,7 +19,7 @@ describe('Tag Service', () => {
     });
 
     it('should have correct length', () => {
-      expect(TAG_LIST).toHaveLength(12);
+      expect(TAG_LIST).toHaveLength(EXPECTED_TAG_COUNT);
     });
 
     it('should be readonly constant', () => {
@@ -74,16 +76,16 @@ describe('Tag Service', () => {
 
   describe('validateTag', () => {
     let mockProcessExit: MockInstance;
-    let mockConsoleError: MockInstance;
+    let mockStderrWrite: MockInstance;
 
     beforeEach(() => {
       mockProcessExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never);
-      mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+      mockStderrWrite = vi.spyOn(process.stderr, 'write').mockImplementation(() => true);
     });
 
     afterEach(() => {
       mockProcessExit.mockRestore();
-      mockConsoleError.mockRestore();
+      mockStderrWrite.mockRestore();
     });
 
     it('should return valid tags unchanged', () => {
@@ -102,18 +104,18 @@ describe('Tag Service', () => {
     it('should call process.exit for invalid tags', () => {
       validateTag('invalid-tag');
       expect(mockProcessExit).toHaveBeenCalledWith(1);
-      expect(mockConsoleError).toHaveBeenCalled();
+      expect(mockStderrWrite).toHaveBeenCalled();
     });
 
     it('should call process.exit for empty tags', () => {
       validateTag('');
       expect(mockProcessExit).toHaveBeenCalledWith(1);
-      expect(mockConsoleError).toHaveBeenCalled();
+      expect(mockStderrWrite).toHaveBeenCalled();
     });
 
     it('should log error messages with file path when provided', () => {
       validateTag('invalid-tag', '/path/to/file.md');
-      expect(mockConsoleError).toHaveBeenCalled();
+      expect(mockStderrWrite).toHaveBeenCalled();
       expect(mockProcessExit).toHaveBeenCalledWith(1);
     });
 
