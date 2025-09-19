@@ -35,9 +35,9 @@ export type GridSize = keyof typeof UI_CONSTANTS.GRID.CLASSES;
 export function getGridClass(itemCount: number): string {
   if (itemCount <= UI_CONSTANTS.GRID.BREAKPOINTS.SMALL) {
     return UI_CONSTANTS.GRID.CLASSES.SMALL;
-  } else if (itemCount <= UI_CONSTANTS.GRID.BREAKPOINTS.MEDIUM) {
-    return UI_CONSTANTS.GRID.CLASSES.MEDIUM;
-  } else {
-    return UI_CONSTANTS.GRID.CLASSES.LARGE;
   }
+  if (itemCount <= UI_CONSTANTS.GRID.BREAKPOINTS.MEDIUM) {
+    return UI_CONSTANTS.GRID.CLASSES.MEDIUM;
+  }
+  return UI_CONSTANTS.GRID.CLASSES.LARGE;
 }

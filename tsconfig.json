@@ -13,12 +13,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    // Enhanced TypeScript strictness
-    // "noUncheckedIndexedAccess": true, // Disabled for now due to complex refactoring needs
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    // "exactOptionalPropertyTypes": true, // Disabled for now due to complex refactoring needs
+    "types": ["vitest/globals"],
     "plugins": [
       {
         "name": "next"
@@ -26,7 +24,8 @@
     ],
     "paths": {
       "@/*": ["./app/*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

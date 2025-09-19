@@ -32,4 +32,5 @@ export const QIITA_API_ENDPOINT = `${QIITA_URL_PREFIX}/api/v2/authenticated_user
 
 export const X_PROFILE_URL = `${X_URL_PREFIX}/${X_ID}`;
 export const GITHUB_PROFILE_URL = `${GITHUB_URL_PREFIX}/mmrakt`;
-export const LINKEDIN_PROFILE_URL = `https://www.linkedin.com/in/mmrakt`;
+export const LINKEDIN_PROFILE_URL = 'https://www.linkedin.com/in/mmrakt';
+// Test change

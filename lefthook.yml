@@ -1,32 +1,15 @@
-# TODO: コメント外す
-# pre-commit:
-#   commands:
-#     check:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-#       run: ~/.bun/bin/bun check:fix {staged_files}
-#       stage_fixed: true
-#     tc:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun tc {staged_files}
-#       stage_fixed: true
-#       exclude:
-#         - package.json
-#     test:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun test {staged_files}
-#       stage_fixed: true
+pre-commit:
+  commands:
+    typecheck:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: bun run tc
+      exclude:
+        - "*.test.*"
+        - "*.spec.*"
 
-# pre-push:
-#   commands:
-#     check:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-#       run: ~/.bun/bin/bun check:fix {push_files}
-#     tc:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun tc {push_files}
-#       exclude:
-#         - tsconfig.json
-#         - package.json
-#     test:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun test {push_files}
+pre-push:
+  commands:
+    typecheck:
+      run: bun run tc
+    build:
+      run: bun run build

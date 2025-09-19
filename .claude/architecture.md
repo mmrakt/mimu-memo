@@ -7,17 +7,20 @@
 ## Tech Stack
 
 ### Core Framework
+
 - **Next.js 15.3.4** - Full-stack React framework with App Router
 - **React 19.0.0** - UI library with latest features
 - **TypeScript 5.x** - Type-safe development
 
 ### Styling & UI
+
 - **TailwindCSS 4.x** - Utility-first CSS framework
 - **@tailwindcss/typography** - Typography plugin for markdown content
 - **Lucide React** - Icon library
 - **Custom animations** - CSS keyframes and Tailwind animations
 
 ### Content Management
+
 - **Markdown** - Content authoring format
 - **Gray Matter** - YAML front matter parsing
 - **React Markdown** - Markdown rendering
@@ -25,18 +28,21 @@
 - **Remark GFM** - GitHub Flavored Markdown support
 
 ### Development Tools
+
 - **Biome** - Fast linter and formatter (replacing ESLint/Prettier)
 - **Vitest** - Fast test runner with coverage
 - **Testing Library** - React component testing
 - **Turbopack** - Fast bundler for development
-- **pnpm** - Efficient package manager
+- **bun** - Efficient package manager
 
 ### Performance & Analytics
+
 - **Vercel Analytics** - Web analytics
 - **Vercel Speed Insights** - Performance monitoring
 - **Bundle Analyzer** - Build size analysis
 
 ### Development Experience
+
 - **Lefthook** - Git hooks management
 - **tsx** - TypeScript execution
 - **mise** - Runtime version management
@@ -70,21 +76,25 @@ app/
 ### Design Patterns
 
 #### Service Layer Pattern
+
 - Business logic separated into service modules
 - Centralized error handling
 - Type-safe data transformation
 
 #### Component Composition
+
 - Atomic design principles
 - Reusable UI components
 - Prop-based customization
 
 #### File-based Content Management
+
 - Markdown files for content
 - YAML frontmatter for metadata
 - Static generation for performance
 
 #### Type Safety
+
 - Strict TypeScript configuration
 - Interface definitions for all data structures
 - Enhanced compiler checks enabled
@@ -92,11 +102,13 @@ app/
 ## Key Features
 
 ### Content Sections
+
 1. **Memo** - Technical blog posts with tagging and pagination
 2. **Portfolio** - Project showcases with media support
 3. **Career** - Professional experience timeline
 
 ### Technical Capabilities
+
 - **Static Site Generation** - Pre-rendered pages for optimal performance
 - **Dynamic Routing** - File-based routing with Next.js App Router
 - **Responsive Design** - Mobile-first approach with TailwindCSS
@@ -104,6 +116,7 @@ app/
 - **Performance Monitoring** - Real-time analytics and insights
 
 ### Development Features
+
 - **Hot Reloading** - Fast development with Turbopack
 - **Type Checking** - Comprehensive TypeScript validation
 - **Testing** - Unit and integration tests with Vitest
@@ -113,12 +126,14 @@ app/
 ## Performance Optimizations
 
 ### Build Optimizations
+
 - Bundle analysis for size monitoring
 - Tree shaking for unused code elimination
 - Image optimization with Next.js Image component
-- File tracing exclusions for pnpm store
+- File tracing exclusions for bun store
 
 ### Runtime Optimizations
+
 - Static generation for blog content
 - Lazy loading for components
 - CSS-in-JS optimizations
@@ -127,11 +142,13 @@ app/
 ## Security & Best Practices
 
 ### TypeScript Strictness
+
 - Enhanced compiler options enabled
 - Strict null checks and type validation
 - Import/export validation
 
 ### Content Security
+
 - Safe markdown rendering
 - XSS prevention in user content
 - Secure external link handling
@@ -139,11 +156,13 @@ app/
 ## Deployment & Infrastructure
 
 ### Platform
+
 - **Vercel** - Serverless deployment platform
 - **Edge Runtime** - Global content delivery
 - **Automatic deployments** - Git-based CI/CD
 
 ### Monitoring
+
 - Performance metrics tracking
 - Error monitoring and alerting
 - Build and deployment analytics
@@ -151,14 +170,16 @@ app/
 ## Development Workflow
 
 ### Local Development
+
 ```bash
-pnpm dev          # Start development server with Turbopack
-pnpm test         # Run test suite
-pnpm check        # Lint and format code
-pnpm build        # Production build
+bun dev          # Start development server with Turbopack
+bun run test         # Run test suite
+bun check        # Lint and format code
+bun build        # Production build
 ```
 
 ### Quality Assurance
+
 - Pre-commit hooks for code quality
 - Automated testing on pull requests
 - Type checking on build
@@ -167,11 +188,13 @@ pnpm build        # Production build
 ## Scalability Considerations
 
 ### Content Growth
+
 - File-based content management scales with repository
 - Static generation maintains performance at scale
 - Efficient pagination for large content sets
 
 ### Feature Extensions
+
 - Modular service architecture
 - Component-based UI system
 - Type-safe API contracts

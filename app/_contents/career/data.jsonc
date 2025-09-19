@@ -49,7 +49,14 @@
           "teamSize": 20,
           "role": "エンジニア",
           "work": ["デュアルトラックアジャイルによるスピーディな開発"],
-          "techStacks": ["React", "TypeScript", "Tailwind CSS", "Storybook", "Express", "AWS"],
+          "techStacks": [
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Storybook",
+            "Express",
+            "AWS"
+          ],
           "achievements": [
             "BEの設計（インフラ、アプリ）",
             "スキーマ駆動開発の基盤整備",
@@ -67,19 +74,10 @@
           "teamSize": 2,
           "role": "",
           "techStacks": ["Astro", "TypeScript", "Sass", "Tailwind CSS"],
-          "achievements": ["LPリニューアルと新規開発を並行開発しながら完了しリリース"]
+          "achievements": [
+            "LPリニューアルと新規開発を並行開発しながら完了しリリース"
+          ]
         },
-        // {
-        //   "name": "大手クラウドベンダーの社内AI活用の調査・提案",
-        //   "period": {
-        //     "start": "2023-10",
-        //     "end": "2023-12"
-        //   },
-        //   "teamSize": 5,
-        //   "role": "エンジニア",
-        //   "techStacks": [],
-        //   "achievements": [""]
-        // },
         {
           "name": "大手広告会社の公式HPの英語サイト開発",
           "period": {
@@ -146,7 +144,14 @@
           "role": "エンジニア（リーダー）",
           "teamType": "保守開発チーム",
           "teamSize": 4,
-          "techStacks": ["PHP", "Laravel", "TypeScript", "Vue.js", "MySQL", "AWS"],
+          "techStacks": [
+            "PHP",
+            "Laravel",
+            "TypeScript",
+            "Vue.js",
+            "MySQL",
+            "AWS"
+          ],
           "achievements": [
             "システム保守開発案件 8件担当",
             "計測ツールバージョンアップ、ライブラリバージョンアップ（Laravel6->9）のプロジェクトをリード",
@@ -166,7 +171,14 @@
           "role": "エンジニア（メンバー）",
           "teamType": "機能開発・拡張チーム",
           "teamSize": 3,
-          "techStacks": ["PHP", "Laravel", "TypeScript", "Vue.js", "MySQL", "AWS"],
+          "techStacks": [
+            "PHP",
+            "Laravel",
+            "TypeScript",
+            "Vue.js",
+            "MySQL",
+            "AWS"
+          ],
           "achievements": [
             "サイト新規機能開発 3件のバックエンド実装をメイン担当",
             "アラート対応 8件",

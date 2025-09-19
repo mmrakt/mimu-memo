@@ -1,4 +1,4 @@
-export interface PortfolioItem {
+export type PortfolioItem = {
   id: number;
   title: string;
   category: string;
@@ -10,16 +10,16 @@ export interface PortfolioItem {
   fullDescription: string;
   startedAt?: string;
   isActive?: boolean;
-}
+};
 
-export interface FilterOption {
+export type FilterOption = {
   key: string;
   label: string;
-}
+};
 
 export type CategoryKey = 'solo-development' | 'work';
 
-export interface PortfolioFrontmatter {
+export type PortfolioFrontmatter = {
   title?: string;
   description?: string;
   image?: string;
@@ -29,4 +29,4 @@ export interface PortfolioFrontmatter {
   startedAt?: string;
   isActive?: boolean;
   category?: string;
-}
+};

@@ -1,24 +1,36 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock fs promises with proper default export
-const mockReaddir = vi.fn();
-const mockReadFile = vi.fn();
+vi.mock('node:fs', () => {
+  const mockReaddir = vi.fn();
+  const mockReadFile = vi.fn();
+  const mockAccess = vi.fn();
 
-vi.mock('node:fs', () => ({
-  default: {
+  return {
+    default: {
+      promises: {
+        readdir: mockReaddir,
+        readFile: mockReadFile,
+        access: mockAccess,
+      },
+    },
     promises: {
       readdir: mockReaddir,
       readFile: mockReadFile,
+      access: mockAccess,
     },
-  },
-  promises: {
-    readdir: mockReaddir,
-    readFile: mockReadFile,
-  },
-}));
+  };
+});
 
 // Import after mocking
 const { getAllPortfolioItems } = await import('../portfolio-service');
+const fs = await import('node:fs');
+
+const mockReaddir = vi.mocked(fs.promises.readdir);
+const mockReadFile = vi.mocked(fs.promises.readFile);
+
+const asReaddirResult = (files: string[]) =>
+  files as unknown as Awaited<ReturnType<typeof fs.promises.readdir>>;
 
 describe('portfolio-service', () => {
   beforeEach(() => {
@@ -31,7 +43,7 @@ describe('portfolio-service', () => {
 
   describe('getAllPortfolioItems', () => {
     it('should return empty array when no files exist', async () => {
-      mockReaddir.mockResolvedValue([]);
+      mockReaddir.mockResolvedValue(asReaddirResult([]));
 
       const result = await getAllPortfolioItems();
 
@@ -39,7 +51,9 @@ describe('portfolio-service', () => {
     });
 
     it('should filter and process only markdown files', async () => {
-      mockReaddir.mockResolvedValue(['test.md', 'test.txt', 'test.mdx', 'test.js']);
+      mockReaddir.mockResolvedValue(
+        asReaddirResult(['test.md', 'test.txt', 'test.mdx', 'test.js'])
+      );
       mockReadFile.mockResolvedValue(`---
 title: "Test Project"
 description: "Test description"
@@ -68,7 +82,7 @@ This is test content.
     });
 
     it('should correctly process work category items', async () => {
-      mockReaddir.mockResolvedValue(['work-project.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['work-project.md']));
       mockReadFile.mockResolvedValue(`---
 title: "Work Project"
 description: "Work project description"
@@ -101,7 +115,7 @@ This is a work project.
     });
 
     it('should correctly process solo-development category items', async () => {
-      mockReaddir.mockResolvedValue(['solo-project.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['solo-project.md']));
       mockReadFile.mockResolvedValue(`---
 title: "Solo Project"
 description: "Solo project description"
@@ -134,7 +148,7 @@ This is a solo development project.
     });
 
     it('should fallback to solo-development when category is missing', async () => {
-      mockReaddir.mockResolvedValue(['no-category.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['no-category.md']));
       mockReadFile.mockResolvedValue(`---
 title: "No Category Project"
 description: "Project without category"
@@ -161,7 +175,7 @@ This project has no category defined.
     });
 
     it('should handle image path correctly', async () => {
-      mockReaddir.mockResolvedValue(['image-test.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['image-test.md']));
       mockReadFile.mockResolvedValue(`---
 title: "Image Test"
 description: "Testing image paths"
@@ -179,7 +193,7 @@ Testing image path handling.
     });
 
     it('should handle absolute image paths', async () => {
-      mockReaddir.mockResolvedValue(['absolute-image-test.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['absolute-image-test.md']));
       mockReadFile.mockResolvedValue(`---
 title: "Absolute Image Test"
 description: "Testing absolute image paths"
@@ -197,7 +211,7 @@ Testing absolute image path handling.
     });
 
     it('should handle HTTP image URLs', async () => {
-      mockReaddir.mockResolvedValue(['http-image-test.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['http-image-test.md']));
       mockReadFile.mockResolvedValue(`---
 title: "HTTP Image Test"
 description: "Testing HTTP image URLs"
@@ -215,7 +229,7 @@ Testing HTTP image URL handling.
     });
 
     it('should sort items by startedAt in descending order', async () => {
-      mockReaddir.mockResolvedValue(['old.md', 'new.md', 'middle.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['old.md', 'new.md', 'middle.md']));
       mockReadFile
         .mockResolvedValueOnce(`---
 title: "Old Project"
@@ -235,20 +249,21 @@ startedAt: "2023.06"
 
       const result = await getAllPortfolioItems();
 
-      expect(result).toHaveLength(3);
+      const EXPECTED_PROJECT_COUNT = 3;
+      expect(result).toHaveLength(EXPECTED_PROJECT_COUNT);
       expect(result[0].title).toBe('New Project');
       expect(result[1].title).toBe('Middle Project');
       expect(result[2].title).toBe('Old Project');
     });
 
     it('should handle file processing errors gracefully', async () => {
-      mockReaddir.mockResolvedValue(['valid.md', 'invalid.md']);
+      mockReaddir.mockResolvedValue(asReaddirResult(['valid.md', 'invalid.md']));
       mockReadFile
         .mockResolvedValueOnce(
           `---
 title: "Valid Project"
 category: "solo-development"
----`,
+---`
         )
         .mockRejectedValueOnce(new Error('File read error'));
 

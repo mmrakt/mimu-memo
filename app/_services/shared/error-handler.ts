@@ -1,7 +1,7 @@
 import type { ServiceError } from './types';
 
 export class ServiceException extends Error {
-  public readonly code?: string | number;
+  readonly code?: string | number;
 
   constructor(message: string, code?: string | number) {
     super(message);

@@ -112,7 +112,7 @@ export function transformEducationData(rawData: RawCareerData): EducationItem[] 
       location: '大阪',
       dateRange: formatDateRange(
         rawData.personalInfo.education.period.start,
-        rawData.personalInfo.education.period.end,
+        rawData.personalInfo.education.period.end
       ),
     },
   ];
@@ -128,16 +128,16 @@ export function transformCertificationsData(rawData: RawCareerData): Certificati
 
 export function calculateStats(
   timeline: DetailedTimelineItem[],
-  certifications: CertificationItem[],
+  certifications: CertificationItem[]
 ): StatItem[] {
   const totalYearsExperience = new Date().getFullYear() - CAREER_CONFIG.DEFAULTS.START_YEAR;
   const totalProjects = timeline.length;
   const uniqueTechnologies = new Set<string>();
-  timeline.forEach((item) => {
-    item.technologies.forEach((tech) => {
+  for (const item of timeline) {
+    for (const tech of item.technologies) {
       uniqueTechnologies.add(tech);
-    });
-  });
+    }
+  }
 
   return [
     { number: `${totalYearsExperience}+`, label: 'Years of Experience' },

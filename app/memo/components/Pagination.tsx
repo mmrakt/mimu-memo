@@ -2,21 +2,26 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface PaginationProps {
+type PaginationProps = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-}
+};
+
+const FIRST_PAGE = 1;
+const MAX_VISIBLE_PAGES = 5;
+const LEFT_ELLIPSIS_THRESHOLD = 1;
+const LAST_PAGE_OFFSET = 1;
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  const pageNumbers = [];
-  const maxVisiblePages = 5;
+  const pageNumbers: number[] = [];
+  const maxVisiblePages = MAX_VISIBLE_PAGES;
 
-  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let startPage = Math.max(FIRST_PAGE, currentPage - Math.floor(maxVisiblePages / 2));
   const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
   if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    startPage = Math.max(FIRST_PAGE, endPage - maxVisiblePages + 1);
   }
 
   for (let i = startPage; i <= endPage; i++) {
@@ -26,38 +31,40 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
   return (
     <div className="flex items-center justify-center gap-2">
       <button
+        className="rounded-lg border border-indigo-500/30 p-2 text-slate-300 transition-all duration-300 hover:bg-indigo-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+        disabled={currentPage === FIRST_PAGE}
+        onClick={() => onPageChange(currentPage - LAST_PAGE_OFFSET)}
         type="button"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="p-2 rounded-lg border border-indigo-500/30 text-slate-300 hover:bg-indigo-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="h-5 w-5" />
       </button>
 
       <div className="flex items-center gap-1">
-        {startPage > 1 && (
+        {startPage > FIRST_PAGE && (
           <>
             <button
+              className="h-10 w-10 rounded-lg border border-indigo-500/30 text-slate-300 transition-all duration-300 hover:bg-indigo-500 hover:text-white"
+              onClick={() => onPageChange(FIRST_PAGE)}
               type="button"
-              onClick={() => onPageChange(1)}
-              className="w-10 h-10 rounded-lg border border-indigo-500/30 text-slate-300 hover:bg-indigo-500 hover:text-white transition-all duration-300"
             >
-              1
+              {FIRST_PAGE}
             </button>
-            {startPage > 2 && <span className="text-slate-400 px-2">...</span>}
+            {startPage > FIRST_PAGE + LEFT_ELLIPSIS_THRESHOLD && (
+              <span className="px-2 text-slate-400">...</span>
+            )}
           </>
         )}
 
         {pageNumbers.map((number) => (
           <button
-            type="button"
-            key={number}
-            onClick={() => onPageChange(number)}
-            className={`w-10 h-10 rounded-lg border transition-all duration-300 ${
+            className={`h-10 w-10 rounded-lg border transition-all duration-300 ${
               currentPage === number
-                ? 'bg-indigo-500 border-indigo-500 text-white'
+                ? 'border-indigo-500 bg-indigo-500 text-white'
                 : 'border-indigo-500/30 text-slate-300 hover:bg-indigo-500 hover:text-white'
             }`}
+            key={number}
+            onClick={() => onPageChange(number)}
+            type="button"
           >
             {number}
           </button>
@@ -65,11 +72,13 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
         {endPage < totalPages && (
           <>
-            {endPage < totalPages - 1 && <span className="text-slate-400 px-2">...</span>}
+            {endPage < totalPages - LAST_PAGE_OFFSET && (
+              <span className="px-2 text-slate-400">...</span>
+            )}
             <button
-              type="button"
+              className="h-10 w-10 rounded-lg border border-indigo-500/30 text-slate-300 transition-all duration-300 hover:bg-indigo-500 hover:text-white"
               onClick={() => onPageChange(totalPages)}
-              className="w-10 h-10 rounded-lg border border-indigo-500/30 text-slate-300 hover:bg-indigo-500 hover:text-white transition-all duration-300"
+              type="button"
             >
               {totalPages}
             </button>
@@ -78,12 +87,12 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       </div>
 
       <button
-        type="button"
-        onClick={() => onPageChange(currentPage + 1)}
+        className="rounded-lg border border-indigo-500/30 p-2 text-slate-300 transition-all duration-300 hover:bg-indigo-500/10 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={currentPage === totalPages}
-        className="p-2 rounded-lg border border-indigo-500/30 text-slate-300 hover:bg-indigo-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        onClick={() => onPageChange(currentPage + LAST_PAGE_OFFSET)}
+        type="button"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className="h-5 w-5" />
       </button>
     </div>
   );

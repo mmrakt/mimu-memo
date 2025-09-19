@@ -6,6 +6,8 @@ import { formatPubDate } from '@/memo/lib/date-utils';
 import type { MemoContent } from '@/memo/lib/types';
 import { validateTag } from '@/memo/services/tag-service';
 
+const MARKDOWN_EXTENSION_REGEX = /\.(md|mdx)$/;
+
 export async function parseMdFile(filePath: string): Promise<MemoContent | null> {
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -18,16 +20,15 @@ export async function parseMdFile(filePath: string): Promise<MemoContent | null>
         pubDate: formatPubDate(data.pubDate),
         id: path.basename(filePath, FILE_EXTENSIONS.MARKDOWN),
       },
-      content: content,
+      content,
       isMarkdown: true,
     };
-  } catch (error) {
-    console.error(`Error parsing MD file ${filePath}:`, error);
+  } catch (_error) {
     return null;
   }
 }
 
-export async function getPostsDirectory(): Promise<string> {
+export function getPostsDirectory(): string {
   return path.join(process.cwd(), PATHS.POSTS_DIRECTORY);
 }
 
@@ -36,7 +37,7 @@ export function isPostFile(filename: string): boolean {
 }
 
 export function getSlugFromFilename(filename: string): string {
-  return filename.replace(/\.(md|mdx)$/, '');
+  return filename.replace(MARKDOWN_EXTENSION_REGEX, '');
 }
 
 export function buildPostFilePath(slug: string, extension: string): string {

@@ -1,11 +1,12 @@
 export class PostServiceError extends Error {
-  constructor(
-    message: string,
-    public readonly code: string,
-    public readonly filePath?: string,
-  ) {
+  readonly code: string;
+  readonly filePath?: string;
+
+  constructor(message: string, code: string, filePath?: string) {
     super(message);
     this.name = 'PostServiceError';
+    this.code = code;
+    this.filePath = filePath;
   }
 }
 
@@ -36,11 +37,12 @@ export class ExternalServiceError extends PostServiceError {
 export function logError(error: Error, context?: string): void {
   const timestamp = new Date().toISOString();
   const contextStr = context ? `[${context}] ` : '';
+  const message = `${timestamp} ${contextStr}${error.name}: ${error.message}`;
 
-  console.error(`${timestamp} ${contextStr}${error.name}: ${error.message}`);
+  process.stderr.write(`${message}\n`);
 
   if (error.stack) {
-    console.error('Stack trace:', error.stack);
+    process.stderr.write(`${error.stack}\n`);
   }
 }
 
@@ -50,7 +52,7 @@ export function logError(error: Error, context?: string): void {
 export async function safeAsync<T>(
   operation: () => Promise<T>,
   fallback: T,
-  context?: string,
+  context?: string
 ): Promise<T> {
   try {
     return await operation();

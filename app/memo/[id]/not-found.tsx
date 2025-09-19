@@ -1,21 +1,21 @@
 import Link from 'next/link';
-import AnimatedBackground from '@/_components/AnimatedBackground';
+import AnimatedBackground from '@/_components/animated-background';
 
 export default function NotFound() {
   return (
     <div className="relative min-h-screen">
       <AnimatedBackground />
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="relative z-10 flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="text-6xl font-bold text-indigo-500 mb-4">404</h1>
-          <h2 className="text-2xl font-semibold text-slate-100 mb-4">記事が見つかりません</h2>
-          <p className="text-slate-400 mb-8">
+          <h1 className="mb-4 font-bold text-6xl text-indigo-500">404</h1>
+          <h2 className="mb-4 font-semibold text-2xl text-slate-100">記事が見つかりません</h2>
+          <p className="mb-8 text-slate-400">
             お探しのブログ記事は存在しないか、削除された可能性があります。
           </p>
           <Link
+            className="inline-flex items-center rounded-lg bg-indigo-500 px-6 py-3 text-white transition-colors duration-300 hover:bg-indigo-600"
             href="/memo"
-            className="inline-flex items-center px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg transition-colors duration-300"
           >
             Back to memo page
           </Link>

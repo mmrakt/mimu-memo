@@ -15,7 +15,7 @@ function startDevServer(): void {
   }
 
   console.log('🚀 Starting Next.js dev server...');
-  devServer = spawn('pnpm', ['run', 'dev'], {
+  devServer = spawn('bun', ['run', 'dev'], {
     stdio: 'pipe',
     cwd: process.cwd(),
   });
@@ -59,7 +59,7 @@ function startDevServer(): void {
       devServer.kill();
       startDevServer();
     }
-  }, 10000);
+  }, 10_000);
 
   devServer.on('spawn', () => {
     console.log('✅ Dev server spawned successfully');
@@ -93,7 +93,7 @@ const watcher = chokidar.watch(
   {
     ignored: ['node_modules', '.next'],
     ignoreInitial: true,
-  },
+  }
 );
 
 watcher

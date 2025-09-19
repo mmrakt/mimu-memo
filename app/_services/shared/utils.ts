@@ -1,12 +1,18 @@
 import type { PaginatedResult, PaginationParams } from './types';
 
+const DEFAULT_PAGE = 1;
+const DEFAULT_LIMIT = 10;
+const MAX_LIMIT = 100;
+const MIN_PAGE = 1;
+const MIN_LIMIT = 1;
+
 export function createPaginatedResult<T>(
   items: T[],
-  params: PaginationParams = {},
-  total: number,
+  params: PaginationParams,
+  total: number
 ): PaginatedResult<T> {
-  const page = params.page || 1;
-  const limit = params.limit || 10;
+  const page = params.page || DEFAULT_PAGE;
+  const limit = params.limit || DEFAULT_LIMIT;
   const totalPages = Math.ceil(total / limit);
 
   return {
@@ -27,8 +33,8 @@ export function calculateSkip(page: number, limit: number): number {
 }
 
 export function validatePaginationParams(params: PaginationParams): Required<PaginationParams> {
-  const page = Math.max(1, params.page || 1);
-  const limit = Math.min(100, Math.max(1, params.limit || 10));
+  const page = Math.max(MIN_PAGE, params.page || DEFAULT_PAGE);
+  const limit = Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, params.limit || DEFAULT_LIMIT));
 
   return { page, limit };
 }
