@@ -1,6 +1,6 @@
 # Memo Module
 
-This module handles the blog/memo functionality for the application, supporting both Markdown (.md) and MDX (.mdx) files.
+This module handles the blog/memo functionality for the application, supporting both Markdown (.md) and MDX (.mdx) files
 
 ## Directory Structure
 
