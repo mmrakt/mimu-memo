@@ -51,7 +51,9 @@ describe('portfolio-service', () => {
     });
 
     it('should filter and process only markdown files', async () => {
-      mockReaddir.mockResolvedValue(asReaddirResult(['test.md', 'test.txt', 'test.mdx', 'test.js']));
+      mockReaddir.mockResolvedValue(
+        asReaddirResult(['test.md', 'test.txt', 'test.mdx', 'test.js'])
+      );
       mockReadFile.mockResolvedValue(`---
 title: "Test Project"
 description: "Test description"
