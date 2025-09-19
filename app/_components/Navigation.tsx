@@ -29,7 +29,7 @@ export default function Navigation() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : '';
+    document.body.style.overflow = isMobileMenuOpen ? '' : 'hidden';
   };
 
   const closeMobileMenu = () => {
@@ -40,46 +40,46 @@ export default function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 z-50 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg shadow-indigo-500/5'
+            ? 'bg-slate-900/95 shadow-indigo-500/5 shadow-lg backdrop-blur-sm'
             : 'bg-slate-900/80 backdrop-blur-sm'
-        } border-b border-indigo-500/20`}
+        } border-indigo-500/20 border-b`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
             <Link
+              className="group relative bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text font-bold text-transparent text-xl transition-transform duration-300 hover:scale-105"
               href="/"
-              className="text-xl font-bold bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 relative group"
             >
               mimu-memo
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 group-hover:w-full transition-all duration-300"></span>
+              <span className="-bottom-1 absolute left-0 h-0.5 w-0 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 group-hover:w-full" />
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden items-center space-x-8 md:flex">
               {navItems.map((item) => (
                 <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`relative py-2 text-sm font-medium transition-colors duration-300 hover:text-indigo-400 ${
+                  className={`relative py-2 font-medium text-sm transition-colors duration-300 hover:text-indigo-400 ${
                     pathname === item.href ? 'text-indigo-400' : 'text-slate-300'
                   }`}
+                  href={item.href}
+                  key={item.href}
                 >
                   {item.label}
                   <span
-                    className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 ${
+                    className={`-bottom-1 absolute left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 ${
                       pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'
                     }`}
-                  ></span>
+                  />
                 </Link>
               ))}
             </nav>
 
             <button
-              type="button"
-              onClick={toggleMobileMenu}
-              className="md:hidden p-2 rounded-md text-slate-300 hover:text-indigo-400 hover:bg-slate-800/50 transition-colors"
               aria-label="Toggle mobile menu"
+              className="rounded-md p-2 text-slate-300 transition-colors hover:bg-slate-800/50 hover:text-indigo-400 md:hidden"
+              onClick={toggleMobileMenu}
+              type="button"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -89,28 +89,28 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 md:hidden transition-transform duration-300 ${
+        className={`fixed inset-0 z-40 transition-transform duration-300 md:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="bg-slate-900/98 backdrop-blur-sm h-full pt-16">
+        <div className="h-full bg-slate-900/98 pt-16 backdrop-blur-sm">
           <nav className="pt-6 pl-10">
             <ul className="space-y-6">
               {navItems.map((item, index) => (
                 <li
+                  className="-translate-x-5 slide-in-from-left animate-in opacity-0 duration-300"
                   key={item.href}
-                  className="opacity-0 -translate-x-5 animate-in slide-in-from-left duration-300"
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animationFillMode: 'forwards',
                   }}
                 >
                   <Link
-                    href={item.href}
-                    onClick={closeMobileMenu}
-                    className={`block text-xl font-semibold transition-all duration-300 hover:text-indigo-400 hover:translate-x-2 ${
+                    className={`block font-semibold text-xl transition-all duration-300 hover:translate-x-2 hover:text-indigo-400 ${
                       pathname === item.href ? 'text-indigo-400' : 'text-slate-200'
                     }`}
+                    href={item.href}
+                    onClick={closeMobileMenu}
                   >
                     {item.label}
                   </Link>
@@ -124,15 +124,15 @@ export default function Navigation() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <button
-          type="button"
-          className="fixed inset-0 bg-black/50 z-30 md:hidden border-0 p-0 cursor-default"
+          aria-label="Close mobile menu"
+          className="fixed inset-0 z-30 cursor-default border-0 bg-black/50 p-0 md:hidden"
           onClick={closeMobileMenu}
           onKeyDown={(e) => {
             if (e.key === 'Escape') {
               closeMobileMenu();
             }
           }}
-          aria-label="Close mobile menu"
+          type="button"
         />
       )}
     </>

@@ -2,9 +2,9 @@
 
 import type { Skill, SkillCategory } from '@/career/types';
 
-interface SkillsMatrixProps {
+type SkillsMatrixProps = {
   skills: SkillCategory[];
-}
+};
 
 export function SkillsMatrix({ skills }: SkillsMatrixProps) {
   const getLevelColor = (level: Skill['level']) => {
@@ -38,39 +38,39 @@ export function SkillsMatrix({ skills }: SkillsMatrixProps) {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900/50 to-slate-800/50">
-      <div className="max-w-6xl mx-auto px-8">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 reveal opacity-0 translate-y-8 transition-all duration-1000">
+    <section className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 py-20">
+      <div className="mx-auto max-w-6xl px-8">
+        <h2 className="reveal mb-16 translate-y-8 text-center font-bold text-4xl opacity-0 transition-all duration-1000 md:text-5xl">
           Technical Skills
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {skills.map((category, categoryIndex) => (
             <div
+              className="reveal translate-y-8 rounded-xl border border-indigo-600/10 bg-slate-800/50 p-8 opacity-0 transition-all duration-300 hover:border-indigo-600/30"
               key={category.category}
-              className="reveal bg-slate-800/50 p-8 rounded-xl border border-indigo-600/10 hover:border-indigo-600/30 transition-all duration-300 opacity-0 translate-y-8"
               style={{ transitionDelay: `${categoryIndex * 0.1}s` }}
             >
-              <h3 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+              <h3 className="mb-6 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-center font-bold text-2xl text-transparent">
                 {category.category}
               </h3>
 
               <div className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name} className="group">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-white font-medium">{skill.name}</span>
+                  <div className="group" key={skill.name}>
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="font-medium text-white">{skill.name}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-400">{skill.level}</span>
-                        <span className="text-xs text-slate-500">
+                        <span className="text-slate-400 text-sm">{skill.level}</span>
+                        <span className="text-slate-500 text-xs">
                           {skill.yearsOfExperience}yr{skill.yearsOfExperience > 1 ? 's' : ''}
                         </span>
                       </div>
                     </div>
 
-                    <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-700">
                       <div
-                        className={`h-full bg-gradient-to-r ${getLevelColor(skill.level)} ${getLevelWidth(skill.level)} transition-all duration-500 ease-out rounded-full animate-slideIn`}
+                        className={`h-full bg-gradient-to-r ${getLevelColor(skill.level)} ${getLevelWidth(skill.level)} animate-slideIn rounded-full transition-all duration-500 ease-out`}
                         style={{
                           animationDelay: `${(categoryIndex * category.skills.length + skillIndex) * 0.1}s`,
                         }}

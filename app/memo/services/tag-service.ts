@@ -3,18 +3,18 @@ import { handleCriticalError, ValidationError } from '@/memo/lib/error-handler';
 import type { PostListItem } from '@/memo/lib/types';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 
-export interface TagInfo {
+export type TagInfo = {
   name: string;
   count: number;
   icon?: string;
-}
+};
 
-export interface PaginatedTagPosts {
+export type PaginatedTagPosts = {
   posts: PostListItem[];
   currentPage: number;
   totalPages: number;
   totalPosts: number;
-}
+};
 
 export const TAG_LIST = [
   'other',
@@ -39,10 +39,10 @@ export function isValidTag(tag: string): boolean {
  * Validate a tag with improved error handling
  */
 export function validateTag(tag: string, filePath?: string): string {
-  if (!tag || !tag.trim()) {
+  if (!tag?.trim()) {
     const error = new ValidationError(
       `No tag specified. Valid tags: ${TAG_LIST.join(', ')}`,
-      filePath,
+      filePath
     );
     handleCriticalError(error, 'Tag validation');
   }
@@ -50,7 +50,7 @@ export function validateTag(tag: string, filePath?: string): string {
   if (!isValidTag(tag)) {
     const error = new ValidationError(
       `Invalid tag '${tag}'. Valid tags: ${TAG_LIST.join(', ')}`,
-      filePath,
+      filePath
     );
     handleCriticalError(error, 'Tag validation');
   }
@@ -61,8 +61,8 @@ export function validateTag(tag: string, filePath?: string): string {
 /**
  * Safe tag validation that returns a default instead of throwing
  */
-export function validateTagSafe(tag: string, fallback: string = 'other'): string {
-  if (!tag || !tag.trim()) {
+export function validateTagSafe(tag: string, fallback = 'other'): string {
+  if (!tag?.trim()) {
     return fallback;
   }
 
@@ -99,10 +99,7 @@ export async function getPostsByTag(tag: string) {
   return posts.filter((post) => post.tag === tag);
 }
 
-export async function getPostsByTagPaginated(
-  tag: string,
-  page: number = 1,
-): Promise<PaginatedTagPosts> {
+export async function getPostsByTagPaginated(tag: string, page = 1): Promise<PaginatedTagPosts> {
   const allPosts = await getPostsByTag(tag);
   const totalPosts = allPosts.length;
   const totalPages = Math.ceil(totalPosts / PAGINATION.POSTS_PER_PAGE);

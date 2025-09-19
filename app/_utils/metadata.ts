@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ABOUT_SITE, MY_NAME, SITE_NAME, SITE_URL } from '@/config';
 
-interface MetadataConfig {
+type MetadataConfig = {
   title?: string;
   description?: string;
   path?: string;
@@ -11,7 +11,7 @@ interface MetadataConfig {
   modifiedTime?: string;
   author?: string;
   tags?: string[];
-}
+};
 const DEFAULT_OG_IMAGE = '/ogp/thumbnail.png';
 
 export function generateMetadata(config: MetadataConfig = {}): Metadata {
@@ -114,7 +114,7 @@ export function generateArticleMetadata(
   path: string,
   publishedTime?: string,
   modifiedTime?: string,
-  tags?: string[],
+  tags?: string[]
 ): Metadata {
   return generateMetadata({
     title,
@@ -128,7 +128,7 @@ export function generateArticleMetadata(
 }
 
 export function generateJsonLd(
-  config: MetadataConfig & { datePublished?: string; dateModified?: string },
+  config: MetadataConfig & { datePublished?: string; dateModified?: string }
 ) {
   const {
     title,

@@ -91,16 +91,20 @@ describe('PortfolioClient', () => {
 
   it('should render all items when filter is "all"', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'all';
-      if (key === 'item') return null;
+      if (key === 'category') {
+        return 'all';
+      }
+      if (key === 'item') {
+        return null;
+      }
       return null;
     });
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     expect(screen.getByText('Portfolio')).toBeInTheDocument();
@@ -113,16 +117,20 @@ describe('PortfolioClient', () => {
 
   it('should filter items by work category', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'work';
-      if (key === 'item') return null;
+      if (key === 'category') {
+        return 'work';
+      }
+      if (key === 'item') {
+        return null;
+      }
       return null;
     });
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     expect(screen.getByText('A work project description')).toBeInTheDocument();
@@ -132,16 +140,20 @@ describe('PortfolioClient', () => {
 
   it('should filter items by solo-development category', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'solo-development';
-      if (key === 'item') return null;
+      if (key === 'category') {
+        return 'solo-development';
+      }
+      if (key === 'item') {
+        return null;
+      }
       return null;
     });
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     expect(screen.queryByText('A work project description')).not.toBeInTheDocument();
@@ -154,9 +166,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     expect(screen.getByText('A work project description')).toBeInTheDocument();
@@ -166,8 +178,12 @@ describe('PortfolioClient', () => {
 
   it('should handle filter change correctly', async () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'all';
-      if (key === 'item') return null;
+      if (key === 'category') {
+        return 'all';
+      }
+      if (key === 'item') {
+        return null;
+      }
       return null;
     });
 
@@ -175,9 +191,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     const workButton = screen.getByRole('button', { name: 'Work' });
@@ -188,8 +204,12 @@ describe('PortfolioClient', () => {
 
   it('should handle filter change to "all" by removing category param', async () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'work';
-      if (key === 'item') return null;
+      if (key === 'category') {
+        return 'work';
+      }
+      if (key === 'item') {
+        return null;
+      }
       return null;
     });
 
@@ -197,9 +217,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     const allButton = screen.getByRole('button', { name: 'All' });
@@ -215,9 +235,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     // Find the first portfolio card button
@@ -229,16 +249,20 @@ describe('PortfolioClient', () => {
 
   it('should show modal when item is selected', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return null;
-      if (key === 'item') return '1';
+      if (key === 'category') {
+        return null;
+      }
+      if (key === 'item') {
+        return '1';
+      }
       return null;
     });
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     // Modal should be rendered with the selected item
@@ -247,17 +271,21 @@ describe('PortfolioClient', () => {
 
   it('should handle modal close correctly', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'work';
-      if (key === 'item') return '1';
+      if (key === 'category') {
+        return 'work';
+      }
+      if (key === 'item') {
+        return '1';
+      }
       return null;
     });
     mockSearchParams.toString.mockReturnValue('category=work&item=1');
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     // The modal close logic is handled internally
@@ -266,8 +294,12 @@ describe('PortfolioClient', () => {
 
   it('should clear item selection when changing filter', async () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return 'work';
-      if (key === 'item') return '1';
+      if (key === 'category') {
+        return 'work';
+      }
+      if (key === 'item') {
+        return '1';
+      }
       return null;
     });
     mockSearchParams.toString.mockReturnValue('category=work&item=1');
@@ -276,9 +308,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     const soloButton = screen.getByRole('button', { name: 'Solo Development' });
@@ -292,16 +324,20 @@ describe('PortfolioClient', () => {
 
   it('should handle invalid item ID gracefully', () => {
     mockSearchParams.get.mockImplementation((key: string) => {
-      if (key === 'category') return null;
-      if (key === 'item') return '999'; // Non-existent ID
+      if (key === 'category') {
+        return null;
+      }
+      if (key === 'item') {
+        return '999'; // Non-existent ID
+      }
       return null;
     });
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     // Should not crash and should not show modal
@@ -313,9 +349,9 @@ describe('PortfolioClient', () => {
 
     render(
       <PortfolioClient
-        portfolioItems={mockPortfolioItems}
         pageDescription="Test portfolio description"
-      />,
+        portfolioItems={mockPortfolioItems}
+      />
     );
 
     const background = screen.getByTestId('animated-background');
@@ -325,7 +361,7 @@ describe('PortfolioClient', () => {
   it('should handle empty portfolio items array', () => {
     mockSearchParams.get.mockReturnValue(null);
 
-    render(<PortfolioClient portfolioItems={[]} pageDescription="Test portfolio description" />);
+    render(<PortfolioClient pageDescription="Test portfolio description" portfolioItems={[]} />);
 
     expect(screen.getByText('Portfolio')).toBeInTheDocument();
     expect(screen.getByText('Test portfolio description')).toBeInTheDocument();

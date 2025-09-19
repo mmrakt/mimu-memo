@@ -16,10 +16,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="all"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     expect(screen.getByText('All')).toBeInTheDocument();
@@ -32,10 +32,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="work"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     const allButton = screen.getByText('All');
@@ -56,10 +56,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="all"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     const workButton = screen.getByText('Work');
@@ -75,10 +75,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="all"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     const allButton = screen.getByText('All');
@@ -101,7 +101,7 @@ describe('FilterButtons', () => {
     const mockOnFilterChange = vi.fn();
 
     render(
-      <FilterButtons filterOptions={[]} activeFilter="all" onFilterChange={mockOnFilterChange} />,
+      <FilterButtons activeFilter="all" filterOptions={[]} onFilterChange={mockOnFilterChange} />
     );
 
     // Should not render any buttons
@@ -113,10 +113,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="nonexistent"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     // All buttons should have inactive styles since none match
@@ -134,10 +134,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="work"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     const buttons = screen.getAllByRole('button');
@@ -153,10 +153,10 @@ describe('FilterButtons', () => {
 
     render(
       <FilterButtons
-        filterOptions={mockFilterOptions}
         activeFilter="work"
+        filterOptions={mockFilterOptions}
         onFilterChange={mockOnFilterChange}
-      />,
+      />
     );
 
     const workButton = screen.getByText('Work');

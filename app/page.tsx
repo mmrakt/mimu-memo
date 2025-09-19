@@ -3,7 +3,7 @@ import { ExternalLinks, HeroSection, QuickNavigation, SiteOverview } from '@/_co
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-50 relative overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-slate-900 text-slate-50">
       <AnimatedBackground variant="pulse" />
       <div className="relative z-10">
         <HeroSection />

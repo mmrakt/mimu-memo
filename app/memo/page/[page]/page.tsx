@@ -7,11 +7,11 @@ import { MEMO_PAGE_DESCRIPTION } from '@/memo/data';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 import { getAllPosts } from '@/memo/utils';
 
-interface MemoPageProps {
+type MemoPageProps = {
   params: Promise<{
     page: string;
   }>;
-}
+};
 
 export async function generateStaticParams() {
   // Use only internal posts for static generation to avoid build-time external API calls
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 
 export default async function MemoPageWithPagination({ params }: MemoPageProps) {
   const { page } = await params;
-  const currentPage = parseInt(page, 10);
+  const currentPage = Number.parseInt(page, 10);
 
   if (Number.isNaN(currentPage) || currentPage < 1) {
     notFound();
@@ -46,11 +46,11 @@ export default async function MemoPageWithPagination({ params }: MemoPageProps) 
     <div className="relative min-h-screen">
       <AnimatedBackground />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <PageHeader title="Memo" description={MEMO_PAGE_DESCRIPTION} />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <PageHeader description={MEMO_PAGE_DESCRIPTION} title="Memo" />
         <MemoListWithPagination
-          posts={currentPosts}
           currentPage={currentPage}
+          posts={currentPosts}
           totalPages={totalPages}
         />
       </div>

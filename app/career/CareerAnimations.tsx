@@ -3,10 +3,10 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
-interface CareerAnimationsProps {
+type CareerAnimationsProps = {
   heroContent: React.ReactNode;
   restContent: React.ReactNode;
-}
+};
 
 export function CareerAnimations({ heroContent, restContent }: CareerAnimationsProps) {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
       {
         threshold: 0.01,
         rootMargin: '0px 0px -100px 0px',
-      },
+      }
     );
 
     const timelineItems = document.querySelectorAll('.timeline-item');
@@ -88,19 +88,19 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-slate-900 text-slate-100">
       {/* Animated background */}
-      <div className="fixed inset-0 -z-10 opacity-5">
+      <div className="-z-10 fixed inset-0 opacity-5">
         <div
-          className="absolute inset-0 bg-gradient-radial from-indigo-600 via-transparent to-transparent animate-pulse-slow"
+          className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-indigo-600 via-transparent to-transparent"
           style={{ animationDuration: '20s' }}
         />
         <div
-          className="absolute inset-0 bg-gradient-radial from-cyan-600 via-transparent to-transparent animate-pulse-slow"
+          className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-cyan-600 via-transparent to-transparent"
           style={{ animationDuration: '20s', animationDelay: '6.67s' }}
         />
         <div
-          className="absolute inset-0 bg-gradient-radial from-amber-600 via-transparent to-transparent animate-pulse-slow"
+          className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-amber-600 via-transparent to-transparent"
           style={{ animationDuration: '20s', animationDelay: '13.33s' }}
         />
       </div>
@@ -113,12 +113,12 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
 
       {/* Scroll indicator */}
       <button
+        className="-translate-x-1/2 fixed bottom-8 left-1/2 z-50 animate-bounce cursor-pointer transition-opacity duration-300"
+        onClick={scrollToTimeline}
         ref={scrollIndicatorRef}
         type="button"
-        onClick={scrollToTimeline}
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-50 transition-opacity duration-300"
       >
-        <ChevronDown className="w-8 h-8" />
+        <ChevronDown className="h-8 w-8" />
       </button>
     </div>
   );

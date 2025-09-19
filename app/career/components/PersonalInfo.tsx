@@ -4,42 +4,42 @@ import { XIcon } from '@/_components/icons/XIcon';
 import { CAREER_CONFIG } from '@/career/config/constants';
 import type { RawCareerData } from '@/career/types';
 
-interface PersonalInfoProps {
+type PersonalInfoProps = {
   personalInfo: RawCareerData['personalInfo'];
-}
+};
 
 export function PersonalInfo({ personalInfo }: PersonalInfoProps) {
   return (
     <div
-      className="mt-16 text-center animate-fadeInUp"
+      className="mt-16 animate-fadeInUp text-center"
       style={{ animationDelay: CAREER_CONFIG.ANIMATION.HERO_DELAY }}
     >
       {/* Location */}
-      <div className="flex items-center justify-center gap-2 text-slate-400 mb-6">
-        <MapPin className="w-4 h-4" />
+      <div className="mb-6 flex items-center justify-center gap-2 text-slate-400">
+        <MapPin className="h-4 w-4" />
         <span>{personalInfo.contact.location}</span>
       </div>
 
       {/* Social Links */}
       <div className="flex flex-wrap items-center justify-center gap-4">
         <a
-          href={personalInfo.contact.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 transition-colors"
           aria-label="View GitHub profile"
+          className="text-cyan-400 transition-colors hover:text-cyan-300"
+          href={personalInfo.contact.github}
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <GitHubIcon className="w-5 h-5" />
+          <GitHubIcon className="h-5 w-5" />
         </a>
         {personalInfo.contact.x && (
           <a
-            href={personalInfo.contact.x}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-400 hover:text-cyan-300 transition-colors"
             aria-label="Follow on X"
+            className="text-cyan-400 transition-colors hover:text-cyan-300"
+            href={personalInfo.contact.x}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            <XIcon className="w-5 h-5" />
+            <XIcon className="h-5 w-5" />
           </a>
         )}
       </div>

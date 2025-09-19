@@ -2,8 +2,8 @@ import type { PaginatedResult, PaginationParams } from './types';
 
 export function createPaginatedResult<T>(
   items: T[],
-  params: PaginationParams = {},
-  total: number,
+  params: PaginationParams,
+  total: number
 ): PaginatedResult<T> {
   const page = params.page || 1;
   const limit = params.limit || 10;

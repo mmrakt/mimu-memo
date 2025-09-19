@@ -2,10 +2,10 @@ import { ABOUT_SITE } from '@/config';
 
 export function SiteOverview() {
   return (
-    <section className="py-20 px-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-200">About this site</h2>
-        <p className="text-lg text-slate-400 leading-relaxed mb-12">
+    <section className="px-8 py-20">
+      <div className="mx-auto max-w-4xl text-center">
+        <h2 className="mb-8 font-bold text-3xl text-slate-200 md:text-4xl">About this site</h2>
+        <p className="mb-12 text-lg text-slate-400 leading-relaxed">
           {ABOUT_SITE[0]}
           <br className="hidden md:block" />
           {ABOUT_SITE[1]}

@@ -14,48 +14,48 @@ export const HeroSection = memo(function HeroSection() {
   }, []);
 
   return (
-    <header className="min-h-screen flex items-center justify-center px-8 py-20 relative overflow-hidden">
+    <header className="relative flex min-h-screen items-center justify-center overflow-hidden px-8 py-20">
       {/* Complex Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Orbiting Elements */}
-        <div className="absolute top-1/4 left-1/4 w-6 h-6 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full opacity-60 animate-orbit" />
-        <div className="absolute top-1/3 right-1/3 w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-40 animate-orbit animation-delay-1000" />
-        <div className="absolute bottom-1/3 left-1/3 w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full opacity-50 animate-orbit animation-delay-2000" />
+        <div className="absolute top-1/4 left-1/4 h-6 w-6 animate-orbit rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 opacity-60" />
+        <div className="animation-delay-1000 absolute top-1/3 right-1/3 h-4 w-4 animate-orbit rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-40" />
+        <div className="animation-delay-2000 absolute bottom-1/3 left-1/3 h-8 w-8 animate-orbit rounded-full bg-gradient-to-r from-amber-400 to-orange-500 opacity-50" />
 
         {/* Spiral Elements */}
-        <div className="absolute top-1/2 left-1/2 w-5 h-5 bg-gradient-to-r from-purple-400 to-pink-500 animate-spiral" />
-        <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-gradient-to-r from-emerald-400 to-teal-500 animate-spiral animation-delay-500" />
+        <div className="absolute top-1/2 left-1/2 h-5 w-5 animate-spiral bg-gradient-to-r from-purple-400 to-pink-500" />
+        <div className="animation-delay-500 absolute top-1/2 left-1/2 h-3 w-3 animate-spiral bg-gradient-to-r from-emerald-400 to-teal-500" />
 
         {/* Morphing Shapes */}
-        <div className="absolute top-1/5 right-1/5 w-12 h-12 bg-gradient-to-br from-indigo-500/30 to-cyan-500/30 animate-morphing" />
-        <div className="absolute bottom-1/5 left-1/5 w-8 h-8 bg-gradient-to-br from-purple-500/30 to-pink-500/30 animate-morphing animation-delay-1000" />
+        <div className="absolute top-1/5 right-1/5 h-12 w-12 animate-morphing bg-gradient-to-br from-indigo-500/30 to-cyan-500/30" />
+        <div className="animation-delay-1000 absolute bottom-1/5 left-1/5 h-8 w-8 animate-morphing bg-gradient-to-br from-purple-500/30 to-pink-500/30" />
 
         {/* Magnetic Floating Elements */}
-        <div className="absolute top-1/6 left-1/2 w-2 h-2 bg-cyan-400 rounded-full opacity-60 animate-magnetic" />
-        <div className="absolute bottom-1/6 right-1/2 w-3 h-3 bg-amber-400 rounded-full opacity-50 animate-magnetic animation-delay-300" />
+        <div className="absolute top-1/6 left-1/2 h-2 w-2 animate-magnetic rounded-full bg-cyan-400 opacity-60" />
+        <div className="animation-delay-300 absolute right-1/2 bottom-1/6 h-3 w-3 animate-magnetic rounded-full bg-amber-400 opacity-50" />
 
         {/* Particle Trail */}
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent animate-pulse-slow" />
-        <div className="absolute top-1/2 left-0 w-1 h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent animate-pulse-slow animation-delay-1000" />
+        <div className="absolute top-1/2 left-0 h-1 w-full animate-pulse-slow bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
+        <div className="animation-delay-1000 absolute top-1/2 left-0 h-full w-1 animate-pulse-slow bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent" />
       </div>
 
-      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div
           className={`transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
           {/* Animated Title with Glitch Effect */}
-          <div className="relative mb-6 group">
+          <div className="group relative mb-6">
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-indigo-500 via-cyan-400 to-amber-500 bg-clip-text text-transparent animate-gradient-x hover:scale-105 transition-transform duration-500 cursor-default"
+              className="animate-gradient-x cursor-default bg-gradient-to-r from-indigo-500 via-cyan-400 to-amber-500 bg-clip-text font-bold text-5xl text-transparent transition-transform duration-500 hover:scale-105 md:text-6xl lg:text-7xl"
               id={headingId}
             >
               Hi, I'm {MY_NAME}
             </h1>
             <div
-              className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-purple-500 via-pink-400 to-red-500 bg-clip-text text-transparent opacity-0 group-hover:opacity-30 group-hover:animate-glitch transition-all duration-300"
               aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-400 to-red-500 bg-clip-text font-bold text-5xl text-transparent opacity-0 transition-all duration-300 group-hover:animate-glitch group-hover:opacity-30 md:text-6xl lg:text-7xl"
             >
               Hi, I'm {MY_NAME}
             </div>
@@ -64,16 +64,16 @@ export const HeroSection = memo(function HeroSection() {
           {/* Typewriter Effect Subtitle */}
           <div className="relative mb-8">
             <p
-              className={`text-xl md:text-2xl text-slate-400 font-space-grotesk transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              className={`font-space-grotesk text-slate-400 text-xl transition-all duration-1000 md:text-2xl ${
+                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
               style={{ transitionDelay: '300ms' }}
             >
-              <span className="inline-block overflow-hidden whitespace-nowrap border-r-2 border-indigo-400 animate-typewriter">
+              <span className="inline-block animate-typewriter overflow-hidden whitespace-nowrap border-indigo-400 border-r-2">
                 {ABOUT_ME[0]}
               </span>
               <br className="hidden md:block" />
-              <span className="inline-block overflow-hidden whitespace-nowrap border-r-2 border-cyan-400 animate-typewriter animation-delay-2000">
+              <span className="animation-delay-2000 inline-block animate-typewriter overflow-hidden whitespace-nowrap border-cyan-400 border-r-2">
                 {ABOUT_ME[1]}
               </span>
             </p>
@@ -81,41 +81,41 @@ export const HeroSection = memo(function HeroSection() {
 
           {/* Enhanced Buttons with Magnetic Effect */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            className={`flex flex-col items-center justify-center gap-4 transition-all duration-1000 sm:flex-row ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
             style={{ transitionDelay: '600ms' }}
           >
             <Link
-              href="/career"
-              className="group relative flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 rounded-full hover:from-indigo-500 hover:to-cyan-500 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-indigo-500/50 animate-pulse-slow overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900"
               aria-label="View career information and professional background"
+              className="group relative flex animate-pulse-slow items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-indigo-600 to-cyan-600 px-8 py-3 transition-all duration-300 hover:scale-110 hover:from-indigo-500 hover:to-cyan-500 hover:shadow-2xl hover:shadow-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+              href="/career"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-gradient-x" />
+              <div className="absolute inset-0 animate-gradient-x bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <User
+                className="relative z-10 transition-transform duration-300 group-hover:rotate-12"
                 size={20}
-                className="relative z-10 group-hover:rotate-12 transition-transform duration-300"
               />
               <span className="relative z-10">About Me</span>
               <ArrowRight
+                className="relative z-10 transition-transform group-hover:translate-x-1"
                 size={16}
-                className="relative z-10 group-hover:translate-x-1 transition-transform"
               />
             </Link>
             <Link
-              href="/portfolio"
-              className="group relative flex items-center gap-2 px-8 py-3 border border-indigo-500/30 rounded-full hover:bg-indigo-500/10 hover:border-indigo-400 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-cyan-500/50 overflow-hidden focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900"
               aria-label="View portfolio and personal projects"
+              className="group relative flex items-center gap-2 overflow-hidden rounded-full border border-indigo-500/30 px-8 py-3 transition-all duration-300 hover:scale-110 hover:border-indigo-400 hover:bg-indigo-500/10 hover:shadow-2xl hover:shadow-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+              href="/portfolio"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <Globe
+                className="relative z-10 transition-transform duration-300 group-hover:rotate-12"
                 size={20}
-                className="relative z-10 group-hover:rotate-12 transition-transform duration-300"
               />
               <span className="relative z-10">View Work</span>
               <ArrowRight
+                className="relative z-10 transition-transform group-hover:translate-x-1"
                 size={16}
-                className="relative z-10 group-hover:translate-x-1 transition-transform"
               />
             </Link>
           </div>
@@ -123,18 +123,18 @@ export const HeroSection = memo(function HeroSection() {
 
         {/* Enhanced Scroll Indicator */}
         <div
-          className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{ transitionDelay: '1000ms' }}
-          role="img"
           aria-label="Scroll down indicator"
+          className={`-translate-x-1/2 absolute bottom-8 left-1/2 transform transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+          role="img"
+          style={{ transitionDelay: '1000ms' }}
         >
           <div className="relative">
-            <div className="w-6 h-10 border-2 border-indigo-400/50 rounded-full p-1 animate-pulse-slow">
-              <div className="w-1 h-3 bg-indigo-400 rounded-full mx-auto animate-bounce" />
+            <div className="h-10 w-6 animate-pulse-slow rounded-full border-2 border-indigo-400/50 p-1">
+              <div className="mx-auto h-3 w-1 animate-bounce rounded-full bg-indigo-400" />
             </div>
-            <div className="absolute inset-0 w-6 h-10 border-2 border-cyan-400/30 rounded-full animate-ping" />
+            <div className="absolute inset-0 h-10 w-6 animate-ping rounded-full border-2 border-cyan-400/30" />
           </div>
         </div>
       </div>

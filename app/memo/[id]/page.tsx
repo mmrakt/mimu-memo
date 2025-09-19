@@ -13,11 +13,11 @@ import { getAdjacentPosts } from '@/memo/services/post-service';
 import { getAllMemoSlugs, getMemoBySlug } from '@/memo/utils';
 import styles from './markdown.module.css';
 
-interface MemoDetailPageProps {
+type MemoDetailPageProps = {
   params: Promise<{
     id: string;
   }>;
-}
+};
 
 export async function generateStaticParams() {
   const slugs = await getAllMemoSlugs();
@@ -62,47 +62,47 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
     <div className="relative min-h-screen">
       <AnimatedBackground />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
         <Link
+          className="mb-8 inline-flex items-center gap-2 text-indigo-400 transition-colors hover:text-indigo-300"
           href="/memo"
-          className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors mb-8"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="h-5 w-5" />
           Back to memo list
         </Link>
 
-        <article className="bg-slate-800/50 backdrop-blur-sm border border-indigo-500/10 rounded-2xl overflow-hidden">
-          <header className="text-center p-8 border-b border-indigo-500/10">
+        <article className="overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 backdrop-blur-sm">
+          <header className="border-indigo-500/10 border-b p-8 text-center">
             <div className="mb-6">
               <Image
-                src={getTagIconPath(metadata.tag)}
                 alt={`${metadata.tag} icon`}
-                width={64}
-                height={64}
                 className="mx-auto mb-4"
+                height={64}
+                src={getTagIconPath(metadata.tag)}
+                width={64}
               />
             </div>
-            <h1 className="text-4xl font-bold font-space-grotesk mb-6 bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent leading-tight">
+            <h1 className="mb-6 bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text font-bold font-space-grotesk text-4xl text-transparent leading-tight">
               {metadata.title}
             </h1>
-            <div className="flex items-center justify-center gap-6 text-slate-400 flex-wrap">
+            <div className="flex flex-wrap items-center justify-center gap-6 text-slate-400">
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
+                <Calendar className="h-5 w-5" />
                 <span>{metadata.pubDate}</span>
               </div>
               <Link
+                className="rounded-full bg-indigo-500/10 px-3 py-1 text-indigo-400 text-sm transition-colors hover:bg-indigo-500/20 hover:text-indigo-300"
                 href={`/memo/tag/${metadata.tag}`}
-                className="bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full text-sm hover:bg-indigo-500/20 hover:text-indigo-300 transition-colors"
               >
                 {metadata.tag}
               </Link>
             </div>
           </header>
 
-          <div className="p-8 space-y-6">
+          <div className="space-y-6 p-8">
             {isMarkdown && content ? (
               <div className={styles.markdown}>
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+                <ReactMarkdown rehypePlugins={[rehypeHighlight]} remarkPlugins={[remarkGfm]}>
                   {content}
                 </ReactMarkdown>
               </div>
@@ -110,7 +110,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
               <Component />
             ) : null}
           </div>
-          <MemoNavigation previous={previous} next={next} />
+          <MemoNavigation next={next} previous={previous} />
         </article>
       </div>
     </div>

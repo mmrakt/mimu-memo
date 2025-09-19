@@ -1,11 +1,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-interface UrlPaginationProps {
+type UrlPaginationProps = {
   currentPage: number;
   totalPages: number;
   basePath?: string;
-}
+};
 
 export default function UrlPagination({
   currentPage,
@@ -51,19 +51,19 @@ export default function UrlPagination({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-12">
+    <div className="mt-12 flex items-center justify-center gap-2">
       {/* Previous button */}
       {currentPage > 1 ? (
         <Link
+          className="flex items-center gap-1 px-3 py-2 text-slate-400 text-sm transition-colors hover:text-indigo-400"
           href={getPageUrl(currentPage - 1)}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="h-4 w-4" />
           Prev
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm text-slate-600 cursor-not-allowed">
-          <ChevronLeft className="w-4 h-4" />
+        <span className="flex cursor-not-allowed items-center gap-1 px-3 py-2 text-slate-600 text-sm">
+          <ChevronLeft className="h-4 w-4" />
           Prev
         </span>
       )}
@@ -75,7 +75,7 @@ export default function UrlPagination({
             // Use a unique key based on position in the array rather than index
             const dotsKey = index === 1 ? 'dots-left' : 'dots-right';
             return (
-              <span key={dotsKey} className="px-3 py-2 text-slate-500">
+              <span className="px-3 py-2 text-slate-500" key={dotsKey}>
                 ...
               </span>
             );
@@ -86,16 +86,14 @@ export default function UrlPagination({
 
           return (
             <Link
-              key={pageNumber}
-              href={getPageUrl(pageNumber)}
-              className={`
-                px-3 py-2 text-sm rounded-lg transition-all duration-200
-                ${
-                  isCurrentPage
-                    ? 'bg-indigo-500 text-white shadow-lg'
-                    : 'text-slate-400 hover:text-indigo-400 hover:bg-slate-800/50'
-                }
+              className={`rounded-lg px-3 py-2 text-sm transition-all duration-200 ${
+                isCurrentPage
+                  ? 'bg-indigo-500 text-white shadow-lg'
+                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-indigo-400'
+              }
               `}
+              href={getPageUrl(pageNumber)}
+              key={pageNumber}
             >
               {pageNumber}
             </Link>
@@ -106,16 +104,16 @@ export default function UrlPagination({
       {/* Next button */}
       {currentPage < totalPages ? (
         <Link
+          className="flex items-center gap-1 px-3 py-2 text-slate-400 text-sm transition-colors hover:text-indigo-400"
           href={getPageUrl(currentPage + 1)}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
         >
           Next
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="h-4 w-4" />
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm text-slate-600 cursor-not-allowed">
+        <span className="flex cursor-not-allowed items-center gap-1 px-3 py-2 text-slate-600 text-sm">
           Next
-          <ChevronRight className="w-4 h-4" />
+          <ChevronRight className="h-4 w-4" />
         </span>
       )}
     </div>

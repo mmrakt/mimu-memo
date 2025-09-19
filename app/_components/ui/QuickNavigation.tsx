@@ -4,13 +4,13 @@ import { ArrowRight, Briefcase, Code, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { memo, useId } from 'react';
 
-interface QuickNavItem {
+type QuickNavItem = {
   href: string;
   title: string;
   description: string;
   icon: typeof FileText;
   color: string;
-}
+};
 
 const quickNavItems: QuickNavItem[] = [
   {
@@ -40,42 +40,44 @@ export const QuickNavigation = memo(function QuickNavigation() {
   const headingId = useId();
 
   return (
-    <section className="py-20 px-8" aria-labelledby={headingId}>
-      <div className="max-w-6xl mx-auto">
+    <section aria-labelledby={headingId} className="px-8 py-20">
+      <div className="mx-auto max-w-6xl">
         <h2
+          className="mb-16 text-center font-bold text-3xl text-slate-200 md:text-4xl"
           id={headingId}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-200"
         >
           Navigation
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {quickNavItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <Link
-                key={item.href}
+                aria-label={`Navigate to ${item.title}: ${item.description}`}
+                className={
+                  'group hover:-translate-y-2 block animate-fade-in-up rounded-2xl border border-indigo-500/10 bg-slate-800/50 p-8 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900'
+                }
                 href={item.href}
-                className={`group block p-8 bg-slate-800/50 backdrop-blur-sm border border-indigo-500/10 rounded-2xl hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/10 opacity-0 animate-fade-in-up focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900`}
+                key={item.href}
                 style={{
                   animationDelay: `${index * 200}ms`,
                   animationFillMode: 'forwards',
                 }}
-                aria-label={`Navigate to ${item.title}: ${item.description}`}
               >
                 <div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  className={`h-16 w-16 rounded-full bg-gradient-to-br ${item.color} mb-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
                 >
-                  <Icon size={24} className="text-white" />
+                  <Icon className="text-white" size={24} />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-100 group-hover:text-indigo-400 transition-colors">
+                <h3 className="mb-3 font-bold text-slate-100 text-xl transition-colors group-hover:text-indigo-400">
                   {item.title}
                 </h3>
-                <p className="text-slate-400 mb-4">{item.description}</p>
-                <div className="flex items-center text-indigo-400 group-hover:text-cyan-400 transition-colors">
-                  <span className="text-sm font-medium">Read more</span>
+                <p className="mb-4 text-slate-400">{item.description}</p>
+                <div className="flex items-center text-indigo-400 transition-colors group-hover:text-cyan-400">
+                  <span className="font-medium text-sm">Read more</span>
                   <ArrowRight
+                    className="ml-2 transition-transform group-hover:translate-x-1"
                     size={16}
-                    className="ml-2 group-hover:translate-x-1 transition-transform"
                   />
                 </div>
               </Link>

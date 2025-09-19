@@ -9,14 +9,14 @@ export default async function PortfolioPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-slate-900 text-slate-50 flex items-center justify-center">
+        <div className="flex min-h-screen items-center justify-center bg-slate-900 text-slate-50">
           Loading...
         </div>
       }
     >
       <PortfolioClient
-        portfolioItems={portfolioItems}
         pageDescription={PORTFOLIO_PAGE_DESCRIPTION}
+        portfolioItems={portfolioItems}
       />
     </Suspense>
   );

@@ -1,5 +1,5 @@
 // Raw data structure matching data.jsonc
-export interface RawCareerData {
+export type RawCareerData = {
   personalInfo: {
     fullName: string;
     nickName: string;
@@ -57,10 +57,10 @@ export interface RawCareerData {
     fullstack: { title: string; content: string };
     teamwork: { title: string; content: string };
   };
-}
+};
 
 // Processed data for components
-export interface CareerData {
+export type CareerData = {
   title: string;
   subtitle: string;
   tags: string[];
@@ -74,9 +74,9 @@ export interface CareerData {
   personalInfo: RawCareerData['personalInfo'];
   aboutMe: RawCareerData['aboutMe'];
   selfPR: RawCareerData['selfPR'];
-}
+};
 
-export interface DetailedTimelineItem {
+export type DetailedTimelineItem = {
   // Basic information
   dateRange: {
     start: string; // "2023-01" format
@@ -98,33 +98,33 @@ export interface DetailedTimelineItem {
 
   // Visual
   gradientClass: string;
-}
+};
 
-export interface Project {
+export type Project = {
   name: string;
   description: string;
   impact: string;
   technologies: string[];
   link?: string;
-}
+};
 
-export interface Achievement {
+export type Achievement = {
   metric: string;
   description: string;
-}
+};
 
-export interface SkillCategory {
+export type SkillCategory = {
   category: string;
   skills: Skill[];
-}
+};
 
-export interface Skill {
+export type Skill = {
   name: string;
   level: 'Expert' | 'Advanced' | 'Intermediate' | 'Beginner';
   yearsOfExperience: number;
-}
+};
 
-export interface EducationItem {
+export type EducationItem = {
   degree: string;
   field: string;
   institution: string;
@@ -135,19 +135,19 @@ export interface EducationItem {
   };
   gpa?: string;
   honors?: string[];
-}
+};
 
-export interface CertificationItem {
+export type CertificationItem = {
   name: string;
   issuer: string;
   date: string;
   expiryDate?: string;
   credentialId?: string;
   link?: string;
-}
+};
 
-export interface StatItem {
+export type StatItem = {
   number: string;
   label: string;
   icon?: string;
-}
+};

@@ -10,10 +10,10 @@ import PortfolioModal from '@/portfolio/components/PortfolioModal';
 import { filterOptions } from '@/portfolio/data';
 import type { PortfolioItem } from '@/portfolio/types';
 
-interface PortfolioClientProps {
+type PortfolioClientProps = {
   portfolioItems: PortfolioItem[];
   pageDescription: string;
-}
+};
 
 export default function PortfolioClient({ portfolioItems, pageDescription }: PortfolioClientProps) {
   const router = useRouter();
@@ -32,7 +32,9 @@ export default function PortfolioClient({ portfolioItems, pageDescription }: Por
 
   // Get selected item from URL parameter
   const selectedItem = useMemo(() => {
-    if (!selectedItemId) return null;
+    if (!selectedItemId) {
+      return null;
+    }
     const numericId = Number(selectedItemId);
     return portfolioItems.find((item) => item.id === numericId) || null;
   }, [selectedItemId, portfolioItems]);
@@ -67,18 +69,18 @@ export default function PortfolioClient({ portfolioItems, pageDescription }: Por
     <div className="relative min-h-screen">
       <AnimatedBackground variant="pulse" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <PageHeader title="Portfolio" description={pageDescription} />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <PageHeader description={pageDescription} title="Portfolio" />
 
         <FilterButtons
-          filterOptions={filterOptions}
           activeFilter={activeFilter}
+          filterOptions={filterOptions}
           onFilterChange={handleFilterChange}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map((item, index) => (
-            <PortfolioCard key={item.id} item={item} index={index} onCardClick={handleCardClick} />
+            <PortfolioCard index={index} item={item} key={item.id} onCardClick={handleCardClick} />
           ))}
         </div>
       </div>

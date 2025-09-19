@@ -20,18 +20,13 @@ export async function getCareerData(): AsyncServiceResult<CareerData> {
 }
 
 export function getCareerDataSync(): CareerData {
-  try {
-    const filePath = path.join(process.cwd(), 'app/_contents/career/data.jsonc');
-    const content = fs.readFileSync(filePath, 'utf8');
-    const rawData = JSONC.parse(content) as RawCareerData;
+  const filePath = path.join(process.cwd(), 'app/_contents/career/data.jsonc');
+  const content = fs.readFileSync(filePath, 'utf8');
+  const rawData = JSONC.parse(content) as RawCareerData;
 
-    if (!rawData) {
-      throw new Error('Failed to parse data.jsonc');
-    }
-
-    return transformToCareerData(rawData);
-  } catch (error) {
-    console.error('Error loading career data:', error);
-    throw error;
+  if (!rawData) {
+    throw new Error('Failed to parse data.jsonc');
   }
+
+  return transformToCareerData(rawData);
 }

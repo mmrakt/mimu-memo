@@ -248,7 +248,7 @@ startedAt: "2023.06"
           `---
 title: "Valid Project"
 category: "solo-development"
----`,
+---`
         )
         .mockRejectedValueOnce(new Error('File read error'));
 

@@ -60,7 +60,7 @@ describe('UrlPagination Logic', () => {
 
     // Last page
     const lastPage = getVisiblePages(10, 10);
-    expect(lastPage[lastPage.length - 1]).toBe(10);
+    expect(lastPage.at(-1)).toBe(10);
   });
 
   it('should show correct range around current page', () => {

@@ -1,17 +1,17 @@
-export interface MemoMetadata {
+export type MemoMetadata = {
   title: string;
   tag: string;
   pubDate: string;
   id: string;
-}
+};
 
-export interface MemoContent {
+export type MemoContent = {
   metadata: MemoMetadata;
   content: string;
   isMarkdown?: boolean;
-}
+};
 
-export interface PostListItem {
+export type PostListItem = {
   id: string;
   title: string;
   tag: string;
@@ -19,11 +19,11 @@ export interface PostListItem {
   excerpt?: string;
   media?: 'owned' | 'qiita' | 'zenn' | 'note';
   link?: string;
-}
+};
 
-export interface MemoBySlugResult {
+export type MemoBySlugResult = {
   metadata: MemoMetadata;
   Component?: React.ComponentType;
   content?: string;
   isMarkdown?: boolean;
-}
+};

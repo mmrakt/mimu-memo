@@ -1,10 +1,10 @@
-interface SelfPRSectionProps {
+type SelfPRSectionProps = {
   selfPR: {
     autonomy: { title: string; content: string };
     fullstack: { title: string; content: string };
     teamwork: { title: string; content: string };
   };
-}
+};
 
 export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
   const prItems = [
@@ -15,26 +15,26 @@ export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
 
   return (
     <section className="py-20">
-      <div className="max-w-6xl mx-auto px-8">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center reveal opacity-0 translate-y-8 transition-all duration-1000">
+      <div className="mx-auto max-w-6xl px-8">
+        <h2 className="reveal mb-12 translate-y-8 text-center font-bold text-3xl opacity-0 transition-all duration-1000 md:text-4xl">
           My Strengths
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {prItems.map((item, index) => (
             <div
+              className="reveal group translate-y-8 opacity-0 transition-all duration-1000"
               key={item.title}
-              className="reveal opacity-0 translate-y-8 transition-all duration-1000 group"
               style={{ transitionDelay: `${index * 0.1}s` }}
             >
-              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 h-full transition-all duration-300 hover:border-slate-600 hover:-translate-y-1 hover:shadow-xl">
+              <div className="hover:-translate-y-1 h-full rounded-xl border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-slate-600 hover:shadow-xl">
                 <div
-                  className={`text-4xl mb-4 bg-gradient-to-br ${item.gradient} bg-clip-text text-transparent inline-block`}
+                  className={`mb-4 bg-gradient-to-br text-4xl ${item.gradient} inline-block bg-clip-text text-transparent`}
                 >
                   {item.icon}
                 </div>
                 <h3
-                  className={`text-xl font-semibold mb-3 bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
+                  className={`mb-3 bg-gradient-to-r font-semibold text-xl ${item.gradient} bg-clip-text text-transparent`}
                 >
                   {item.title}
                 </h3>

@@ -2,7 +2,7 @@ export class PostServiceError extends Error {
   constructor(
     message: string,
     public readonly code: string,
-    public readonly filePath?: string,
+    public readonly filePath?: string
   ) {
     super(message);
     this.name = 'PostServiceError';
@@ -34,13 +34,10 @@ export class ExternalServiceError extends PostServiceError {
  * Centralized error logging with context
  */
 export function logError(error: Error, context?: string): void {
-  const timestamp = new Date().toISOString();
-  const contextStr = context ? `[${context}] ` : '';
-
-  console.error(`${timestamp} ${contextStr}${error.name}: ${error.message}`);
+  const _timestamp = new Date().toISOString();
+  const _contextStr = context ? `[${context}] ` : '';
 
   if (error.stack) {
-    console.error('Stack trace:', error.stack);
   }
 }
 
@@ -50,7 +47,7 @@ export function logError(error: Error, context?: string): void {
 export async function safeAsync<T>(
   operation: () => Promise<T>,
   fallback: T,
-  context?: string,
+  context?: string
 ): Promise<T> {
   try {
     return await operation();

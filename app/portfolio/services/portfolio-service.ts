@@ -22,7 +22,9 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
     const portfolioItems: PortfolioItem[] = [];
 
     for (const filename of filenames) {
-      if (!isPortfolioFile(filename)) continue;
+      if (!isPortfolioFile(filename)) {
+        continue;
+      }
 
       const filePath = path.join(portfolioDirectory, filename);
 
@@ -57,21 +59,25 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
         };
 
         portfolioItems.push(portfolioItem);
-      } catch (error) {
-        console.error(`Error processing portfolio file ${filename}:`, error);
-      }
+      } catch (_error) {}
     }
 
     // Sort by startedAt in descending order (newest first)
     return portfolioItems.sort((a, b) => {
-      if (!a.startedAt && !b.startedAt) return 0;
-      if (!a.startedAt) return 1;
-      if (!b.startedAt) return -1;
+      if (!(a.startedAt || b.startedAt)) {
+        return 0;
+      }
+      if (!a.startedAt) {
+        return 1;
+      }
+      if (!b.startedAt) {
+        return -1;
+      }
 
       // Parse startedAt format (YYYY.MM)
       const parseDate = (dateStr: string) => {
         const [year, month] = dateStr.split('.');
-        return new Date(parseInt(year, 10), parseInt(month, 10) - 1);
+        return new Date(Number.parseInt(year, 10), Number.parseInt(month, 10) - 1);
       };
 
       const dateA = parseDate(a.startedAt);
@@ -79,8 +85,7 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
 
       return dateB.getTime() - dateA.getTime();
     });
-  } catch (error) {
-    console.error('Error reading portfolio directory:', error);
+  } catch (_error) {
     return [];
   }
 }
@@ -137,8 +142,7 @@ export async function getPortfolioItemBySlug(slug: string): Promise<PortfolioIte
       startedAt: data.startedAt || undefined,
       isActive: data.isActive ?? true,
     };
-  } catch (error) {
-    console.error(`Error loading portfolio item ${slug}:`, error);
+  } catch (_error) {
     return null;
   }
 }

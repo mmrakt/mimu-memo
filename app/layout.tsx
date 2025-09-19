@@ -28,13 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="scroll-smooth">
+    <html className="scroll-smooth" lang="ja">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased min-h-screen bg-slate-900 text-slate-100 flex flex-col`}
+        className={`${inter.variable} ${spaceGrotesk.variable} flex min-h-screen flex-col bg-slate-900 font-sans text-slate-100 antialiased`}
       >
         <a
+          className="sr-only z-50 rounded-br-md bg-indigo-600 px-4 py-2 text-white focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-indigo-600 text-white px-4 py-2 z-50 rounded-br-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
           Skip to main content
         </a>

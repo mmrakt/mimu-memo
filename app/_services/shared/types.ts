@@ -1,26 +1,26 @@
 // Shared types across all services
 
-export interface ServiceResult<T> {
+export type ServiceResult<T> = {
   data: T;
   error?: never;
-}
+};
 
-export interface ServiceError {
+export type ServiceError = {
   data?: never;
   error: {
     message: string;
     code?: string | number | undefined;
   };
-}
+};
 
 export type AsyncServiceResult<T> = Promise<ServiceResult<T> | ServiceError>;
 
-export interface PaginationParams {
+export type PaginationParams = {
   page?: number;
   limit?: number;
-}
+};
 
-export interface PaginatedResult<T> {
+export type PaginatedResult<T> = {
   items: T[];
   pagination: {
     page: number;
@@ -30,16 +30,16 @@ export interface PaginatedResult<T> {
     hasNext: boolean;
     hasPrev: boolean;
   };
-}
+};
 
-export interface BaseContent {
+export type BaseContent = {
   id: string;
   title: string;
   createdAt: string;
   updatedAt?: string;
-}
+};
 
-export interface Tag {
+export type Tag = {
   name: string;
   count: number;
-}
+};

@@ -7,9 +7,9 @@ import MemoGrid from '@/memo/components/MemoGrid';
 import UrlPagination from '@/memo/components/UrlPagination';
 import type { PostListItem } from '@/memo/lib/types';
 
-interface MemoListProps {
+type MemoListProps = {
   posts: PostListItem[];
-}
+};
 
 export default function MemoList({ posts }: MemoListProps) {
   const searchParams = useSearchParams();
@@ -32,7 +32,7 @@ export default function MemoList({ posts }: MemoListProps) {
     <>
       <MemoGrid posts={currentPosts} />
       {totalPages > 1 && (
-        <UrlPagination currentPage={currentPage} totalPages={totalPages} basePath="/memo" />
+        <UrlPagination basePath="/memo" currentPage={currentPage} totalPages={totalPages} />
       )}
     </>
   );

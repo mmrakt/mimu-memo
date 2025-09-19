@@ -7,7 +7,7 @@ export function formatPubDate(pubDate: unknown): string {
 
   return String(pubDate || '').replace(
     new RegExp(DATE_FORMATS.PATH_DATE_SEPARATOR, 'g'),
-    DATE_FORMATS.DISPLAY_DATE_SEPARATOR,
+    DATE_FORMATS.DISPLAY_DATE_SEPARATOR
   );
 }
 

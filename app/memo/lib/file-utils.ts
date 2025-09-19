@@ -18,11 +18,10 @@ export async function parseMdFile(filePath: string): Promise<MemoContent | null>
         pubDate: formatPubDate(data.pubDate),
         id: path.basename(filePath, FILE_EXTENSIONS.MARKDOWN),
       },
-      content: content,
+      content,
       isMarkdown: true,
     };
-  } catch (error) {
-    console.error(`Error parsing MD file ${filePath}:`, error);
+  } catch (_error) {
     return null;
   }
 }

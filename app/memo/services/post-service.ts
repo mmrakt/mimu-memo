@@ -13,10 +13,10 @@ import {
 import type { MemoBySlugResult, PostListItem } from '@/memo/lib/types';
 import { validateTag } from '@/memo/services/tag-service';
 
-export interface AdjacentPostsResult {
+export type AdjacentPostsResult = {
   previous: PostListItem | null;
   next: PostListItem | null;
-}
+};
 
 export async function getAllPosts(): Promise<PostListItem[]> {
   try {
@@ -26,7 +26,9 @@ export async function getAllPosts(): Promise<PostListItem[]> {
     const posts: PostListItem[] = [];
 
     for (const filename of filenames) {
-      if (!isPostFile(filename)) continue;
+      if (!isPostFile(filename)) {
+        continue;
+      }
 
       const slug = getSlugFromFilename(filename);
 
@@ -36,8 +38,7 @@ export async function getAllPosts(): Promise<PostListItem[]> {
     }
 
     return sortPostsByDate(posts);
-  } catch (error) {
-    console.error('Error reading posts directory:', error);
+  } catch (_error) {
     return [];
   }
 }
@@ -49,7 +50,7 @@ async function processPostFile(
   filename: string,
   slug: string,
   postsDirectory: string,
-  posts: PostListItem[],
+  posts: PostListItem[]
 ): Promise<void> {
   const filePath = `${postsDirectory}/${filename}`;
 
@@ -68,7 +69,7 @@ async function processPostFile(
       };
     },
     null,
-    `Processing post file: ${filename}`,
+    `Processing post file: ${filename}`
   );
 
   if (post) {
@@ -105,11 +106,10 @@ export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | nu
         pubDate: formatPubDate(data.pubDate),
         id: slug,
       },
-      content: content,
+      content,
       isMarkdown: true,
     };
-  } catch (error) {
-    console.error(`Error loading memo ${slug}:`, error);
+  } catch (_error) {
     return null;
   }
 }
@@ -120,8 +120,7 @@ export async function getAllMemoSlugs(): Promise<string[]> {
     const filenames = await fs.readdir(postsDirectory);
 
     return filenames.filter(isPostFile).map(getSlugFromFilename);
-  } catch (error) {
-    console.error('Error reading posts directory:', error);
+  } catch (_error) {
     return [];
   }
 }
@@ -145,7 +144,7 @@ export function getAdjacentPostsFromList(posts: PostListItem[], slug: string): A
 
 export async function getAdjacentPosts(
   slug: string,
-  fetchPosts: () => Promise<PostListItem[]> = getAllPosts,
+  fetchPosts: () => Promise<PostListItem[]> = getAllPosts
 ): Promise<AdjacentPostsResult> {
   const posts = await fetchPosts();
   return getAdjacentPostsFromList(posts, slug);

@@ -19,7 +19,9 @@ export const sortPostsByPubDate = (posts: Frontmatter[]): Frontmatter[] =>
 
 export const makeQiitaPosts = async (): Promise<Frontmatter[]> => {
   const token = process.env.QIITA_TOKEN || '';
-  if (!token) return [];
+  if (!token) {
+    return [];
+  }
 
   const posts = await fetchPosts(QIITA_API_ENDPOINT, token);
   return mappingQiitaFeed(posts);

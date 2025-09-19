@@ -2,9 +2,9 @@
 
 import { useEffect, useId } from 'react';
 
-interface MainContentProps {
+type MainContentProps = {
   children: React.ReactNode;
-}
+};
 
 export function MainContent({ children }: MainContentProps) {
   const mainId = useId();
@@ -18,7 +18,7 @@ export function MainContent({ children }: MainContentProps) {
   }, [mainId]);
 
   return (
-    <main id={mainId} className="flex-1 pt-16">
+    <main className="flex-1 pt-16" id={mainId}>
       {children}
     </main>
   );

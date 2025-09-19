@@ -39,7 +39,7 @@ function convertFrontmatterToPostListItem(frontmatter: Frontmatter): ExternalPos
  */
 async function fetchExternalPostsFromService(
   serviceName: string,
-  fetcher: () => Promise<Frontmatter[]>,
+  fetcher: () => Promise<Frontmatter[]>
 ): Promise<Frontmatter[]> {
   return safeAsync(fetcher, [], `Fetching ${serviceName} posts`);
 }

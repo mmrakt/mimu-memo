@@ -8,10 +8,10 @@ import { getTagIconPath } from '@/memo/components/utils';
 import { getMediaDisplayName, getMediaStyles, isExternalMedia } from '@/memo/lib/media-utils';
 import type { PostListItem } from '@/memo/lib/types';
 
-interface MemoCardProps {
+type MemoCardProps = {
   post: PostListItem;
   index: number;
-}
+};
 
 export default function MemoCard({ post, index }: MemoCardProps) {
   const isExternal = (post.media && isExternalMedia(post.media)) || !!post.link;
@@ -31,31 +31,31 @@ export default function MemoCard({ post, index }: MemoCardProps) {
   return (
     <LinkComponent
       {...linkProps}
-      className="bg-slate-800/50 backdrop-blur-sm border border-indigo-500/10 rounded-2xl overflow-hidden hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/10 cursor-pointer opacity-0 animate-fade-in-up block"
+      className="hover:-translate-y-2 block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
       style={{
         animationDelay: `${index * PAGINATION.ANIMATION_DELAY_MS}ms`,
         animationFillMode: 'forwards',
       }}
     >
-      <div className="relative h-48 bg-gradient-to-br from-indigo-600 to-cyan-600 overflow-hidden group">
+      <div className="group relative h-48 overflow-hidden bg-gradient-to-br from-indigo-600 to-cyan-600">
         <Image
-          src={getTagIconPath(post.tag)}
           alt={post.title}
-          fill
           className="object-contain p-16 transition-transform duration-300 group-hover:scale-105"
+          fill
+          src={getTagIconPath(post.tag)}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
       </div>
       <div className="p-6">
-        <div className="flex items-center gap-4 text-sm text-slate-400 mb-3">
+        <div className="mb-3 flex items-center gap-4 text-slate-400 text-sm">
           <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
+            <Calendar className="h-4 w-4" />
             {post.pubDate}
           </span>
           {post.tag && (
             <Link
+              className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-400 text-xs transition-colors hover:border-cyan-400/30 hover:bg-cyan-400/20"
               href={`/memo/tag/${post.tag}`}
-              className="px-3 py-1 bg-cyan-400/10 border border-cyan-400/20 rounded-full text-xs text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/30 transition-colors"
               onClick={(e) => e.stopPropagation()}
             >
               {post.tag}
@@ -63,23 +63,23 @@ export default function MemoCard({ post, index }: MemoCardProps) {
           )}
           {((post.media && isExternalMedia(post.media)) || isSlide) && (
             <span
-              className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs ${
+              className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs ${
                 isSlide
-                  ? 'bg-amber-400/10 border border-amber-400/20 text-amber-400'
+                  ? 'border border-amber-400/20 bg-amber-400/10 text-amber-400'
                   : post.media
                     ? getMediaStyles(post.media)
                     : ''
               }`}
             >
               {isSlide ? 'Slide' : post.media ? getMediaDisplayName(post.media) : ''}
-              {isExternal && <ExternalLink className="w-3 h-3" />}
+              {isExternal && <ExternalLink className="h-3 w-3" />}
             </span>
           )}
         </div>
-        <h2 className="text-xl font-bold mb-3 text-slate-100 group-hover:text-indigo-400 transition-colors">
+        <h2 className="mb-3 font-bold text-slate-100 text-xl transition-colors group-hover:text-indigo-400">
           {post.title}
         </h2>
-        {post.excerpt && <p className="text-slate-400 line-clamp-3 mb-4">{post.excerpt}</p>}
+        {post.excerpt && <p className="mb-4 line-clamp-3 text-slate-400">{post.excerpt}</p>}
       </div>
     </LinkComponent>
   );

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-interface MediaComponentProps {
+type MediaComponentProps = {
   src: string;
   alt: string;
   width?: number;
@@ -8,7 +8,7 @@ interface MediaComponentProps {
   className?: string;
   sizes?: string;
   priority?: boolean;
-}
+};
 
 export default function MediaComponent({
   src,
@@ -24,15 +24,15 @@ export default function MediaComponent({
   if (isVideo) {
     return (
       <video
-        width={width}
-        height={height}
-        className={className}
         autoPlay
-        muted
-        loop
-        playsInline
+        className={className}
         disablePictureInPicture
+        height={height}
+        loop
+        muted
+        playsInline
         preload="metadata"
+        width={width}
       >
         <source src={src} type="video/mp4" />
         <track kind="captions" />
@@ -43,13 +43,13 @@ export default function MediaComponent({
 
   return (
     <Image
-      src={src}
       alt={alt}
-      width={width}
-      height={height}
       className={className}
-      sizes={sizes}
+      height={height}
       priority={priority}
+      sizes={sizes}
+      src={src}
+      width={width}
     />
   );
 }
