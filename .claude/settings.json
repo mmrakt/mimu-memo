@@ -2,7 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(bun check-types:*)",
-      "Bash(bun test:*)",
+      "Bash(bun run test:*)",
       "Bash(bun --filter mobile test:run)",
       "Bash(find:*)",
       "mcp__supabase__get_project_url",
@@ -75,7 +75,7 @@
       "Bash(bun biome format:*)",
       "WebFetch(domain:ai.google.dev)",
       "Bash(bun add:*)",
-      "Bash(bun test:*)",
+      "Bash(bun run test:*)",
       "Bash(mv:*)",
       "Bash(bun check:*)"
     ],

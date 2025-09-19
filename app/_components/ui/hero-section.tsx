@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { memo, useEffect, useId, useState } from 'react';
 import { ABOUT_ME, MY_NAME } from '@/config';
 
-export const HeroSection = memo(function HeroSection() {
+export const HeroSection = memo(function HeroSectionComponent() {
   const [isVisible, setIsVisible] = useState(false);
   const headingId = useId();
 

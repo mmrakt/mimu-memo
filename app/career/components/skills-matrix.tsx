@@ -6,6 +6,8 @@ type SkillsMatrixProps = {
   skills: SkillCategory[];
 };
 
+const TRANSITION_DELAY_STEP_SECONDS = 0.1;
+
 export function SkillsMatrix({ skills }: SkillsMatrixProps) {
   const getLevelColor = (level: Skill['level']) => {
     switch (level) {
@@ -49,7 +51,7 @@ export function SkillsMatrix({ skills }: SkillsMatrixProps) {
             <div
               className="reveal translate-y-8 rounded-xl border border-indigo-600/10 bg-slate-800/50 p-8 opacity-0 transition-all duration-300 hover:border-indigo-600/30"
               key={category.category}
-              style={{ transitionDelay: `${categoryIndex * 0.1}s` }}
+              style={{ transitionDelay: `${categoryIndex * TRANSITION_DELAY_STEP_SECONDS}s` }}
             >
               <h3 className="mb-6 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-center font-bold text-2xl text-transparent">
                 {category.category}
@@ -72,7 +74,7 @@ export function SkillsMatrix({ skills }: SkillsMatrixProps) {
                       <div
                         className={`h-full bg-gradient-to-r ${getLevelColor(skill.level)} ${getLevelWidth(skill.level)} animate-slideIn rounded-full transition-all duration-500 ease-out`}
                         style={{
-                          animationDelay: `${(categoryIndex * category.skills.length + skillIndex) * 0.1}s`,
+                          animationDelay: `${(categoryIndex * category.skills.length + skillIndex) * TRANSITION_DELAY_STEP_SECONDS}s`,
                         }}
                       />
                     </div>

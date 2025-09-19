@@ -5,9 +5,9 @@ import 'highlight.js/styles/github-dark.css';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import Footer from '@/_components/Footer';
-import { MainContent } from '@/_components/MainContent';
-import Navigation from '@/_components/Navigation';
+import Footer from '@/_components/footer';
+import { MainContent } from '@/_components/main-content';
+import Navigation from '@/_components/navigation';
 import { generateMetadata } from '@/_utils/metadata';
 
 const inter = Inter({

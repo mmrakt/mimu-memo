@@ -6,8 +6,8 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
-import AnimatedBackground from '@/_components/AnimatedBackground';
-import MemoNavigation from '@/memo/components/MemoNavigation';
+import AnimatedBackground from '@/_components/animated-background';
+import MemoNavigation from '@/memo/components/memo-navigation';
 import { getTagIconPath } from '@/memo/components/utils';
 import { getAdjacentPosts } from '@/memo/services/post-service';
 import { getAllMemoSlugs, getMemoBySlug } from '@/memo/utils';
@@ -57,6 +57,23 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
 
   const { metadata, Component, content, isMarkdown } = memo;
   const { previous, next } = await getAdjacentPosts(id);
+  const renderedContent = (() => {
+    if (isMarkdown && content) {
+      return (
+        <div className={styles.markdown}>
+          <ReactMarkdown rehypePlugins={[rehypeHighlight]} remarkPlugins={[remarkGfm]}>
+            {content}
+          </ReactMarkdown>
+        </div>
+      );
+    }
+
+    if (Component) {
+      return <Component />;
+    }
+
+    return null;
+  })();
 
   return (
     <div className="relative min-h-screen">
@@ -99,17 +116,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
             </div>
           </header>
 
-          <div className="space-y-6 p-8">
-            {isMarkdown && content ? (
-              <div className={styles.markdown}>
-                <ReactMarkdown rehypePlugins={[rehypeHighlight]} remarkPlugins={[remarkGfm]}>
-                  {content}
-                </ReactMarkdown>
-              </div>
-            ) : Component ? (
-              <Component />
-            ) : null}
-          </div>
+          <div className="space-y-6 p-8">{renderedContent}</div>
           <MemoNavigation next={next} previous={previous} />
         </article>
       </div>

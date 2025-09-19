@@ -7,6 +7,49 @@ type UrlPaginationProps = {
   basePath?: string;
 };
 
+const FIRST_PAGE = 1;
+const NEIGHBOR_PAGE_RANGE = 2;
+
+export function createPageUrl(basePath: string, page: number): string {
+  return page === FIRST_PAGE ? basePath : `${basePath}/page/${page}`;
+}
+
+export function getVisiblePages(
+  currentPage: number,
+  totalPages: number,
+  delta: number = NEIGHBOR_PAGE_RANGE
+): Array<number | '...'> {
+  if (totalPages <= FIRST_PAGE) {
+    return [FIRST_PAGE];
+  }
+
+  const range: number[] = [];
+  const rangeWithDots: Array<number | '...'> = [];
+  const lastPage = totalPages;
+  const start = Math.max(FIRST_PAGE + 1, currentPage - delta);
+  const end = Math.min(lastPage - 1, currentPage + delta);
+
+  for (let page = start; page <= end; page += 1) {
+    range.push(page);
+  }
+
+  if (start > FIRST_PAGE + 1) {
+    rangeWithDots.push(FIRST_PAGE, '...');
+  } else {
+    rangeWithDots.push(FIRST_PAGE);
+  }
+
+  rangeWithDots.push(...range);
+
+  if (end < lastPage - 1) {
+    rangeWithDots.push('...', lastPage);
+  } else if (lastPage > FIRST_PAGE) {
+    rangeWithDots.push(lastPage);
+  }
+
+  return rangeWithDots;
+}
+
 export default function UrlPagination({
   currentPage,
   totalPages,
@@ -16,39 +59,7 @@ export default function UrlPagination({
     return null;
   }
 
-  const getPageUrl = (page: number) => (page === 1 ? basePath : `${basePath}/page/${page}`);
-
-  const getVisiblePages = () => {
-    const delta = 2; // Number of pages to show on each side of current page
-    const range = [];
-    const rangeWithDots = [];
-
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, '...');
-    } else {
-      rangeWithDots.push(1);
-    }
-
-    rangeWithDots.push(...range);
-
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push('...', totalPages);
-    } else if (totalPages > 1) {
-      rangeWithDots.push(totalPages);
-    }
-
-    return rangeWithDots;
-  };
-
-  const visiblePages = getVisiblePages();
+  const visiblePages = getVisiblePages(currentPage, totalPages);
 
   return (
     <div className="mt-12 flex items-center justify-center gap-2">
@@ -56,7 +67,7 @@ export default function UrlPagination({
       {currentPage > 1 ? (
         <Link
           className="flex items-center gap-1 px-3 py-2 text-slate-400 text-sm transition-colors hover:text-indigo-400"
-          href={getPageUrl(currentPage - 1)}
+          href={createPageUrl(basePath, currentPage - 1)}
         >
           <ChevronLeft className="h-4 w-4" />
           Prev
@@ -92,7 +103,7 @@ export default function UrlPagination({
                   : 'text-slate-400 hover:bg-slate-800/50 hover:text-indigo-400'
               }
               `}
-              href={getPageUrl(pageNumber)}
+              href={createPageUrl(basePath, pageNumber)}
               key={pageNumber}
             >
               {pageNumber}
@@ -105,7 +116,7 @@ export default function UrlPagination({
       {currentPage < totalPages ? (
         <Link
           className="flex items-center gap-1 px-3 py-2 text-slate-400 text-sm transition-colors hover:text-indigo-400"
-          href={getPageUrl(currentPage + 1)}
+          href={createPageUrl(basePath, currentPage + 1)}
         >
           Next
           <ChevronRight className="h-4 w-4" />

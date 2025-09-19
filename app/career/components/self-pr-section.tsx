@@ -12,6 +12,7 @@ export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
     { ...selfPR.fullstack, icon: '💻', gradient: 'from-purple-600 to-pink-600' },
     { ...selfPR.teamwork, icon: '👥', gradient: 'from-indigo-600 to-purple-600' },
   ];
+  const TRANSITION_DELAY_STEP_SECONDS = 0.1;
 
   return (
     <section className="py-20">
@@ -25,7 +26,7 @@ export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
             <div
               className="reveal group translate-y-8 opacity-0 transition-all duration-1000"
               key={item.title}
-              style={{ transitionDelay: `${index * 0.1}s` }}
+              style={{ transitionDelay: `${index * TRANSITION_DELAY_STEP_SECONDS}s` }}
             >
               <div className="hover:-translate-y-1 h-full rounded-xl border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-slate-600 hover:shadow-xl">
                 <div

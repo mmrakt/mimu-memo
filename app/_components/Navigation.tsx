@@ -12,6 +12,9 @@ const navItems = [
   { href: '/portfolio', label: 'Portfolio' },
 ];
 
+const SCROLL_THRESHOLD = 100;
+const MOBILE_MENU_ANIMATION_DELAY_MS = 100;
+
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,7 +23,7 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.pageYOffset;
-      setIsScrolled(scrollPosition > 100);
+      setIsScrolled(scrollPosition > SCROLL_THRESHOLD);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -101,7 +104,7 @@ export default function Navigation() {
                   className="-translate-x-5 slide-in-from-left animate-in opacity-0 duration-300"
                   key={item.href}
                   style={{
-                    animationDelay: `${index * 100}ms`,
+                    animationDelay: `${index * MOBILE_MENU_ANIMATION_DELAY_MS}ms`,
                     animationFillMode: 'forwards',
                   }}
                 >

@@ -8,6 +8,10 @@ import {
   TAG_ICONS,
 } from '@/config/constants';
 
+const IMAGES_DIRECTORY_REGEX = /^\/\w+/;
+const FAVICON_REGEX = /^\/.*\.(png|ico|svg)$/;
+const SVG_EXTENSION_REGEX = /\.svg$/;
+
 describe('Constants', () => {
   describe('PAGE_DESCRIPTIONS', () => {
     it('should have all required page descriptions', () => {
@@ -41,8 +45,8 @@ describe('Constants', () => {
     });
 
     it('should have properly formatted paths', () => {
-      expect(PATHS.IMAGES_DIRECTORY).toMatch(/^\/\w+/);
-      expect(PATHS.FAVICON).toMatch(/^\/.*\.(png|ico|svg)$/);
+      expect(PATHS.IMAGES_DIRECTORY).toMatch(IMAGES_DIRECTORY_REGEX);
+      expect(PATHS.FAVICON).toMatch(FAVICON_REGEX);
     });
   });
 
@@ -60,17 +64,17 @@ describe('Constants', () => {
         'html',
       ];
 
-      expectedTags.forEach((tag) => {
+      for (const tag of expectedTags) {
         expect(TAG_ICONS[tag as keyof typeof TAG_ICONS]).toBeDefined();
-        expect(TAG_ICONS[tag as keyof typeof TAG_ICONS]).toMatch(/\.svg$/);
-      });
+        expect(TAG_ICONS[tag as keyof typeof TAG_ICONS]).toMatch(SVG_EXTENSION_REGEX);
+      }
     });
 
     it('should have string values for all tags', () => {
-      Object.values(TAG_ICONS).forEach((icon) => {
+      for (const icon of Object.values(TAG_ICONS)) {
         expect(typeof icon).toBe('string');
         expect(icon.length).toBeGreaterThan(0);
-      });
+      }
     });
   });
 

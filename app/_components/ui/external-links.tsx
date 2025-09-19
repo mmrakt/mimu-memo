@@ -51,7 +51,9 @@ const externalLinks: ExternalLinkItem[] = [
   },
 ];
 
-export const ExternalLinks = memo(function ExternalLinks() {
+const CARD_ANIMATION_DELAY_INCREMENT_MS = 100;
+
+export const ExternalLinks = memo(function ExternalLinksComponent() {
   const headingId = useId();
 
   return (
@@ -74,7 +76,7 @@ export const ExternalLinks = memo(function ExternalLinks() {
               key={link.name}
               rel="noopener noreferrer"
               style={{
-                animationDelay: `${index * 100}ms`,
+                animationDelay: `${index * CARD_ANIMATION_DELAY_INCREMENT_MS}ms`,
                 animationFillMode: 'forwards',
               }}
               target="_blank"

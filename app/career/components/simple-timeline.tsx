@@ -10,6 +10,8 @@ type SimpleTimelineProps = {
   timeline: DetailedTimelineItem[];
 };
 
+const ACHIEVEMENT_KEY_SLICE_LENGTH = 20;
+
 export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
   useEffect(() => {
     return setupScrollAnimations();
@@ -85,7 +87,7 @@ export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
                   {item.achievements.map((achievement, achievementIndex) => (
                     <li
                       className="flex items-start gap-2 text-slate-300 text-sm"
-                      key={`${item.company}-${achievement.description.slice(0, 20)}-${achievementIndex}`}
+                      key={`${item.company}-${achievement.description.slice(0, ACHIEVEMENT_KEY_SLICE_LENGTH)}-${achievementIndex}`}
                     >
                       <span className="mt-1 text-cyan-400">•</span>
                       <span>{achievement.description}</span>

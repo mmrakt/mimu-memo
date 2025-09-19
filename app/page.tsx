@@ -1,5 +1,8 @@
-import AnimatedBackground from '@/_components/AnimatedBackground';
-import { ExternalLinks, HeroSection, QuickNavigation, SiteOverview } from '@/_components/ui';
+import AnimatedBackground from '@/_components/animated-background';
+import { ExternalLinks } from '@/_components/ui/external-links';
+import { HeroSection } from '@/_components/ui/hero-section';
+import { QuickNavigation } from '@/_components/ui/quick-navigation';
+import { SiteOverview } from '@/_components/ui/site-overview';
 
 export default function Home() {
   return (

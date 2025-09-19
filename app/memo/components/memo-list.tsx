@@ -3,8 +3,8 @@
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { PAGINATION } from '@/config/constants';
-import MemoGrid from '@/memo/components/MemoGrid';
-import UrlPagination from '@/memo/components/UrlPagination';
+import MemoGrid from '@/memo/components/memo-grid';
+import UrlPagination from '@/memo/components/url-pagination';
 import type { PostListItem } from '@/memo/lib/types';
 
 type MemoListProps = {
@@ -19,20 +19,22 @@ export default function MemoList({ posts }: MemoListProps) {
   const currentPage = Number(searchParams.get('page')) || 1;
 
   // Compute pagination with useMemo
-  const { currentPosts, totalPages } = useMemo(() => {
+  const pagination = useMemo(() => {
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    const items = posts.slice(indexOfFirstPost, indexOfLastPost);
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
-    return { currentPosts, totalPages };
+    return { items, totalPages };
   }, [posts, currentPage, postsPerPage]);
+  const paginatedPosts = pagination.items;
+  const totalPageCount = pagination.totalPages;
 
   return (
     <>
-      <MemoGrid posts={currentPosts} />
-      {totalPages > 1 && (
-        <UrlPagination basePath="/memo" currentPage={currentPage} totalPages={totalPages} />
+      <MemoGrid posts={paginatedPosts} />
+      {totalPageCount > 1 && (
+        <UrlPagination basePath="/memo" currentPage={currentPage} totalPages={totalPageCount} />
       )}
     </>
   );

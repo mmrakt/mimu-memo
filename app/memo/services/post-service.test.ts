@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { PostListItem } from '@/memo/lib/types';
-import * as postService from '@/memo/services/post-service';
+import { getAdjacentPosts, getAdjacentPostsFromList } from '@/memo/services/post-service';
 
 const buildPosts = (): PostListItem[] => [
   { id: 'newest', title: 'Newest Post', tag: 'test', pubDate: '2024-03-01' },
@@ -15,35 +15,35 @@ describe('post-service', () => {
 
   describe('getAdjacentPostsFromList', () => {
     it('returns previous and next articles for a middle post', () => {
-      const result = postService.getAdjacentPostsFromList(buildPosts(), 'current');
+      const result = getAdjacentPostsFromList(buildPosts(), 'current');
 
       expect(result.previous?.id).toBe('oldest');
       expect(result.next?.id).toBe('newest');
     });
 
     it('omits previous when current post is the oldest entry', () => {
-      const result = postService.getAdjacentPostsFromList(buildPosts(), 'oldest');
+      const result = getAdjacentPostsFromList(buildPosts(), 'oldest');
 
       expect(result.previous).toBeNull();
       expect(result.next?.id).toBe('current');
     });
 
     it('omits next when current post is the newest entry', () => {
-      const result = postService.getAdjacentPostsFromList(buildPosts(), 'newest');
+      const result = getAdjacentPostsFromList(buildPosts(), 'newest');
 
       expect(result.previous?.id).toBe('current');
       expect(result.next).toBeNull();
     });
 
     it('returns nulls when the post cannot be found', () => {
-      const result = postService.getAdjacentPostsFromList(buildPosts(), 'missing');
+      const result = getAdjacentPostsFromList(buildPosts(), 'missing');
 
       expect(result.previous).toBeNull();
       expect(result.next).toBeNull();
     });
 
     it('handles empty post lists gracefully', () => {
-      const result = postService.getAdjacentPostsFromList([], 'any');
+      const result = getAdjacentPostsFromList([], 'any');
 
       expect(result.previous).toBeNull();
       expect(result.next).toBeNull();
@@ -54,7 +54,7 @@ describe('post-service', () => {
     it('uses the provided fetcher and returns adjacent posts', async () => {
       const fetchPosts = vi.fn().mockResolvedValue(buildPosts());
 
-      const result = await postService.getAdjacentPosts('current', fetchPosts);
+      const result = await getAdjacentPosts('current', fetchPosts);
 
       expect(fetchPosts).toHaveBeenCalledTimes(1);
       expect(result.previous?.id).toBe('oldest');

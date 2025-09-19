@@ -12,9 +12,9 @@ export function MainContent({ children }: MainContentProps) {
   useEffect(() => {
     // Update any skip links to point to the generated ID
     const skipLinks = document.querySelectorAll('a[href="#main-content"]');
-    skipLinks.forEach((link) => {
+    for (const link of skipLinks) {
       (link as HTMLAnchorElement).href = `#${mainId}`;
-    });
+    }
   }, [mainId]);
 
   return (

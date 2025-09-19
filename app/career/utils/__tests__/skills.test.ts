@@ -1,32 +1,31 @@
 import { describe, expect, it } from 'vitest';
 import { convertNumericSkillLevel } from '@/career/utils/skills';
 
+const LEVEL_BELOW_RANGE = 0;
+const LEVEL_ABOVE_RANGE = 6;
+const LEVEL_NEGATIVE = -1;
+const INVALID_LEVELS = [LEVEL_BELOW_RANGE, LEVEL_ABOVE_RANGE, LEVEL_NEGATIVE] as const;
+
 describe('Skills Utils', () => {
   describe('convertNumericSkillLevel', () => {
-    it('should convert level 5 to Expert', () => {
-      expect(convertNumericSkillLevel(5)).toBe('Expert');
-    });
+    const levelExpectations = [
+      { input: 5, label: 'Expert' },
+      { input: 4, label: 'Expert' },
+      { input: 3, label: 'Advanced' },
+      { input: 2, label: 'Intermediate' },
+      { input: 1, label: 'Beginner' },
+    ];
 
-    it('should convert level 4 to Expert', () => {
-      expect(convertNumericSkillLevel(4)).toBe('Expert');
-    });
-
-    it('should convert level 3 to Advanced', () => {
-      expect(convertNumericSkillLevel(3)).toBe('Advanced');
-    });
-
-    it('should convert level 2 to Intermediate', () => {
-      expect(convertNumericSkillLevel(2)).toBe('Intermediate');
-    });
-
-    it('should convert level 1 to Beginner', () => {
-      expect(convertNumericSkillLevel(1)).toBe('Beginner');
-    });
+    for (const { input, label } of levelExpectations) {
+      it(`should convert level ${input} to ${label}`, () => {
+        expect(convertNumericSkillLevel(input)).toBe(label);
+      });
+    }
 
     it('should default to Beginner for invalid levels', () => {
-      expect(convertNumericSkillLevel(0)).toBe('Beginner');
-      expect(convertNumericSkillLevel(6)).toBe('Beginner');
-      expect(convertNumericSkillLevel(-1)).toBe('Beginner');
+      for (const level of INVALID_LEVELS) {
+        expect(convertNumericSkillLevel(level)).toBe('Beginner');
+      }
     });
   });
 });

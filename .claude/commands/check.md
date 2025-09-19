@@ -8,5 +8,5 @@ bun check:fix
 bun tc
 
 // unit-test
-bun test
+bun run test
 ```

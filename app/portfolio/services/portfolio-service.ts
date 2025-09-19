@@ -5,8 +5,10 @@ import { FILE_EXTENSIONS } from '@/config/constants';
 import type { CategoryKey, PortfolioFrontmatter, PortfolioItem } from '@/portfolio/types';
 
 const PORTFOLIO_CONTENT_DIR = 'app/_contents/portfolio';
+const DEFAULT_CATEGORY: CategoryKey = 'solo-development';
+const FALLBACK_IMAGE_URL = 'https://placehold.jp/400x250.png';
 
-export async function getPortfolioDirectory(): Promise<string> {
+export function getPortfolioDirectory(): string {
   return path.join(process.cwd(), PORTFOLIO_CONTENT_DIR);
 }
 
@@ -14,11 +16,100 @@ function isPortfolioFile(filename: string): boolean {
   return filename.endsWith(FILE_EXTENSIONS.MARKDOWN) || filename.endsWith(FILE_EXTENSIONS.MDX);
 }
 
+function resolveImagePath(imagePath?: string): string {
+  if (!imagePath) {
+    return FALLBACK_IMAGE_URL;
+  }
+
+  if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
+    return imagePath;
+  }
+
+  return `/portfolio/${imagePath}`;
+}
+
+function createPortfolioItem(
+  data: PortfolioFrontmatter,
+  content: string,
+  id: number
+): PortfolioItem {
+  const category: CategoryKey = (data.category as CategoryKey) || DEFAULT_CATEGORY;
+
+  return {
+    id,
+    title: data.title || '',
+    category,
+    description: data.description || '',
+    image: resolveImagePath(data.image),
+    tech: data.tags || [],
+    demo: data.url || '',
+    github: data.github || '',
+    fullDescription: content.trim() || data.description || '',
+    startedAt: data.startedAt || undefined,
+    isActive: data.isActive ?? true,
+  };
+}
+
+async function parsePortfolioFile(filePath: string, id: number): Promise<PortfolioItem | null> {
+  try {
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const { data, content } = matter(fileContent) as {
+      data: PortfolioFrontmatter;
+      content: string;
+    };
+
+    return createPortfolioItem(data, content, id);
+  } catch (_error) {
+    return null;
+  }
+}
+
+function sortByStartedAtDesc(a: PortfolioItem, b: PortfolioItem): number {
+  if (!(a.startedAt || b.startedAt)) {
+    return 0;
+  }
+  if (!a.startedAt) {
+    return 1;
+  }
+  if (!b.startedAt) {
+    return -1;
+  }
+
+  const parseDate = (value: string) => {
+    const [year, month] = value.split('.');
+    return new Date(Number.parseInt(year, 10), Number.parseInt(month, 10) - 1);
+  };
+
+  return parseDate(b.startedAt).getTime() - parseDate(a.startedAt).getTime();
+}
+
+async function resolvePortfolioFilePath(
+  portfolioDirectory: string,
+  slug: string
+): Promise<string | null> {
+  const candidates = [
+    path.join(portfolioDirectory, `${slug}.md`),
+    path.join(portfolioDirectory, `${slug}.mdx`),
+  ];
+
+  for (const candidate of candidates) {
+    const exists = await fs
+      .access(candidate)
+      .then(() => true)
+      .catch(() => false);
+
+    if (exists) {
+      return candidate;
+    }
+  }
+
+  return null;
+}
+
 export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
   try {
-    const portfolioDirectory = await getPortfolioDirectory();
+    const portfolioDirectory = getPortfolioDirectory();
     const filenames = await fs.readdir(portfolioDirectory);
-
     const portfolioItems: PortfolioItem[] = [];
 
     for (const filename of filenames) {
@@ -27,64 +118,14 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
       }
 
       const filePath = path.join(portfolioDirectory, filename);
+      const portfolioItem = await parsePortfolioFile(filePath, portfolioItems.length + 1);
 
-      try {
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        const { data, content } = matter(fileContent) as {
-          data: PortfolioFrontmatter;
-          content: string;
-        };
-
-        // Use category from frontmatter, fallback to 'solo-development'
-        const category: CategoryKey = (data.category as CategoryKey) || 'solo-development';
-
-        // Handle image path - prepend /portfolio/ if it's a relative path
-        let imagePath = data.image || 'https://placehold.jp/400x250.png';
-        if (imagePath && !imagePath.startsWith('http') && !imagePath.startsWith('/')) {
-          imagePath = `/portfolio/${imagePath}`;
-        }
-
-        const portfolioItem: PortfolioItem = {
-          id: portfolioItems.length + 1,
-          title: data.title || '',
-          category,
-          description: data.description || '',
-          image: imagePath,
-          tech: data.tags || [],
-          demo: data.url || '',
-          github: data.github || '',
-          fullDescription: content.trim() || data.description || '',
-          startedAt: data.startedAt || undefined,
-          isActive: data.isActive ?? true,
-        };
-
+      if (portfolioItem) {
         portfolioItems.push(portfolioItem);
-      } catch (_error) {}
+      }
     }
 
-    // Sort by startedAt in descending order (newest first)
-    return portfolioItems.sort((a, b) => {
-      if (!(a.startedAt || b.startedAt)) {
-        return 0;
-      }
-      if (!a.startedAt) {
-        return 1;
-      }
-      if (!b.startedAt) {
-        return -1;
-      }
-
-      // Parse startedAt format (YYYY.MM)
-      const parseDate = (dateStr: string) => {
-        const [year, month] = dateStr.split('.');
-        return new Date(Number.parseInt(year, 10), Number.parseInt(month, 10) - 1);
-      };
-
-      const dateA = parseDate(a.startedAt);
-      const dateB = parseDate(b.startedAt);
-
-      return dateB.getTime() - dateA.getTime();
-    });
+    return portfolioItems.sort(sortByStartedAtDesc);
   } catch (_error) {
     return [];
   }
@@ -92,56 +133,14 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
 
 export async function getPortfolioItemBySlug(slug: string): Promise<PortfolioItem | null> {
   try {
-    const portfolioDirectory = await getPortfolioDirectory();
+    const portfolioDirectory = getPortfolioDirectory();
+    const filePath = await resolvePortfolioFilePath(portfolioDirectory, slug);
 
-    // Try .md file first
-    let filePath = path.join(portfolioDirectory, `${slug}.md`);
-    let fileExists = await fs
-      .access(filePath)
-      .then(() => true)
-      .catch(() => false);
-
-    // If .md doesn't exist, try .mdx
-    if (!fileExists) {
-      filePath = path.join(portfolioDirectory, `${slug}.mdx`);
-      fileExists = await fs
-        .access(filePath)
-        .then(() => true)
-        .catch(() => false);
-    }
-
-    if (!fileExists) {
+    if (!filePath) {
       return null;
     }
 
-    const fileContent = await fs.readFile(filePath, 'utf-8');
-    const { data, content } = matter(fileContent) as {
-      data: PortfolioFrontmatter;
-      content: string;
-    };
-
-    // Use category from frontmatter, fallback to 'solo-development'
-    const category: CategoryKey = (data.category as CategoryKey) || 'solo-development';
-
-    // Handle image path - prepend /portfolio/ if it's a relative path
-    let imagePath = data.image || 'https://placehold.jp/400x250.png';
-    if (imagePath && !imagePath.startsWith('http') && !imagePath.startsWith('/')) {
-      imagePath = `/portfolio/${imagePath}`;
-    }
-
-    return {
-      id: 1, // This could be generated based on the slug or order
-      title: data.title || '',
-      category,
-      description: data.description || '',
-      image: imagePath,
-      tech: data.tags || [],
-      demo: data.url || '',
-      github: data.github || '',
-      fullDescription: content.trim() || data.description || '',
-      startedAt: data.startedAt || undefined,
-      isActive: data.isActive ?? true,
-    };
+    return parsePortfolioFile(filePath, 1);
   } catch (_error) {
     return null;
   }

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { PORTFOLIO_PAGE_DESCRIPTION } from '@/portfolio/data';
-import PortfolioClient from '@/portfolio/PortfolioClient';
+import PortfolioClient from '@/portfolio/portfolio-client';
 import { getAllPortfolioItems } from '@/portfolio/services/portfolio-service';
 
 export default async function PortfolioPage() {

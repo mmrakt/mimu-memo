@@ -1,7 +1,7 @@
 'use client';
 
-import MemoGrid from '@/memo/components/MemoGrid';
-import UrlPagination from '@/memo/components/UrlPagination';
+import MemoGrid from '@/memo/components/memo-grid';
+import UrlPagination from '@/memo/components/url-pagination';
 import type { PostListItem } from '@/memo/lib/types';
 
 type MemoListWithPaginationProps = {

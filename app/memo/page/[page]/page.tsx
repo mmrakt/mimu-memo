@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
-import AnimatedBackground from '@/_components/AnimatedBackground';
-import PageHeader from '@/_components/PageHeader';
+import AnimatedBackground from '@/_components/animated-background';
+import PageHeader from '@/_components/page-header';
 import { PAGINATION } from '@/config/constants';
-import MemoListWithPagination from '@/memo/components/MemoListWithPagination';
+import MemoListWithPagination from '@/memo/components/memo-list-with-pagination';
 import { MEMO_PAGE_DESCRIPTION } from '@/memo/data';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 import { getAllPosts } from '@/memo/utils';

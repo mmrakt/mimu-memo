@@ -13,27 +13,73 @@ type MemoCardProps = {
   index: number;
 };
 
+type LinkProps = {
+  href: string;
+  target?: string;
+  rel?: string;
+};
+
+type MediaBadge = {
+  show: boolean;
+  className: string;
+  label: string;
+};
+
+const MEDIA_BADGE_BASE_CLASSES = 'flex items-center gap-1 rounded-full px-3 py-1 text-xs';
+const SLIDE_BADGE_CLASSES = 'border border-amber-400/20 bg-amber-400/10 text-amber-400';
+
+function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
+  if (isExternal && post.link) {
+    return {
+      href: post.link,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    };
+  }
+
+  return { href: `/memo/${post.id}` };
+}
+
+function buildMediaBadge(post: PostListItem, isSlide: boolean): MediaBadge {
+  if (isSlide) {
+    return {
+      show: true,
+      className: `${MEDIA_BADGE_BASE_CLASSES} ${SLIDE_BADGE_CLASSES}`,
+      label: 'Slide',
+    };
+  }
+
+  if (post.media && isExternalMedia(post.media)) {
+    return {
+      show: true,
+      className: `${MEDIA_BADGE_BASE_CLASSES} ${getMediaStyles(post.media)}`,
+      label: getMediaDisplayName(post.media),
+    };
+  }
+
+  return {
+    show: false,
+    className: MEDIA_BADGE_BASE_CLASSES,
+    label: '',
+  };
+}
+
 export default function MemoCard({ post, index }: MemoCardProps) {
-  const isExternal = (post.media && isExternalMedia(post.media)) || !!post.link;
-  const isSlide = post.link && post.media === 'owned';
-  const href = isExternal && post.link ? post.link : `/memo/${post.id}`;
+  const hasExternalMedia = post.media ? isExternalMedia(post.media) : false;
+  const hasExternalLink = Boolean(post.link);
+  const isSlide = Boolean(post.link && post.media === 'owned');
+  const isExternal = hasExternalMedia || hasExternalLink;
   const LinkComponent = isExternal ? 'a' : Link;
-  const linkProps = isExternal
-    ? {
-        href,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      }
-    : {
-        href,
-      };
+  const linkProps = buildLinkProps(post, isExternal);
+  const animationDelay = `${index * PAGINATION.ANIMATION_DELAY_MS}ms`;
+  const mediaBadge = buildMediaBadge(post, isSlide);
 
   return (
     <LinkComponent
       {...linkProps}
       className="hover:-translate-y-2 block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
       style={{
-        animationDelay: `${index * PAGINATION.ANIMATION_DELAY_MS}ms`,
+        animationDelay,
         animationFillMode: 'forwards',
       }}
     >
@@ -56,22 +102,14 @@ export default function MemoCard({ post, index }: MemoCardProps) {
             <Link
               className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-400 text-xs transition-colors hover:border-cyan-400/30 hover:bg-cyan-400/20"
               href={`/memo/tag/${post.tag}`}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(event) => event.stopPropagation()}
             >
               {post.tag}
             </Link>
           )}
-          {((post.media && isExternalMedia(post.media)) || isSlide) && (
-            <span
-              className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs ${
-                isSlide
-                  ? 'border border-amber-400/20 bg-amber-400/10 text-amber-400'
-                  : post.media
-                    ? getMediaStyles(post.media)
-                    : ''
-              }`}
-            >
-              {isSlide ? 'Slide' : post.media ? getMediaDisplayName(post.media) : ''}
+          {mediaBadge.show && (
+            <span className={mediaBadge.className}>
+              {mediaBadge.label}
               {isExternal && <ExternalLink className="h-3 w-3" />}
             </span>
           )}

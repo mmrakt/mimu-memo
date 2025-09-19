@@ -1,17 +1,19 @@
 'use client';
 
 import { useId } from 'react';
-import { CareerAnimations } from '@/career/CareerAnimations';
-import { EducationSection } from '@/career/components/EducationSection';
-import { PersonalInfo } from '@/career/components/PersonalInfo';
-import { SelfPRSection } from '@/career/components/SelfPrSection';
-import { SimpleTimeline } from '@/career/components/SimpleTimeline';
-import { SkillsMatrix } from '@/career/components/SkillsMatrix';
+import { CareerAnimations } from '@/career/career-animations';
+import { EducationSection } from '@/career/components/education-section';
+import { PersonalInfo } from '@/career/components/personal-info';
+import { SelfPRSection } from '@/career/components/self-pr-section';
+import { SimpleTimeline } from '@/career/components/simple-timeline';
+import { SkillsMatrix } from '@/career/components/skills-matrix';
 import type { CareerData } from '@/career/types';
 
 type CareerClientProps = {
   careerData: CareerData;
 };
+
+const TAG_ANIMATION_DELAY_INCREMENT_SECONDS = 0.1;
 
 export default function CareerClient({ careerData }: CareerClientProps) {
   const timelineId = useId();
@@ -27,7 +29,7 @@ export default function CareerClient({ careerData }: CareerClientProps) {
               <span
                 className="hover:-translate-y-0.5 animate-fadeInUp rounded-full border border-indigo-600/30 bg-indigo-600/10 px-6 py-2 text-sm transition-all hover:bg-indigo-600/20 hover:shadow-indigo-600/30 hover:shadow-lg"
                 key={tag}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{ animationDelay: `${index * TAG_ANIMATION_DELAY_INCREMENT_SECONDS}s` }}
               >
                 {tag}
               </span>

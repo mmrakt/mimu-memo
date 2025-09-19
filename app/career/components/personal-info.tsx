@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react';
-import { GitHubIcon } from '@/_components/icons/GitHubIcon';
-import { XIcon } from '@/_components/icons/XIcon';
+import { GitHubIcon } from '@/_components/icons/github-icon';
+import { XIcon } from '@/_components/icons/x-icon';
 import { CAREER_CONFIG } from '@/career/config/constants';
 import type { RawCareerData } from '@/career/types';
 

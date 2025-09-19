@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import AnimatedBackground from '@/_components/AnimatedBackground';
-import MemoListWithPagination from '@/memo/components/MemoListWithPagination';
+import AnimatedBackground from '@/_components/animated-background';
+import MemoListWithPagination from '@/memo/components/memo-list-with-pagination';
 import { getTagIconPath } from '@/memo/components/utils';
 import { getAllTags, getPostsByTagPaginated } from '@/memo/services/tag-service';
 

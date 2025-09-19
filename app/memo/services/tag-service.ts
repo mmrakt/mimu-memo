@@ -78,12 +78,12 @@ export async function getAllTags(): Promise<TagInfo[]> {
 
   const tagCounts = new Map<string, number>();
 
-  posts.forEach((post) => {
+  for (const post of posts) {
     if (post.tag) {
       const count = tagCounts.get(post.tag) || 0;
       tagCounts.set(post.tag, count + 1);
     }
-  });
+  }
 
   const tags: TagInfo[] = Array.from(tagCounts.entries()).map(([name, count]) => ({
     name,

@@ -5,7 +5,7 @@ import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import styles from '@/portfolio/components/markdown.module.css';
 import type { PortfolioItem } from '@/portfolio/types';
-import MediaComponent from './MediaComponent';
+import MediaComponent from './media-component';
 
 type PortfolioModalProps = {
   item: PortfolioItem | null;
@@ -37,27 +37,21 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     return null;
   }
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   return (
     <div
       aria-labelledby="modal-title"
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-      onClick={handleBackdropClick}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          onClose();
-        }
-      }}
       role="dialog"
       tabIndex={-1}
     >
-      <div className="relative max-h-[90vh] w-full max-w-4xl animate-fadeInUp overflow-y-auto rounded-xl bg-slate-800">
+      <button
+        aria-label="Close modal backdrop"
+        className="absolute inset-0 z-0 h-full w-full cursor-default"
+        onClick={onClose}
+        type="button"
+      />
+      <div className="relative z-10 max-h-[90vh] w-full max-w-4xl animate-fadeInUp overflow-y-auto rounded-xl bg-slate-800">
         <button
           aria-label="Close modal"
           className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:rotate-90 hover:bg-white/20"

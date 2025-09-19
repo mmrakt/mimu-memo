@@ -2,13 +2,16 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { FilterOption } from '@/portfolio/types';
-import FilterButtons from '../FilterButtons';
+import FilterButtons from '../filter-buttons';
 
 const mockFilterOptions: FilterOption[] = [
   { key: 'all', label: 'All' },
   { key: 'work', label: 'Work' },
   { key: 'solo-development', label: 'Solo Development' },
 ];
+
+const SINGLE_CALL = 1;
+const MULTIPLE_CALLS = 3;
 
 describe('FilterButtons', () => {
   it('should render all filter buttons', () => {
@@ -66,7 +69,7 @@ describe('FilterButtons', () => {
     await user.click(workButton);
 
     expect(mockOnFilterChange).toHaveBeenCalledWith('work');
-    expect(mockOnFilterChange).toHaveBeenCalledTimes(1);
+    expect(mockOnFilterChange).toHaveBeenCalledTimes(SINGLE_CALL);
   });
 
   it('should call onFilterChange with correct key for each button', async () => {
@@ -94,7 +97,7 @@ describe('FilterButtons', () => {
     await user.click(soloButton);
     expect(mockOnFilterChange).toHaveBeenCalledWith('solo-development');
 
-    expect(mockOnFilterChange).toHaveBeenCalledTimes(3);
+    expect(mockOnFilterChange).toHaveBeenCalledTimes(MULTIPLE_CALLS);
   });
 
   it('should handle empty filter options', () => {
@@ -142,9 +145,9 @@ describe('FilterButtons', () => {
 
     const buttons = screen.getAllByRole('button');
 
-    buttons.forEach((button) => {
+    for (const button of buttons) {
       expect(button).toHaveAttribute('type', 'button');
-    });
+    }
   });
 
   it('should not call onFilterChange when clicking the already active filter', async () => {
@@ -165,6 +168,6 @@ describe('FilterButtons', () => {
     // onFilterChange should still be called even for active filter
     // This allows parent component to handle URL updates consistently
     expect(mockOnFilterChange).toHaveBeenCalledWith('work');
-    expect(mockOnFilterChange).toHaveBeenCalledTimes(1);
+    expect(mockOnFilterChange).toHaveBeenCalledTimes(SINGLE_CALL);
   });
 });

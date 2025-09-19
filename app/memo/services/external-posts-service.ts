@@ -37,7 +37,7 @@ function convertFrontmatterToPostListItem(frontmatter: Frontmatter): ExternalPos
 /**
  * Fetch external posts from a specific service with error handling
  */
-async function fetchExternalPostsFromService(
+function fetchExternalPostsFromService(
   serviceName: string,
   fetcher: () => Promise<Frontmatter[]>
 ): Promise<Frontmatter[]> {

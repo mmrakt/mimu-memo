@@ -38,13 +38,13 @@ describe('Component Utils', () => {
         'other',
       ];
 
-      supportedTags.forEach((tag) => {
+      for (const tag of supportedTags) {
         const result = getTagIconPath(tag);
         expect(result).toBe(`/tagIcon/${tag}.svg`);
         if (tag !== 'other') {
           expect(result).not.toBe('/tagIcon/other.svg');
         }
-      });
+      }
     });
 
     it('should handle special characters and numbers', () => {

@@ -9,6 +9,8 @@ dayjs().format();
 
 // import type { CollectionEntry } from "astro:content";
 
+const EXCERPT_MAX_LENGTH = 70;
+
 export const toTitleCase = (str: string) =>
   str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 
@@ -71,8 +73,8 @@ export const extractExcerptFromBody = async (body: string) => {
   const processing = await remark().use(strip).process(body);
   excerpt = processing.toString().replace(/\r|\n|\rn/g, ' ');
 
-  if (excerpt.length > 70) {
-    return `${excerpt.slice(0, 70)}...`;
+  if (excerpt.length > EXCERPT_MAX_LENGTH) {
+    return `${excerpt.slice(0, EXCERPT_MAX_LENGTH)}...`;
   }
   return excerpt;
 };

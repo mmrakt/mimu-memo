@@ -36,7 +36,9 @@ const quickNavItems: QuickNavItem[] = [
   },
 ];
 
-export const QuickNavigation = memo(function QuickNavigation() {
+const CARD_DELAY_INCREMENT_MS = 200;
+
+export const QuickNavigation = memo(function QuickNavigationComponent() {
   const headingId = useId();
 
   return (
@@ -60,7 +62,7 @@ export const QuickNavigation = memo(function QuickNavigation() {
                 href={item.href}
                 key={item.href}
                 style={{
-                  animationDelay: `${index * 200}ms`,
+                  animationDelay: `${index * CARD_DELAY_INCREMENT_MS}ms`,
                   animationFillMode: 'forwards',
                 }}
               >

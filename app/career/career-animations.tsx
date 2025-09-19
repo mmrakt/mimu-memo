@@ -8,24 +8,28 @@ type CareerAnimationsProps = {
   restContent: React.ReactNode;
 };
 
+const ELEMENT_VISIBLE_THRESHOLD = 50;
+const HERO_PARALLAX_FACTOR = 0.5;
+const HERO_OPACITY_DISTANCE = 600;
+const INDICATOR_OPACITY_DISTANCE = 300;
+
 export function CareerAnimations({ heroContent, restContent }: CareerAnimationsProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll<HTMLElement>('.reveal');
     const revealOnScroll = () => {
-      reveals.forEach((element) => {
+      for (const element of reveals) {
         const windowHeight = window.innerHeight;
         const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 50;
 
-        if (elementTop < windowHeight - elementVisible) {
+        if (elementTop < windowHeight - ELEMENT_VISIBLE_THRESHOLD) {
           element.classList.add('opacity-100', 'translate-y-0');
           element.classList.remove('opacity-0', 'translate-y-8');
         }
-      });
+      }
     };
 
     window.addEventListener('scroll', revealOnScroll);
@@ -34,12 +38,12 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     // Timeline items animation
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (const entry of entries) {
           if (entry.isIntersecting) {
             entry.target.classList.add('opacity-100', 'scale-100');
             entry.target.classList.remove('opacity-0', 'scale-90');
           }
-        });
+        }
       },
       {
         threshold: 0.01,
@@ -47,22 +51,22 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
       }
     );
 
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach((item) => {
+    const timelineItems = document.querySelectorAll<HTMLElement>('.timeline-item');
+    for (const item of timelineItems) {
       observer.observe(item);
-    });
+    }
 
     // Parallax effect and scroll indicator visibility
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
       if (heroRef.current) {
-        heroRef.current.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroRef.current.style.opacity = `${1 - scrolled / 600}`;
+        heroRef.current.style.transform = `translateY(${scrolled * HERO_PARALLAX_FACTOR}px)`;
+        heroRef.current.style.opacity = `${1 - scrolled / HERO_OPACITY_DISTANCE}`;
       }
 
       // Hide scroll indicator when scrolled
       if (scrollIndicatorRef.current) {
-        const opacity = Math.max(0, 1 - scrolled / 300);
+        const opacity = Math.max(0, 1 - scrolled / INDICATOR_OPACITY_DISTANCE);
         scrollIndicatorRef.current.style.opacity = `${opacity}`;
         if (opacity === 0) {
           scrollIndicatorRef.current.style.pointerEvents = 'none';
@@ -77,9 +81,9 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     return () => {
       window.removeEventListener('scroll', revealOnScroll);
       window.removeEventListener('scroll', handleScroll);
-      timelineItems.forEach((item) => {
+      for (const item of timelineItems) {
         observer.unobserve(item);
-      });
+      }
     };
   }, []);
 

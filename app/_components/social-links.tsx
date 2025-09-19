@@ -1,6 +1,6 @@
 import { Linkedin } from 'lucide-react';
-import { GitHubIcon } from '@/_components/icons/GitHubIcon';
-import { XIcon } from '@/_components/icons/XIcon';
+import { GitHubIcon } from '@/_components/icons/github-icon';
+import { XIcon } from '@/_components/icons/x-icon';
 import { GITHUB_PROFILE_URL, LINKEDIN_PROFILE_URL, X_PROFILE_URL } from '@/config';
 
 const socialLinks = [

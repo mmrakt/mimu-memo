@@ -2,11 +2,11 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
-import AnimatedBackground from '@/_components/AnimatedBackground';
-import PageHeader from '@/_components/PageHeader';
-import FilterButtons from '@/portfolio/components/FilterButtons';
-import PortfolioCard from '@/portfolio/components/PortfolioCard';
-import PortfolioModal from '@/portfolio/components/PortfolioModal';
+import AnimatedBackground from '@/_components/animated-background';
+import PageHeader from '@/_components/page-header';
+import FilterButtons from '@/portfolio/components/filter-buttons';
+import PortfolioCard from '@/portfolio/components/portfolio-card';
+import PortfolioModal from '@/portfolio/components/portfolio-modal';
 import { filterOptions } from '@/portfolio/data';
 import type { PortfolioItem } from '@/portfolio/types';
 

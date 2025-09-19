@@ -16,6 +16,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
+    "types": ["vitest/globals"],
     "plugins": [
       {
         "name": "next"

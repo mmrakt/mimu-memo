@@ -74,7 +74,7 @@ Each module has comprehensive test coverage:
 - **Integration Tests**: Component behavior and data flow
 - **Type Safety**: Full TypeScript coverage
 
-Run tests with: `bun test app/memo`
+Run tests with: `bun run test app/memo`
 
 ## Performance
 

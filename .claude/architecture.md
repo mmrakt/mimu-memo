@@ -173,7 +173,7 @@ app/
 
 ```bash
 bun dev          # Start development server with Turbopack
-bun test         # Run test suite
+bun run test         # Run test suite
 bun check        # Lint and format code
 bun build        # Production build
 ```

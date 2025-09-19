@@ -1,4 +1,4 @@
-import SocialLinks from '@/_components/SocialLinks';
+import SocialLinks from '@/_components/social-links';
 import { ABOUT_ME, MY_NAME } from '@/config';
 
 export default function Footer() {

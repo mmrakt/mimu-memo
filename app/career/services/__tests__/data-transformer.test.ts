@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { calculateStats, transformTimelineData } from '@/career/services/data-transformer';
 import type { RawCareerData } from '@/career/types';
 
+const STAT_COUNT = 4;
+
 describe('Data Transformer', () => {
   const mockRawData: RawCareerData = {
     personalInfo: {
@@ -84,7 +86,7 @@ describe('Data Transformer', () => {
 
       const result = calculateStats(timeline, certifications);
 
-      expect(result).toHaveLength(4);
+      expect(result).toHaveLength(STAT_COUNT);
       expect(result[0].label).toBe('Years of Experience');
       expect(result[1].label).toBe('Projects Completed');
       expect(result[2].label).toBe('Technologies Used');

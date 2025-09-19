@@ -1,6 +1,6 @@
 'use client';
 
-import MemoCard from '@/memo/components/MemoCard';
+import MemoCard from '@/memo/components/memo-card';
 import { getGridClass } from '@/memo/lib/constants';
 import type { PostListItem } from '@/memo/lib/types';
 

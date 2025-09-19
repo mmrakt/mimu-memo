@@ -12,6 +12,14 @@ type MetadataConfig = {
   author?: string;
   tags?: string[];
 };
+type ArticleMetadataOptions = {
+  title: string;
+  description: string;
+  path: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+};
 const DEFAULT_OG_IMAGE = '/ogp/thumbnail.png';
 
 export function generateMetadata(config: MetadataConfig = {}): Metadata {
@@ -108,14 +116,9 @@ export function generatePageMetadata(title: string, description?: string, path?:
   });
 }
 
-export function generateArticleMetadata(
-  title: string,
-  description: string,
-  path: string,
-  publishedTime?: string,
-  modifiedTime?: string,
-  tags?: string[]
-): Metadata {
+export function generateArticleMetadata(options: ArticleMetadataOptions): Metadata {
+  const { title, description, path, publishedTime, modifiedTime, tags } = options;
+
   return generateMetadata({
     title,
     description,
