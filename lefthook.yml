@@ -1,43 +1,22 @@
-# TODO: コメント外す
-# pre-commit:
-  jobs:
-    - run: bun x ultracite fix
-      glob: 
-        - "*.js"
-        - "*.jsx"
-        - "*.ts"
-        - "*.tsx"
-        - "*.json"
-        - "*.jsonc"
-        - "*.css"
+pre-commit:
+  commands:
+    lint:
+      glob: "*.{js,ts,jsx,tsx,json,jsonc}"
+      run: bun run check:fix
       stage_fixed: true
-#   commands:
-#     check:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-#       run: ~/.bun/bin/bun check:fix {staged_files}
-#       stage_fixed: true
-#     tc:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun tc {staged_files}
-#       stage_fixed: true
-#       exclude:
-#         - package.json
-#     test:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun test {staged_files}
-#       stage_fixed: true
+    typecheck:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: bun run tc
+      exclude:
+        - "*.test.*"
+        - "*.spec.*"
 
-# pre-push:
-#   commands:
-#     check:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-#       run: ~/.bun/bin/bun check:fix {push_files}
-#     tc:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun tc {push_files}
-#       exclude:
-#         - tsconfig.json
-#         - package.json
-#     test:
-#       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}"
-#       run: ~/.bun/bin/bun test {push_files}
+pre-push:
+  commands:
+    lint:
+      glob: "*.{js,ts,jsx,tsx,json,jsonc}"
+      run: bun run check
+    typecheck:
+      run: bun run tc
+    build:
+      run: bun run build
