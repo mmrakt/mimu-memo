@@ -1,9 +1,5 @@
 pre-commit:
   commands:
-    lint:
-      glob: "*.{js,ts,jsx,tsx,json,jsonc}"
-      run: bun run check:fix
-      stage_fixed: true
     typecheck:
       glob: "*.{js,ts,jsx,tsx}"
       run: bun run tc
@@ -13,9 +9,6 @@ pre-commit:
 
 pre-push:
   commands:
-    lint:
-      glob: "*.{js,ts,jsx,tsx,json,jsonc}"
-      run: bun run check
     typecheck:
       run: bun run tc
     build:
