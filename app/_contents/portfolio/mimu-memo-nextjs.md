@@ -2,7 +2,7 @@
 category: "solo-development"
 title: "mimu-memo"
 description: "mimuのパーソナルサイト"
-url: "https://mimu-memo.com/page/1"
+url: "https://mimu-memo.com/"
 github: "https://github.com/mmrakt/mimu-memo"
 startedAt: "2025.06"
 image: "mimu-memo-nextjs.mp4"

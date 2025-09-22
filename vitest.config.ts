@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  // @ts-expect-error Vite type mismatch across transitive versions; runtime is fine
   plugins: [react()],
   test: {
     environment: 'jsdom',

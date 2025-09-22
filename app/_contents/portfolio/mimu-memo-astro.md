@@ -1,7 +1,7 @@
 ---
 category: "solo-development"
-title: "mimu-memo"
-description: "個人用のブログサイト（リニューアル済）"
+title: "mimu-memo(old)"
+description: "個人用のブログサイト"
 url: "https://mimu-memo.com/page/1"
 github: "https://github.com/mmrakt/mimu-memo"
 startedAt: "2024.01"

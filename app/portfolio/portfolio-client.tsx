@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
 import AnimatedBackground from '@/_components/animated-background';
 import PageHeader from '@/_components/page-header';
 import FilterButtons from '@/portfolio/components/filter-buttons';
@@ -23,21 +22,20 @@ export default function PortfolioClient({ portfolioItems, pageDescription }: Por
   const activeFilter = searchParams.get('category') || 'all';
   const selectedItemId = searchParams.get('item');
 
-  // Compute filtered items with useMemo instead of useState + useEffect
-  const filteredItems = useMemo(() => {
-    return activeFilter === 'all'
+  // Compute filtered items directly
+  const filteredItems =
+    activeFilter === 'all'
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === activeFilter);
-  }, [activeFilter, portfolioItems]);
 
-  // Get selected item from URL parameter
-  const selectedItem = useMemo(() => {
+  // Get selected item from URL parameter (computed directly)
+  const selectedItem = (() => {
     if (!selectedItemId) {
       return null;
     }
     const numericId = Number(selectedItemId);
     return portfolioItems.find((item) => item.id === numericId) || null;
-  }, [selectedItemId, portfolioItems]);
+  })();
 
   const handleCardClick = (item: PortfolioItem) => {
     const params = new URLSearchParams(searchParams.toString());

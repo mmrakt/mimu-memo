@@ -1,15 +1,20 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { PortfolioItem } from '@/portfolio/types';
-import PortfolioClient from '../portfolio-client';
-
-// Mock Next.js navigation hooks
+// Mock Next.js navigation hooks early to avoid importing real module
+import { vi, beforeEach, describe, expect, it } from 'vitest';
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(),
   useSearchParams: vi.fn(),
 }));
+
+// Mock PortfolioModal to avoid React hook usage in modal internals during tests
+vi.mock('@/portfolio/components/portfolio-modal', () => ({
+  default: ({ item }: { item: any }) => (item ? <div data-testid="portfolio-modal" /> : null),
+}));
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useRouter, useSearchParams } from 'next/navigation';
+import type { PortfolioItem } from '@/portfolio/types';
+import PortfolioClient from '../portfolio-client';
 
 // Mock AnimatedBackground component
 vi.mock('@/_components/animated-background', () => ({
