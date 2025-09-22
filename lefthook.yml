@@ -1,15 +1,46 @@
 pre-commit:
+  parallel: true
   commands:
-    typecheck:
-      glob: "*.{js,ts,jsx,tsx}"
-      run: bun run tc
-      exclude:
-        - "*.test.*"
-        - "*.spec.*"
+    biome:
+      # Format + lint only the staged files; restage fixes automatically
+      glob: "*.{ts,tsx,js,jsx,css,md,json}"
+      run: bun run check:fix
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    conventional:
+      run: |
+        msg_file="${1}"
+        msg="$(head -n1 "$msg_file")"
+        # Use POSIX character class for whitespace: grep -E doesn't support \s
+        # Fallback to default commit message file if argument is missing
+        if [ ! -f "$msg_file" ] && [ -f .git/COMMIT_EDITMSG ]; then
+          msg_file=.git/COMMIT_EDITMSG
+          msg="$(head -n1 "$msg_file" | tr -d '\r')"
+        fi
+
+        # Validate against Conventional Commits
+        # Allow optional scope in literal parentheses and optional breaking change bang
+        if ! echo "$msg" | grep -Eq '^(feat|fix|chore|docs|refactor|test|perf|build|ci|revert)([(].+[)])?(!)?:[[:space:]].+'; then
+          echo "✗ Commit message must follow Conventional Commits."
+          echo "  e.g. feat(button): add loading state"
+          exit 1
+        fi
 
 pre-push:
+  parallel: true
   commands:
     typecheck:
       run: bun run tc
-    build:
-      run: bun run build
+    test:
+      run: CI=1 bun run test
+
+post-merge:
+  commands:
+    install:
+      run: |
+        if git diff --name-only HEAD@{1} HEAD | grep -Eq '^(package.json|bun.lockb)$'; then
+          echo "Dependencies changed. Running bun install..."
+          bun install
+        fi
