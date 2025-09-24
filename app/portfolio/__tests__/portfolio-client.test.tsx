@@ -1,5 +1,6 @@
 // Mock Next.js navigation hooks early to avoid importing real module
-import { vi, beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(),
   useSearchParams: vi.fn(),
