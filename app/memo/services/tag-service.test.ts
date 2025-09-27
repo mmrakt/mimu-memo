@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
 import { isValidTag, TAG_LIST, validateTag, validateTagSafe } from '@/memo/services/tag-service';
 
-const EXPECTED_TAG_COUNT = 12;
+const EXPECTED_TAG_COUNT = 13;
 
 describe('Tag Service', () => {
   describe('TAG_LIST', () => {
@@ -16,6 +16,7 @@ describe('Tag Service', () => {
       expect(TAG_LIST).toContain('vite');
       expect(TAG_LIST).toContain('css');
       expect(TAG_LIST).toContain('tailwindcss');
+      expect(TAG_LIST).toContain('java');
     });
 
     it('should have correct length', () => {
@@ -42,6 +43,7 @@ describe('Tag Service', () => {
       expect(isValidTag('vite')).toBe(true);
       expect(isValidTag('css')).toBe(true);
       expect(isValidTag('tailwindcss')).toBe(true);
+      expect(isValidTag('java')).toBe(true);
     });
 
     it('should return false for invalid tags', () => {
@@ -99,6 +101,7 @@ describe('Tag Service', () => {
       expect(validateTag('vite')).toBe('vite');
       expect(validateTag('css')).toBe('css');
       expect(validateTag('tailwindcss')).toBe('tailwindcss');
+      expect(validateTag('java')).toBe('java');
     });
 
     it('should call process.exit for invalid tags', () => {
