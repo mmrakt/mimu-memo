@@ -59,6 +59,7 @@ describe('Constants', () => {
         'nextjs',
         'astro',
         'gatsby',
+        'java',
         'vite',
         'css',
         'html',

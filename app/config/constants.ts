@@ -32,6 +32,7 @@ export const TAG_ICONS = {
   tailwindcss: 'tailwindcss.svg',
   astro: 'astro.svg',
   gatsby: 'gatsby.svg',
+  java: 'java.svg',
   npm: 'npm.svg',
   other: 'other.svg',
 } as const;

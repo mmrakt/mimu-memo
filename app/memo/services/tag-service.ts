@@ -29,6 +29,7 @@ export const TAG_LIST = [
   'gatsby',
   'npm',
   'typescript',
+  'java',
 ] as const;
 
 export function isValidTag(tag: string): boolean {
