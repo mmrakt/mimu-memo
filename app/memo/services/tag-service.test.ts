@@ -1,33 +1,34 @@
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from 'vitest';
-import { isValidTag, TAG_LIST, validateTag, validateTagSafe } from '@/memo/services/tag-service';
+import { MEMO_TAG_LIST } from '@/memo/constants';
+import { isValidTag, validateTag, validateTagSafe } from '@/memo/services/tag-service';
 
 const EXPECTED_TAG_COUNT = 13;
 
 describe('Tag Service', () => {
-  describe('TAG_LIST', () => {
+  describe('MEMO_TAG_LIST', () => {
     it('should contain expected tags', () => {
-      expect(TAG_LIST).toContain('other');
-      expect(TAG_LIST).toContain('react');
-      expect(TAG_LIST).toContain('typescript');
-      expect(TAG_LIST).toContain('javascript');
-      expect(TAG_LIST).toContain('nextjs');
-      expect(TAG_LIST).toContain('astro');
-      expect(TAG_LIST).toContain('gatsby');
-      expect(TAG_LIST).toContain('vite');
-      expect(TAG_LIST).toContain('css');
-      expect(TAG_LIST).toContain('tailwindcss');
-      expect(TAG_LIST).toContain('java');
+      expect(MEMO_TAG_LIST).toContain('other');
+      expect(MEMO_TAG_LIST).toContain('react');
+      expect(MEMO_TAG_LIST).toContain('typescript');
+      expect(MEMO_TAG_LIST).toContain('javascript');
+      expect(MEMO_TAG_LIST).toContain('nextjs');
+      expect(MEMO_TAG_LIST).toContain('astro');
+      expect(MEMO_TAG_LIST).toContain('gatsby');
+      expect(MEMO_TAG_LIST).toContain('vite');
+      expect(MEMO_TAG_LIST).toContain('css');
+      expect(MEMO_TAG_LIST).toContain('tailwindcss');
+      expect(MEMO_TAG_LIST).toContain('java');
     });
 
     it('should have correct length', () => {
-      expect(TAG_LIST).toHaveLength(EXPECTED_TAG_COUNT);
+      expect(MEMO_TAG_LIST).toHaveLength(EXPECTED_TAG_COUNT);
     });
 
     it('should be readonly constant', () => {
-      expect(Array.isArray(TAG_LIST)).toBe(true);
+      expect(Array.isArray(MEMO_TAG_LIST)).toBe(true);
       // TypeScript const assertion prevents runtime mutation
-      expect(Object.isFrozen(TAG_LIST)).toBe(false); // Not frozen by default, but const
-      expect(TAG_LIST).toBeDefined();
+      expect(Object.isFrozen(MEMO_TAG_LIST)).toBe(false); // Not frozen by default, but const
+      expect(MEMO_TAG_LIST).toBeDefined();
     });
   });
 

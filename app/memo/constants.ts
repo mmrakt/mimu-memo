@@ -1,0 +1,15 @@
+export const MEMO_TAG_LIST = [
+  'other',
+  'astro',
+  'react',
+  'typescript',
+  'javascript',
+  'nextjs',
+  'vite',
+  'css',
+  'tailwindcss',
+  'gatsby',
+  'npm',
+  'typescript',
+  'java',
+] as const;

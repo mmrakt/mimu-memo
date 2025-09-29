@@ -1,0 +1,36 @@
+name: Generate Draft from Issue
+
+on:
+  issue_comment:
+    types: [created]
+env:
+  PR_REVIEWERS: mmrakt
+jobs:
+  generate-draft:
+    # コメントに '@claude' が含まれる場合のみ実行
+    if: contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      # コメントからテーマ番号抽出
+      - name: Parse selected theme
+        run: bun scripts/parse-comment.ts "${{ github.event.comment.body }}"
+
+      # ドラフト生成
+      - name: Generate draft
+        run: bun scripts/generate-draft.ts
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+      # PR作成
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: "draft/$(date +%F)"
+          title: "draft: $(date +%F) tech blog"
+          commit-message: "Add draft for $(date +%F)"
+          reviewers: ${{ env.PR_REVIEWERS }}

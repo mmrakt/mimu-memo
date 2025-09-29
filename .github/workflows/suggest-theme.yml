@@ -1,0 +1,43 @@
+name: Suggest theme candidates
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # JST 6:00 に相当 (UTC 21:00)
+  workflow_dispatch:
+
+env:
+  ISSUE_TITLE_PREFIX: "記事テーマ候補"
+
+jobs:
+  generate-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install deps
+        run: bun install
+
+      # 1. RSS収集
+      - name: Fetch sources
+        run: bun scripts/fetch-sources.ts
+
+      # 2. テーマ候補を5つ生成
+      - name: Select themes
+        run: bun scripts/select-theme.ts
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+      # 3. Issue本文をMarkdownに整形
+      - name: Format issue body
+        run: bun scripts/format-issue.ts > issue.md
+
+      # 4. GitHub Issue作成
+      - name: Create Issue
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: "$(date +'%Y/%m/%d') ${{ env.ISSUE_TITLE_PREFIX }}"
+          file: issue.md

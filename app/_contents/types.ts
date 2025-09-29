@@ -1,5 +1,5 @@
 import type { MEDIA_TYPE_LIST, MEDIA_TYPE_LIST_FOR_DISPLAY } from '@/config';
-import type { TAG_LIST } from '@/memo/services/tag-service';
+import type { MEMO_TAG_LIST } from '@/memo/constants';
 
 export type NavItems = {
   [key: string]: NavItem;
@@ -80,8 +80,7 @@ export type QiitaPost = {
   slide: boolean;
 };
 
-export type Tag = (typeof TAG_LIST)[number];
-
+export type Tag = (typeof MEMO_TAG_LIST)[number];
 export type TagCount = {
   name: Tag;
   count: number;

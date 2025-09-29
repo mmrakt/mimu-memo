@@ -1,4 +1,5 @@
 import { PAGINATION, TAG_ICONS } from '@/config/constants';
+import { MEMO_TAG_LIST } from '@/memo/constants';
 import { handleCriticalError, ValidationError } from '@/memo/lib/error-handler';
 import type { PostListItem } from '@/memo/lib/types';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
@@ -16,24 +17,8 @@ export type PaginatedTagPosts = {
   totalPosts: number;
 };
 
-export const TAG_LIST = [
-  'other',
-  'astro',
-  'react',
-  'typescript',
-  'javascript',
-  'nextjs',
-  'vite',
-  'css',
-  'tailwindcss',
-  'gatsby',
-  'npm',
-  'typescript',
-  'java',
-] as const;
-
 export function isValidTag(tag: string): boolean {
-  return TAG_LIST.includes(tag as (typeof TAG_LIST)[number]);
+  return MEMO_TAG_LIST.includes(tag as (typeof MEMO_TAG_LIST)[number]);
 }
 
 /**
@@ -42,7 +27,7 @@ export function isValidTag(tag: string): boolean {
 export function validateTag(tag: string, filePath?: string): string {
   if (!tag?.trim()) {
     const error = new ValidationError(
-      `No tag specified. Valid tags: ${TAG_LIST.join(', ')}`,
+      `No tag specified. Valid tags: ${MEMO_TAG_LIST.join(', ')}`,
       filePath
     );
     handleCriticalError(error, 'Tag validation');
@@ -50,7 +35,7 @@ export function validateTag(tag: string, filePath?: string): string {
 
   if (!isValidTag(tag)) {
     const error = new ValidationError(
-      `Invalid tag '${tag}'. Valid tags: ${TAG_LIST.join(', ')}`,
+      `Invalid tag '${tag}'. Valid tags: ${MEMO_TAG_LIST.join(', ')}`,
       filePath
     );
     handleCriticalError(error, 'Tag validation');
