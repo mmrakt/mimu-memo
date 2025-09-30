@@ -20,6 +20,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './app'),
+      '@content': path.resolve(__dirname, './content'),
     },
   },
   define: {

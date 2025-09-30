@@ -228,21 +228,33 @@ Testing HTTP image URL handling.
       expect(result[0].image).toBe('https://example.com/image.png');
     });
 
+    it('should skip files missing required frontmatter', async () => {
+      mockReaddir.mockResolvedValue(asReaddirResult(['empty.md']));
+      mockReadFile.mockResolvedValue('---\ncategory: "solo-development"\n---');
+
+      const result = await getAllPortfolioItems();
+
+      expect(result).toEqual([]);
+    });
+
     it('should sort items by startedAt in descending order', async () => {
       mockReaddir.mockResolvedValue(asReaddirResult(['old.md', 'new.md', 'middle.md']));
       mockReadFile
         .mockResolvedValueOnce(`---
 title: "Old Project"
+description: "Old"
 category: "solo-development"
 startedAt: "2022.01"
 ---`)
         .mockResolvedValueOnce(`---
 title: "New Project"
+description: "New"
 category: "work"
 startedAt: "2024.12"
 ---`)
         .mockResolvedValueOnce(`---
 title: "Middle Project"
+description: "Middle"
 category: "solo-development"
 startedAt: "2023.06"
 ---`);
@@ -262,6 +274,7 @@ startedAt: "2023.06"
         .mockResolvedValueOnce(
           `---
 title: "Valid Project"
+description: "Valid"
 category: "solo-development"
 ---`
         )

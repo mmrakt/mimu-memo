@@ -31,7 +31,7 @@ memo/
 ## Features
 
 - **Multi-format Support**: Handles both .md and .mdx files
-- **Automatic Post Discovery**: Scans the `_contents/posts/` directory
+- **Automatic Post Discovery**: Scans the `content/memo/` directory
 - **Frontmatter Parsing**: Extracts metadata from post headers
 - **Date Handling**: Converts various date formats to consistent display
 - **Pagination**: Client-side pagination for large post lists
@@ -42,7 +42,7 @@ memo/
 
 ## Post Format
 
-Posts should be placed in `app/_contents/posts/` with frontmatter:
+Posts should be placed in `content/memo/` with frontmatter:
 
 ```markdown
 ---

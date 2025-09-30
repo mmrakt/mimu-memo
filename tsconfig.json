@@ -23,7 +23,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["./app/*"],
+      "@content/*": ["./content/*"]
     },
     "strictNullChecks": true
   },

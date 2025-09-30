@@ -1,12 +1,12 @@
-import type { Frontmatter, MediaType } from '@/_contents/types';
+import { safeAsync } from '@/memo/lib/error-handler';
+import type { PostListItem } from '@/memo/lib/types';
+import type { Frontmatter, MediaType } from '@/memo/services/external-content/types';
 import {
   makeNotePosts,
   makeQiitaPosts,
   makeZennPosts,
   sortPostsByPubDate,
-} from '@/_contents/utils';
-import { safeAsync } from '@/memo/lib/error-handler';
-import type { PostListItem } from '@/memo/lib/types';
+} from '@/memo/services/external-content/utils';
 
 export interface ExternalPostListItem extends PostListItem {
   media: MediaType;

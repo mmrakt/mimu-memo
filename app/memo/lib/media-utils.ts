@@ -1,4 +1,4 @@
-import type { MediaType } from '@/_contents/types';
+import type { MediaType } from '@/memo/services/external-content/types';
 
 /**
  * Type-safe media styling utility

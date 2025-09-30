@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { remark } from 'remark';
 import Parser from 'rss-parser';
 import strip from 'strip-markdown';
-import type { Frontmatter, MediaType, QiitaPost } from '@/_contents/types';
 import { NOTE_FEED_URL, QIITA_API_ENDPOINT, ZENN_FEED_URL } from '@/config';
+import type { Frontmatter, MediaType, QiitaPost } from '@/memo/services/external-content/types';
 
 dayjs().format();
 
