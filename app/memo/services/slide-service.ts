@@ -1,4 +1,5 @@
-import slidesData from '@content/slides.json' assert { type: 'json' };
+import slidesData from '@content/slides.json' with { type: 'json' };
+
 import type { PostListItem } from '@/memo/lib/types';
 
 type SlideEntry = {
