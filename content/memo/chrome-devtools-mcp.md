@@ -38,8 +38,7 @@ pubDate: 2025-09-30
 
 ### 起動オプション・構成
 
-- Chrome DevTools MCP は、Node.js（バージョン 22 以上）＋インストール済みの Chrome を前提とする
-- MCP クライアントの設定で、以下のように `npx chrome-devtools-mcp@latest` を起動コマンドに指定する例が公式で紹介されている
+- MCP クライアントの設定で、以下のように `npx chrome-devtools-mcp@latest` を起動コマンドに指定する例
 
 ```json
 {
@@ -106,7 +105,7 @@ pubDate: 2025-09-30
 
 ## refs
 
-- [Chrome DevTools MCP ](https://github.com/ChromeDevTools/chrome-devtools-mcp)
+- [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)
 - [Chrome DevTools (MCP) for your AI agent](https://developer.chrome.com/blog/chrome-devtools-mcp)
 - [Give your AI eyes: Introducing Chrome DevTools MCP](https://addyosmani.com/blog/devtools-mcp)
 - [Chrome DevTools MCP: A New Era of Frontend Automation](https://jimmysong.io/en/blog/web-automation-advancement/)

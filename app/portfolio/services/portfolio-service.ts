@@ -1,15 +1,14 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
-import { FILE_EXTENSIONS } from '@/config/constants';
+import { FILE_EXTENSIONS, PATHS } from '@/config/constants';
 import type { CategoryKey, PortfolioFrontmatter, PortfolioItem } from '@/portfolio/types';
 
-const PORTFOLIO_CONTENT_DIR = 'app/_contents/portfolio';
 const DEFAULT_CATEGORY: CategoryKey = 'solo-development';
 const FALLBACK_IMAGE_URL = 'https://placehold.jp/400x250.png';
 
 export function getPortfolioDirectory(): string {
-  return path.join(process.cwd(), PORTFOLIO_CONTENT_DIR);
+  return path.join(process.cwd(), PATHS.PORTFOLIO_DIRECTORY);
 }
 
 function isPortfolioFile(filename: string): boolean {
@@ -57,6 +56,10 @@ async function parsePortfolioFile(filePath: string, id: number): Promise<Portfol
       data: PortfolioFrontmatter;
       content: string;
     };
+
+    if (!(data?.title && data?.description)) {
+      return null;
+    }
 
     return createPortfolioItem(data, content, id);
   } catch (_error) {

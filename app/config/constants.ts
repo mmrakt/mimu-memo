@@ -13,7 +13,9 @@ export const PAGINATION = {
 
 // File paths
 export const PATHS = {
-  POSTS_DIRECTORY: 'app/_contents/memo',
+  POSTS_DIRECTORY: 'content/memo',
+  PORTFOLIO_DIRECTORY: 'content/portfolio',
+  CAREER_DATA_PATH: 'content/career/data.jsonc',
   IMAGES_DIRECTORY: '/images',
   TAG_ICONS_DIRECTORY: '/tagIcon',
   FAVICON: '/images/favicon.png',

@@ -2,7 +2,7 @@ import type { FilterOption } from '@/portfolio/types';
 
 export const PORTFOLIO_PAGE_DESCRIPTION = '一般公開している成果物の紹介';
 
-// This file is deprecated. Portfolio data is now loaded from markdown files in app/_contents/portfolio/
+// This file is deprecated. Portfolio data is now loaded from markdown files in content/portfolio/
 // Use getAllPortfolioItems() from ./services/portfolio-service.ts instead
 
 export const filterOptions: FilterOption[] = [
