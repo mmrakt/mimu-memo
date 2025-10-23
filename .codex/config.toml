@@ -14,4 +14,4 @@ args = ["-y", "@upstash/context7-mcp@latest"]
 
 [mcp_servers.figma]
 command = "npx"
-args = ["-y", "mcp-remote", "http://127.0.0.1:3845/sse"]
+args = ["-y", "figma-developer-mcp", "--stdio"]
