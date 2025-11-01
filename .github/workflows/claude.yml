@@ -41,6 +41,7 @@ jobs:
             actions: read
           direct_prompt: |
             If a user asks you to implement it, you must create a PR.
+          allowed_bots: "renovate[bot]"
 
           # Optional: Specify model (defaults to Claude Sonnet 4, uncomment for Claude Opus 4)
           # model: "claude-opus-4-20250514"
