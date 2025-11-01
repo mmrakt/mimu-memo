@@ -13,9 +13,7 @@ type SimpleTimelineProps = {
 const ACHIEVEMENT_KEY_SLICE_LENGTH = 20;
 
 export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
-  useEffect(() => {
-    return setupScrollAnimations();
-  }, []);
+  useEffect(() => setupScrollAnimations(), []);
 
   return (
     <div className="relative mx-auto max-w-6xl px-8">

@@ -51,14 +51,13 @@ export const fetchPosts = async (endpoint: string, token: string) => {
   return res.json();
 };
 
-const mappingQiitaFeed = (posts: QiitaPost[]): Frontmatter[] => {
-  return posts.map((post) => ({
+const mappingQiitaFeed = (posts: QiitaPost[]): Frontmatter[] =>
+  posts.map((post) => ({
     title: post.title ?? '',
     pubDate: post.created_at ? dayjs(post.created_at).format('YYYY-MM-DD') : '',
     link: post.url ?? '',
     media: 'qiita',
   }));
-};
 
 const mappingFeed = (items: Parser.Item[], media: Exclude<MediaType, 'mimu-memo'>) =>
   items.map((item) => ({
