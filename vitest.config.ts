@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  // @ts-expect-error Bun resolves two Vite type copies; suppress mismatched plugin signature.
   plugins: [react()],
   test: {
     environment: 'jsdom',
