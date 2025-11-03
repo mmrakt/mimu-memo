@@ -54,7 +54,7 @@
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "typescript": "^5",
-    "ultracite": "6.1.0",
+    "ultracite": "6.2.0",
     "vitest": "^4.0.0"
   },
   "packageManager": "bun@1.2.2"
