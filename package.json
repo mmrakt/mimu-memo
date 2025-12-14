@@ -24,7 +24,7 @@
     "highlight.js": "^11.11.1",
     "i": "^0.3.7",
     "lucide-react": "^0.553.0",
-    "next": "16.0.1",
+    "next": "16.0.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
