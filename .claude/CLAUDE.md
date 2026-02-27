@@ -1,136 +1,281 @@
 # Development Guidelines
 
+## Project Overview
+
+**mimu-memo** is a personal portfolio and blog website built with Next.js 16 and React 19. It showcases engineering experience, portfolio projects, and development memos (blog posts).
+
+- **URL**: https://mimu-memo.com
+- **Package Manager**: bun@1.2.2
+- **Framework**: Next.js 16 (App Router) with React 19
+- **Language**: TypeScript 5 (strict mode)
+- **Styling**: Tailwind CSS v4
+- **Linting/Formatting**: Biome via Ultracite presets
+- **Testing**: Vitest + React Testing Library
+- **Deployment**: Vercel
+
 ## Project Architecture
 
 ### File Structure
 
-- `app/`: Core application files following Next.js 13+ app router structure
-- `app/_components/`: Reusable UI components
-- `app/_contents/`: Static content (markdown files for blog posts, etc.)
-- `app/_lib/`: Utility functions and business logic
-- `app/globals.css`: Global styles using Tailwind CSS
-- `public/`: Static assets (images, icons, etc.)
-- `scripts/`: Build and development scripts
-- `.claude/`: Claude-specific configuration and commands
+```
+/
+├── app/                          # Next.js App Router root
+│   ├── _components/              # Shared UI components
+│   ├── _services/                # Business logic and service layer
+│   │   └── shared/               # Shared types, utils, error handlers
+│   ├── _utils/                   # Utility functions (e.g., metadata generation)
+│   ├── career/                   # Career/resume page
+│   │   ├── components/           # Career-specific components
+│   │   ├── services/             # Data transformation services
+│   │   ├── utils/                # Career utilities (date, skills)
+│   │   ├── config/constants.ts   # Career-section constants
+│   │   └── types.ts              # Career-specific types
+│   ├── memo/                     # Blog/memo section
+│   │   ├── [id]/                 # Dynamic post detail page
+│   │   ├── page/[page]/          # Pagination routes
+│   │   ├── tag/[tag]/page/[page] # Tag-based filtered pagination
+│   │   ├── tags/                 # Tag listing page
+│   │   ├── components/           # Memo-specific components
+│   │   ├── lib/                  # Memo utilities (file, date, error)
+│   │   └── services/             # External content services
+│   ├── portfolio/                # Portfolio showcase section
+│   │   ├── components/           # Portfolio-specific components
+│   │   ├── services/             # Portfolio data services
+│   │   └── types.ts              # Portfolio-specific types
+│   ├── config/
+│   │   └── constants.ts          # Global app constants (pagination, tag icons, etc.)
+│   ├── config.ts                 # Site-wide config (name, URL, social links, paths)
+│   ├── globals.css               # Global styles and CSS animations
+│   ├── layout.tsx                # Root layout with metadata and analytics
+│   └── page.tsx                  # Homepage
+├── content/                      # Static content (NOT inside app/)
+│   ├── memo/                     # Markdown files for blog posts (frontmatter + body)
+│   ├── portfolio/                # Portfolio project data (markdown/JSON)
+│   └── career/                   # Career data files (JSONC format)
+├── public/                       # Static assets (images, icons)
+├── scripts/                      # Build and development scripts
+├── .github/
+│   ├── workflows/                # CI/CD (lint, test, type-check, claude-review)
+│   └── actions/setup-bun/        # Custom Bun setup action
+└── .claude/                      # Claude-specific configuration
+```
+
+### Import Aliases
+
+Always use these path aliases — never use relative paths that cross directory boundaries:
+
+```typescript
+import { foo } from '@/components/foo'      // maps to app/
+import { bar } from '@content/memo/bar'     // maps to content/
+```
 
 ### Naming Conventions
 
-- **Files**: Use kebab-case for file names (e.g., `user-profile.tsx`)
-- **Components**: Use PascalCase for React components (e.g., `UserProfile`)
-- **Variables/Functions**: Use camelCase (e.g., `getUserData`)
-- **Constants**: Use UPPER_SNAKE_CASE (e.g., `API_BASE_URL`)
-- **Types/Interfaces**: Use PascalCase with descriptive names (e.g., `UserProfileData`)
+- **Files**: kebab-case (e.g., `user-profile.tsx`)
+- **Components**: PascalCase (e.g., `UserProfile`)
+- **Variables/Functions**: camelCase (e.g., `getUserData`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `API_BASE_URL`)
+- **Types/Interfaces**: PascalCase (e.g., `UserProfileData`)
+- **Test files**: Co-located in `__tests__/` directories next to the code being tested
 
 ### Component Guidelines
 
 - Create small, focused components with single responsibilities
-- Use TypeScript for all components with proper type definitions
-- Prefer function components with hooks over class components
-- Use `const` declarations for component definitions
-- Extract complex logic into custom hooks when appropriate
-- Props should be explicitly typed with interfaces
+- Use TypeScript for all components with explicit type definitions
+- Prefer function components; use `const` declarations
+- Add `'use client'` directive only when needed (interactivity, hooks, browser APIs)
+- Extract complex logic into custom hooks
+- Explicitly type all props with interfaces or type aliases
 
 ### State Management
 
-- Use React's built-in state management (useState, useReducer) for component-level state
-- For complex state logic, consider custom hooks or context API
-- Avoid prop drilling by using React Context for deeply nested components
-- Keep state as close to where it's used as possible
+- Use React's built-in hooks (`useState`, `useReducer`) for component-level state
+- Use custom hooks to encapsulate and reuse complex logic
+- Use React Context for deeply nested component trees to avoid prop drilling
+- Keep state as close to its usage as possible
+
+### Service Layer Pattern
+
+Business logic is separated into service files under `_services/` or feature-specific `services/` directories:
+
+```typescript
+// Return typed result objects, never throw to callers
+type ServiceResult<T> = { success: true; data: T } | { success: false; error: string }
+```
+
+Shared types in `app/_services/shared/types.ts`:
+- `ServiceResult<T>`, `ServiceError`, `AsyncServiceResult<T>`
+- `PaginationParams`, `PaginatedResult<T>`, `BaseContent`, `Tag`
 
 ### Styling Guidelines
 
-- Use Tailwind CSS for styling with utility-first approach
-- Create component-specific styles using Tailwind classes
-- Use CSS modules or styled-components only when Tailwind is insufficient
-- Maintain consistent spacing and color schemes across the application
-- Follow mobile-first responsive design principles
+- **Tailwind CSS v4** with utility-first approach — always prefer Tailwind classes
+- Use `globals.css` for custom keyframe animations and CSS variables only
+- Dark mode is the default; CSS custom properties handle theming
+- Mobile-first responsive design (use `sm:`, `md:`, `lg:` prefixes)
+- Key theme colors: indigo (`#6366f1`), cyan (`#22d3ee`), amber (`#f59e0b`), dark slate bg (`#0f172a`)
 
 ### TypeScript Guidelines
 
-- Enable strict mode in TypeScript configuration
-- Define explicit types for all function parameters and return values
-- Use interfaces for object shapes and types for unions/primitives
-- Avoid `any` type; use `unknown` when necessary and narrow types appropriately
-- Leverage TypeScript's utility types (Pick, Omit, Partial, etc.) when appropriate
+- Strict mode is enabled — all strict checks apply
+- No `any` type; use `unknown` and narrow appropriately
+- No non-null assertions (`!` postfix)
+- Use `import type` for type-only imports
+- Use `export type` for type-only exports
+- Use `as const` instead of explicit literal types
+- Use `T[]` array syntax consistently (not `Array<T>`)
+- No TypeScript enums — use string literal unions or `as const` objects instead
 
 #### Async/Await Guidelines
 
-- Prioritize async/await over Promise chains
-- Use `Promise.all()` or `Promise.allSettled()` for parallel processing
-- Always implement error handling
-- Explicitly define return types for asynchronous functions
-- Consider implementing timeout handling
-
-#### Other Guidelines
-
-- For import statements, do not use absolute paths; always use import aliases starting with `@/`
-- Use `bun` for package management and CLI commands
+- Prefer `async/await` over `.then()` chains
+- Use `Promise.all()` / `Promise.allSettled()` for parallel operations
+- Always handle errors with try/catch
+- Explicitly annotate async function return types
 
 ### GitHub Usage Rules
 
-- When task completed, execute `bun check:fix` to format file changes
-- Commit messages must use one of the following prefixes: chore, fix, feat, docs
-- Commit messages should be written in Japanese describing what was changed and why
-- Make commits frequently with very small granularity
-- Since Lint, test, and typecheck are basically verified in CI, confirm local success before pushing
-- PRs will never be merged as long as there are CI errors
-- Branches should start with prefixes like feat, fix, docs, chore, etc., and clearly indicate the issue number. Example: fix/issue-1
+- **Before pushing**: run `bun run check:fix` (lint + format), `bun run tc` (typecheck), `bun run test`
+- **Commit message format**: `<prefix>: <Japanese description>` where prefix is one of: `feat`, `fix`, `docs`, `chore`
+- **Commit messages must be written in Japanese**
+- Make small, frequent commits — one logical change per commit
+- **Branch naming**: `<prefix>/<issue-number>-short-description` (e.g., `fix/issue-42-navigation-bug`)
+- PRs block on CI — lint, typecheck, and test workflows must all pass
 
 ### Performance Guidelines
 
-- Implement code splitting for route-based components
-- Use React.memo() for components that render frequently with the same props
-- Optimize images using Next.js Image component
-- Implement lazy loading for non-critical components
-- Monitor bundle size and remove unused dependencies
+- Use Next.js `<Image>` component — never use raw `<img>` tags
+- Leverage Next.js App Router's built-in route-based code splitting
+- Use `React.memo()` for components that re-render with identical props frequently
+- Lazy-load non-critical components with `React.lazy()` / dynamic imports
+- Use Turbopack in development (`bun run dev` uses `--turbopack`)
+- Monitor bundle size with `bun run build:analyze`
 
 ### Testing Guidelines
 
-- Write unit tests for utility functions and complex business logic
-- Use React Testing Library for component testing
-- Implement integration tests for critical user flows
-- Maintain test coverage above 80% for core functionality
-- Mock external dependencies and API calls in tests
+- Test files live in `__tests__/` directories next to the code they test
+- Write unit tests for utility functions and service layer logic
+- Use React Testing Library for component tests
+- Mock Next.js `<Image>`, `window.matchMedia`, and `IntersectionObserver` (already set up in `vitest.setup.ts`)
+- Test runner: Vitest with jsdom environment, single-threaded (`maxWorkers: 1`)
+- No focused tests (`test.only` / `it.only`), no disabled tests (`test.skip`)
+- Assertions (`expect`) must be inside `it()`/`test()` blocks
 
 ### Security Guidelines
 
-- Sanitize all user inputs to prevent XSS attacks
-- Use environment variables for sensitive configuration
-- Implement proper authentication and authorization checks
-- Validate data on both client and server sides
-- Keep dependencies updated to avoid security vulnerabilities
+- Sanitize all user inputs to prevent XSS
+- Use environment variables for secrets — never hardcode API keys or tokens
+- Do not use `dangerouslySetInnerHTML` unless absolutely necessary
+- Keep dependencies updated
+- Never use `target="_blank"` without `rel="noopener"`
+
+### Accessibility (a11y) Requirements
+
+- Always include `lang` attribute on `<html>` element
+- Always include `type` attribute on `<button>` elements
+- Always include `title` element inside `<svg>` elements
+- Always include `title` attribute for `<iframe>` elements
+- Use semantic HTML (`<header>`, `<nav>`, `<main>`, `<footer>`) instead of role attributes
+- All images require meaningful `alt` text (exclude "image", "picture", "photo" from alt)
+- `onClick` handlers must be accompanied by `onKeyUp`, `onKeyDown`, or `onKeyPress`
+- `onMouseOver`/`onMouseOut` must be accompanied by `onFocus`/`onBlur`
+- Don't assign `tabIndex` to non-interactive elements
+- Don't assign interactive ARIA roles to non-interactive elements
+- Respect `prefers-reduced-motion` in CSS animations
 
 ### Documentation Guidelines
 
-- Document complex business logic and algorithms
-- Maintain up-to-date README files for setup instructions
-- Use JSDoc comments for utility functions and complex components
-- Keep component props well-documented with TypeScript interfaces
-- Document API endpoints and data structures
+- Document complex business logic and algorithms inline
+- Use JSDoc comments for utility functions and service methods
+- Keep TypeScript interfaces well-named and self-documenting
+- Update this file when architectural patterns change
 
 ## Development Workflow
 
-1. Create feature branch from main
-2. Implement changes following guidelines above
-3. Run tests and ensure all pass
-4. Run linting and type checking
-5. Create pull request with descriptive title and body
-6. Address code review feedback
-7. Merge after approval and CI success
+1. Create a feature branch from `main` using the naming convention above
+2. Implement changes following the guidelines in this file
+3. Run `bun run test` — fix any test failures
+4. Run `bun run tc` — fix any TypeScript errors
+5. Run `bun run check:fix` — auto-fix lint/format issues
+6. Commit in small, logical chunks with Japanese commit messages
+7. Push and open a pull request
+8. Address code review and CI feedback before merge
 
 ## Available Scripts
 
-- `bun run dev`: Start development server
-- `bun run build`: Build for production
-- `bun run start`: Start production server
-- `bun run tc`: Run type checking
-- `bun run check`: Run linting
-- `bun run check:fix`: Run linting with auto-fix
-- `bun run test`: Run test suite
+```bash
+bun run dev           # Start dev server with Turbopack
+bun run dev:watch     # Start dev server with file watcher script
+bun run build         # Production build
+bun run build:analyze # Production build with bundle analysis (ANALYZE=true)
+bun run start         # Start production server
+bun run tc            # TypeScript type checking (tsc --noEmit)
+bun run check         # Biome lint check (no writes)
+bun run check:fix     # Biome lint + format with auto-fix (run before committing)
+bun run test          # Run Vitest test suite
+bun run test:ui       # Run Vitest with browser UI dashboard
+bun run test:coverage # Run Vitest with coverage report
+bun run react-doctor  # Check React best practices
+```
 
+## CI/CD Pipelines
 
-# Project Context
-Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
+All workflows run on pull requests and must pass before merging:
+
+| Workflow | File | Command |
+|---|---|---|
+| Lint | `.github/workflows/lint.yml` | `bun run check` |
+| Type Check | `.github/workflows/type-check.yml` | `bun run tc` |
+| Tests | `.github/workflows/test.yml` | `bun run test` |
+| Claude Code Review | `.github/workflows/claude-code-review.yml` | AI-assisted PR review |
+| Auto Issue Resolver | `.github/workflows/auto-issue-resolver.yml` | Automated issue handling |
+
+## Git Hooks (Lefthook)
+
+Hooks run automatically — do not use `--no-verify`:
+
+- **pre-commit**: Biome formatter/linter on staged files
+- **pre-push**: TypeScript check (`bun run tc`) + test suite (`CI=1 bun run test`)
+- **post-merge**: Auto-runs `bun install` when dependencies changed
+
+## Key Configuration Files
+
+| File | Purpose |
+|---|---|
+| `biome.json` | Linting/formatting config (extends `ultracite/core` and `ultracite/next`) |
+| `tsconfig.json` | TypeScript config (strict mode, `@/` and `@content/` aliases) |
+| `next.config.ts` | Next.js config (remote image patterns, Sass support) |
+| `tailwind.config.ts` | Tailwind v4 config (custom animations, color scheme) |
+| `vitest.config.ts` | Vitest config (jsdom, single-threaded, global mocks) |
+| `vitest.setup.ts` | Test setup (jest-dom, Next.js Image mock, browser API polyfills) |
+| `lefthook.yml` | Git hooks config |
+| `app/config.ts` | Site constants (name, URL, social links, content paths) |
+| `app/config/constants.ts` | App constants (pagination, tag icons, date formats) |
+
+## Content Structure
+
+Blog posts in `content/memo/` use Markdown with frontmatter (parsed by `gray-matter`):
+
+```markdown
+---
+title: "Post Title"
+date: "2024-01-01"
+tags: ["typescript", "nextjs"]
+---
+
+Post content here...
+```
+
+Portfolio projects in `content/portfolio/` contain project metadata.
+Career data in `content/career/` uses JSONC format.
+
+Syntax highlighting uses `rehype-highlight` with the GitHub Dark theme.
+
+---
+
+# Ultracite Code Quality Rules
+
+Ultracite enforces strict type safety, accessibility standards, and consistent code quality using Biome's formatter and linter.
 
 ## Key Principles
 - Zero configuration required
@@ -434,9 +579,9 @@ Ultracite enforces strict type safety, accessibility standards, and consistent c
 - Don't use disabled tests.
 
 ## Common Tasks
-- `npx ultracite init` - Initialize Ultracite in your project
-- `npx ultracite fix` - Format and fix code automatically
-- `npx ultracite check` - Check for issues without fixing
+- `bun run check:fix` - Format and fix code automatically (use before every commit)
+- `bun run tc` - Check TypeScript types
+- `bun run test` - Run tests
 
 ## Example: Error Handling
 ```typescript
@@ -455,4 +600,36 @@ try {
 } catch (e) {
   console.log(e);
 }
+```
+
+## Example: Component Pattern
+```typescript
+// ✅ Good: Typed props, const declaration, explicit return type
+type UserCardProps = {
+  name: string;
+  role: string;
+  onClick: () => void;
+};
+
+const UserCard = ({ name, role, onClick }: UserCardProps): React.JSX.Element => (
+  <button type="button" onClick={onClick} onKeyDown={onClick}>
+    <span>{name}</span>
+    <span>{role}</span>
+  </button>
+);
+
+export { UserCard };
+```
+
+## Example: Service Layer Pattern
+```typescript
+// ✅ Good: Pure service function with typed result
+const getUserData = async (id: string): Promise<ServiceResult<User>> => {
+  try {
+    const data = await fetchUser(id);
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error: 'Failed to fetch user' };
+  }
+};
 ```
