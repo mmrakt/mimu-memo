@@ -10,6 +10,7 @@ const navItems = [
   { href: '/memo', label: 'Memo' },
   { href: '/career', label: 'Career' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/draw', label: 'Draw' },
 ];
 
 const SCROLL_THRESHOLD = 100;
