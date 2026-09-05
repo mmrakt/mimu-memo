@@ -56,7 +56,7 @@ export default function Navigation() {
               href="/"
             >
               mimu-memo
-              <span className="-bottom-1 absolute left-0 h-0.5 w-0 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 group-hover:w-full" />
             </Link>
 
             <nav className="hidden items-center space-x-8 md:flex">
@@ -70,7 +70,7 @@ export default function Navigation() {
                 >
                   {item.label}
                   <span
-                    className={`-bottom-1 absolute left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 ${
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300 ${
                       pathname === item.href ? 'w-full' : 'w-0 group-hover:w-full'
                     }`}
                   />
@@ -101,7 +101,7 @@ export default function Navigation() {
             <ul className="space-y-6">
               {navItems.map((item, index) => (
                 <li
-                  className="-translate-x-5 slide-in-from-left animate-in opacity-0 duration-300"
+                  className="slide-in-from-left -translate-x-5 animate-in opacity-0 duration-300"
                   key={item.href}
                   style={{
                     animationDelay: `${index * MOBILE_MENU_ANIMATION_DELAY_MS}ms`,

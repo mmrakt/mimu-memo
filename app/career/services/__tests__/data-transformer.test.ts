@@ -6,62 +6,62 @@ const STAT_COUNT = 4;
 
 describe('Data Transformer', () => {
   const mockRawData: RawCareerData = {
-    personalInfo: {
-      fullName: 'Test User',
-      nickName: 'test',
-      summary: 'Test summary',
-      languages: [],
-      education: {
-        degree: 'Bachelor',
-        major: 'Computer Science',
-        university: 'Test University',
-        period: { start: '2015-04', end: '2019-03' },
-      },
-      contact: {
-        website: 'https://test.com',
-        github: 'https://github.com/test',
-        location: 'Tokyo',
-      },
-    },
-    workExperience: [
-      {
-        id: 'test-company',
-        company: 'Test Company',
-        period: { start: '2020-01', end: '' },
-        role: 'Engineer',
-        projects: [
-          {
-            name: 'Test Project',
-            period: { start: '2020-01', end: '2020-12' },
-            teamSize: 5,
-            role: 'Developer',
-            techStacks: ['React', 'Node.js'],
-            achievements: ['Completed project successfully'],
-          },
-        ],
-      },
-    ],
-    skills: {
-      levelDefinition: {},
-      categories: {
-        programmingLanguages: [],
-        frontend: [],
-        backend: [],
-        databases: [],
-        tools: [],
-        infrastructure: [],
-      },
-    },
-    certifications: [{ name: 'Test Certification', date: '2023-01' }],
     aboutMe: {
       blogUrl: 'https://blog.test.com',
       description: 'Test blog',
     },
-    selfPR: {
-      autonomy: { title: 'Test', content: 'Test content' },
-      fullstack: { title: 'Test', content: 'Test content' },
-      teamwork: { title: 'Test', content: 'Test content' },
+    certifications: [{ date: '2023-01', name: 'Test Certification' }],
+    personalInfo: {
+      contact: {
+        github: 'https://github.com/test',
+        location: 'Tokyo',
+        website: 'https://test.com',
+      },
+      education: {
+        degree: 'Bachelor',
+        major: 'Computer Science',
+        period: { end: '2019-03', start: '2015-04' },
+        university: 'Test University',
+      },
+      fullName: 'Test User',
+      languages: [],
+      nickName: 'test',
+      summary: 'Test summary',
     },
+    selfPR: {
+      autonomy: { content: 'Test content', title: 'Test' },
+      fullstack: { content: 'Test content', title: 'Test' },
+      teamwork: { content: 'Test content', title: 'Test' },
+    },
+    skills: {
+      categories: {
+        backend: [],
+        databases: [],
+        frontend: [],
+        infrastructure: [],
+        programmingLanguages: [],
+        tools: [],
+      },
+      levelDefinition: {},
+    },
+    workExperience: [
+      {
+        company: 'Test Company',
+        id: 'test-company',
+        period: { end: '', start: '2020-01' },
+        projects: [
+          {
+            achievements: ['Completed project successfully'],
+            name: 'Test Project',
+            period: { end: '2020-12', start: '2020-01' },
+            role: 'Developer',
+            teamSize: 5,
+            techStacks: ['React', 'Node.js'],
+          },
+        ],
+        role: 'Engineer',
+      },
+    ],
   };
 
   describe('transformTimelineData', () => {
@@ -70,11 +70,11 @@ describe('Data Transformer', () => {
 
       expect(result).toHaveLength(1);
       expect(result[0]).toMatchObject({
-        title: 'Developer',
         company: 'Test Company',
         summary: 'Test Project',
-        technologies: ['React', 'Node.js'],
         teamSize: 5,
+        technologies: ['React', 'Node.js'],
+        title: 'Developer',
       });
     });
   });
@@ -82,7 +82,7 @@ describe('Data Transformer', () => {
   describe('calculateStats', () => {
     it('should calculate correct stats', () => {
       const timeline = transformTimelineData(mockRawData);
-      const certifications = [{ name: 'Test', issuer: 'Test', date: '2023-01' }];
+      const certifications = [{ date: '2023-01', issuer: 'Test', name: 'Test' }];
 
       const result = calculateStats(timeline, certifications);
 

@@ -87,9 +87,9 @@ export async function getAllTags(): Promise<TagInfo[]> {
   }
 
   const tags: TagInfo[] = Array.from(tagCounts.entries()).map(([name, count]) => ({
-    name,
     count,
     icon: TAG_ICONS[name.toLowerCase() as keyof typeof TAG_ICONS],
+    name,
   }));
 
   return tags.sort((a, b) => b.count - a.count);
@@ -110,8 +110,8 @@ export async function getPostsByTagPaginated(tag: string, page = 1): Promise<Pag
   const posts = allPosts.slice(startIndex, endIndex);
 
   return {
-    posts,
     currentPage: page,
+    posts,
     totalPages,
     totalPosts,
   };

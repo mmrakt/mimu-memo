@@ -3,9 +3,9 @@ import type { PostListItem } from '@/memo/lib/types';
 import { getAdjacentPosts, getAdjacentPostsFromList } from '@/memo/services/post-service';
 
 const buildPosts = (): PostListItem[] => [
-  { id: 'newest', title: 'Newest Post', tag: 'test', pubDate: '2024-03-01' },
-  { id: 'current', title: 'Current Post', tag: 'test', pubDate: '2024-02-01' },
-  { id: 'oldest', title: 'Oldest Post', tag: 'test', pubDate: '2024-01-01' },
+  { id: 'newest', pubDate: '2024-03-01', tag: 'test', title: 'Newest Post' },
+  { id: 'current', pubDate: '2024-02-01', tag: 'test', title: 'Current Post' },
+  { id: 'oldest', pubDate: '2024-01-01', tag: 'test', title: 'Oldest Post' },
 ];
 
 describe('post-service', () => {

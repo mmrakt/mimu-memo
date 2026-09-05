@@ -40,45 +40,45 @@ export function generateMetadata(config: MetadataConfig = {}): Metadata {
   const imageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
 
   const metadata: Metadata = {
-    title: fullTitle,
-    description,
-    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: url,
     },
+    description,
+    metadataBase: new URL(SITE_URL),
     openGraph: {
-      title: fullTitle,
       description,
-      url,
-      siteName: SITE_NAME,
       images: [
         {
+          alt: title || `${SITE_NAME} - ${MY_NAME}'s personal site`,
+          height: 630,
           url: imageUrl,
           width: 1200,
-          height: 630,
-          alt: title || `${SITE_NAME} - ${MY_NAME}'s personal site`,
         },
       ],
       locale: 'ja_JP',
-      type,
-    },
-    twitter: {
-      card: 'summary_large_image',
+      siteName: SITE_NAME,
       title: fullTitle,
-      description,
-      images: [imageUrl],
-      creator: '@mmrakt',
+      type,
+      url,
     },
     robots: {
-      index: true,
       follow: true,
       googleBot: {
-        index: true,
         follow: true,
-        'max-video-preview': -1,
+        index: true,
         'max-image-preview': 'large',
         'max-snippet': -1,
+        'max-video-preview': -1,
       },
+      index: true,
+    },
+    title: fullTitle,
+    twitter: {
+      card: 'summary_large_image',
+      creator: '@mmrakt',
+      description,
+      images: [imageUrl],
+      title: fullTitle,
     },
     verification: {
       google: process.env.GOOGLE_SITE_VERIFICATION,
@@ -89,18 +89,18 @@ export function generateMetadata(config: MetadataConfig = {}): Metadata {
   if (type === 'article') {
     metadata.openGraph = {
       ...metadata.openGraph,
-      type: 'article',
-      publishedTime,
-      modifiedTime,
       authors: [author],
+      modifiedTime,
+      publishedTime,
       tags,
+      type: 'article',
     };
 
     // Add structured data for articles
     metadata.other = {
       'article:author': author,
-      'article:published_time': publishedTime || '',
       'article:modified_time': modifiedTime || '',
+      'article:published_time': publishedTime || '',
       'article:tag': tags.join(','),
     };
   }
@@ -110,9 +110,9 @@ export function generateMetadata(config: MetadataConfig = {}): Metadata {
 
 export function generatePageMetadata(title: string, description?: string, path?: string): Metadata {
   return generateMetadata({
-    title,
     description,
     path,
+    title,
   });
 }
 
@@ -120,13 +120,13 @@ export function generateArticleMetadata(options: ArticleMetadataOptions): Metada
   const { title, description, path, publishedTime, modifiedTime, tags } = options;
 
   return generateMetadata({
-    title,
     description,
-    path,
-    type: 'article',
-    publishedTime,
     modifiedTime,
+    path,
+    publishedTime,
     tags,
+    title,
+    type: 'article',
   });
 }
 
@@ -148,13 +148,20 @@ export function generateJsonLd(
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: title,
-    description,
-    image: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
     author: {
       '@type': 'Person',
       name: author,
       url: SITE_URL,
+    },
+    dateModified,
+    datePublished,
+    description,
+    headline: title,
+    image: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
+    keywords: tags.join(', '),
+    mainEntityOfPage: {
+      '@id': url,
+      '@type': 'WebPage',
     },
     publisher: {
       '@type': 'Person',
@@ -162,12 +169,5 @@ export function generateJsonLd(
       url: SITE_URL,
     },
     url,
-    datePublished,
-    dateModified,
-    keywords: tags.join(', '),
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
-    },
   };
 }

@@ -13,8 +13,8 @@ export const filterOptions: FilterOption[] = [
 
 export const getCategoryName = (category: string): string => {
   const names: Record<string, string> = {
-    work: 'Work',
     'solo-development': 'Solo Development',
+    work: 'Work',
   };
   return names[category] || category;
 };
