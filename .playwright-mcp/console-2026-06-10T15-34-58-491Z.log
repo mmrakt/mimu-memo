@@ -1,0 +1,12 @@
+[    1519ms] [ERROR] Access to XMLHttpRequest at 'https://api.pairs.lv/2.0/master' from origin 'https://pairs.lv' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://pairs.lv/?backTo=%2Fsearch%2Fall:0
+[    1537ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.pairs.lv/2.0/master:0
+[    1581ms] [ERROR] Access to XMLHttpRequest at 'https://api.pairs.lv/2.0/public/ab/PE-68' from origin 'https://pairs.lv' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://pairs.lv/?backTo=%2Fsearch%2Fall:0
+[    1582ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.pairs.lv/2.0/public/ab/PE-68:0
+[    1582ms] [ERROR] Access to XMLHttpRequest at 'https://api.pairs.lv/2.0/public/ab/PE-77' from origin 'https://pairs.lv' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://pairs.lv/?backTo=%2Fsearch%2Fall:0
+[    1583ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.pairs.lv/2.0/public/ab/PE-77:0
+[559179395ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
+[596173149ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
+[609114851ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
+[615971156ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
+[621987154ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
+[633618271ms] Failed to update a ServiceWorker for scope ('https://pairs.lv/') with script ('https://pairs.lv/sw2.js'): An unknown error occurred when fetching the script.
