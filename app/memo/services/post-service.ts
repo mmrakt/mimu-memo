@@ -13,10 +13,10 @@ import {
 import type { MemoBySlugResult, PostListItem } from '@/memo/lib/types';
 import { validateTag } from '@/memo/services/tag-service';
 
-export type AdjacentPostsResult = {
-  previous: PostListItem | null;
+export interface AdjacentPostsResult {
   next: PostListItem | null;
-};
+  previous: PostListItem | null;
+}
 
 export async function getAllPosts(): Promise<PostListItem[]> {
   try {

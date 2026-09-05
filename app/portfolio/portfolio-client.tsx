@@ -9,10 +9,10 @@ import PortfolioModal from '@/portfolio/components/portfolio-modal';
 import { filterOptions } from '@/portfolio/data';
 import type { PortfolioItem } from '@/portfolio/types';
 
-type PortfolioClientProps = {
-  portfolioItems: PortfolioItem[];
+interface PortfolioClientProps {
   pageDescription: string;
-};
+  portfolioItems: PortfolioItem[];
+}
 
 export default function PortfolioClient({ portfolioItems, pageDescription }: PortfolioClientProps) {
   const router = useRouter();

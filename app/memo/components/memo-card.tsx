@@ -8,22 +8,22 @@ import { getTagIconPath } from '@/memo/components/utils';
 import { getMediaDisplayName, getMediaStyles, isExternalMedia } from '@/memo/lib/media-utils';
 import type { PostListItem } from '@/memo/lib/types';
 
-type MemoCardProps = {
-  post: PostListItem;
+interface MemoCardProps {
   index: number;
-};
+  post: PostListItem;
+}
 
-type LinkProps = {
+interface LinkProps {
   href: string;
-  target?: string;
   rel?: string;
-};
+  target?: string;
+}
 
-type MediaBadge = {
-  show: boolean;
+interface MediaBadge {
   className: string;
   label: string;
-};
+  show: boolean;
+}
 
 const MEDIA_BADGE_BASE_CLASSES = 'flex items-center gap-1 rounded-full px-3 py-1 text-xs';
 const SLIDE_BADGE_CLASSES = 'border border-amber-400/20 bg-amber-400/10 text-amber-400';

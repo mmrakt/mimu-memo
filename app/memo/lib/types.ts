@@ -1,29 +1,29 @@
-export type MemoMetadata = {
-  title: string;
-  tag: string;
-  pubDate: string;
+export interface MemoMetadata {
   id: string;
-};
+  pubDate: string;
+  tag: string;
+  title: string;
+}
 
-export type MemoContent = {
-  metadata: MemoMetadata;
+export interface MemoContent {
   content: string;
   isMarkdown?: boolean;
-};
-
-export type PostListItem = {
-  id: string;
-  title: string;
-  tag: string;
-  pubDate: string;
-  excerpt?: string;
-  media?: 'owned' | 'qiita' | 'zenn' | 'note';
-  link?: string;
-};
-
-export type MemoBySlugResult = {
   metadata: MemoMetadata;
+}
+
+export interface PostListItem {
+  excerpt?: string;
+  id: string;
+  link?: string;
+  media?: 'owned' | 'qiita' | 'zenn' | 'note';
+  pubDate: string;
+  tag: string;
+  title: string;
+}
+
+export interface MemoBySlugResult {
   Component?: React.ComponentType;
   content?: string;
   isMarkdown?: boolean;
-};
+  metadata: MemoMetadata;
+}

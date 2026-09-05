@@ -7,11 +7,11 @@ import { MEMO_PAGE_DESCRIPTION } from '@/memo/data';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 import { getAllPosts } from '@/memo/utils';
 
-type MemoPageProps = {
+interface MemoPageProps {
   params: Promise<{
     page: string;
   }>;
-};
+}
 
 export async function generateStaticParams() {
   // Use only internal posts for static generation to avoid build-time external API calls

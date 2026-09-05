@@ -2,11 +2,11 @@ import { getCategoryName } from '@/portfolio/data';
 import type { PortfolioItem } from '@/portfolio/types';
 import MediaComponent from './media-component';
 
-type PortfolioCardProps = {
-  item: PortfolioItem;
+interface PortfolioCardProps {
   index: number;
+  item: PortfolioItem;
   onCardClick: (item: PortfolioItem) => void;
-};
+}
 
 export default function PortfolioCard({ item, index, onCardClick }: PortfolioCardProps) {
   const CARD_ANIMATION_DELAY_MS = 100;

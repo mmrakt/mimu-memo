@@ -4,13 +4,13 @@ import { ArrowRight, Briefcase, Code, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { memo, useId } from 'react';
 
-type QuickNavItem = {
-  href: string;
-  title: string;
-  description: string;
-  icon: typeof FileText;
+interface QuickNavItem {
   color: string;
-};
+  description: string;
+  href: string;
+  icon: typeof FileText;
+  title: string;
+}
 
 const quickNavItems: QuickNavItem[] = [
   {

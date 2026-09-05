@@ -2,9 +2,9 @@
 
 import { useEffect, useId } from 'react';
 
-type MainContentProps = {
+interface MainContentProps {
   children: React.ReactNode;
-};
+}
 
 export function MainContent({ children }: MainContentProps) {
   const mainId = useId();

@@ -7,10 +7,10 @@ import styles from '@/portfolio/components/markdown.module.css';
 import type { PortfolioItem } from '@/portfolio/types';
 import MediaComponent from './media-component';
 
-type PortfolioModalProps = {
+interface PortfolioModalProps {
   item: PortfolioItem | null;
   onClose: () => void;
-};
+}
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const titleId = useId();
