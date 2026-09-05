@@ -59,12 +59,14 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     // Parallax effect and scroll indicator visibility
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
+      // biome-ignore lint/suspicious/noUnnecessaryConditions: refはJSXで要素に接続済みで、実行時はnullになりうる
       if (heroRef.current) {
         heroRef.current.style.transform = `translateY(${scrolled * HERO_PARALLAX_FACTOR}px)`;
         heroRef.current.style.opacity = `${1 - scrolled / HERO_OPACITY_DISTANCE}`;
       }
 
       // Hide scroll indicator when scrolled
+      // biome-ignore lint/suspicious/noUnnecessaryConditions: refはJSXで要素に接続済みで、実行時はnullになりうる
       if (scrollIndicatorRef.current) {
         const opacity = Math.max(0, 1 - scrolled / INDICATOR_OPACITY_DISTANCE);
         scrollIndicatorRef.current.style.opacity = `${opacity}`;

@@ -38,6 +38,7 @@ export function transformTimelineData(rawData: RawCareerData): DetailedTimelineI
             technologies: project.techStacks,
           },
         ],
+        // biome-ignore lint/suspicious/noUnnecessaryConditions: data.jsoncをas RawCareerDataで断定しており実データの欠損を型で保証できない
         location: rawData.personalInfo?.contact?.location || CAREER_CONFIG.DEFAULTS.LOCATION,
         responsibilities: project.work || [`${project.name}の開発・実装`],
         summary: project.name,

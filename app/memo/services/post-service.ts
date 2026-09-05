@@ -72,6 +72,7 @@ async function processPostFile(
     `Processing post file: ${filename}`
   );
 
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: safeAsyncのフォールバックにnullを渡しており失敗時はnullが返る
   if (post) {
     posts.push(post);
   }
