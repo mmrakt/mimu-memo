@@ -1,25 +1,25 @@
 import type { Metadata } from 'next';
 import { ABOUT_SITE, MY_NAME, SITE_NAME, SITE_URL } from '@/config';
 
-type MetadataConfig = {
-  title?: string;
-  description?: string;
-  path?: string;
-  image?: string;
-  type?: 'website' | 'article';
-  publishedTime?: string;
-  modifiedTime?: string;
+interface MetadataConfig {
   author?: string;
+  description?: string;
+  image?: string;
+  modifiedTime?: string;
+  path?: string;
+  publishedTime?: string;
   tags?: string[];
-};
-type ArticleMetadataOptions = {
-  title: string;
+  title?: string;
+  type?: 'website' | 'article';
+}
+interface ArticleMetadataOptions {
   description: string;
+  modifiedTime?: string;
   path: string;
   publishedTime?: string;
-  modifiedTime?: string;
   tags?: string[];
-};
+  title: string;
+}
 const DEFAULT_OG_IMAGE = '/ogp/thumbnail.png';
 
 export function generateMetadata(config: MetadataConfig = {}): Metadata {

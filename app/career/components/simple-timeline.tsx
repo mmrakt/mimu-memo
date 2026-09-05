@@ -6,9 +6,9 @@ import type { DetailedTimelineItem } from '@/career/types';
 import { setupScrollAnimations } from '@/career/utils/animation';
 import { formatDateRangeForDisplay } from '@/career/utils/date';
 
-type SimpleTimelineProps = {
+interface SimpleTimelineProps {
   timeline: DetailedTimelineItem[];
-};
+}
 
 const ACHIEVEMENT_KEY_SLICE_LENGTH = 20;
 

@@ -3,18 +3,18 @@ import { handleCriticalError, ValidationError } from '@/memo/lib/error-handler';
 import type { PostListItem } from '@/memo/lib/types';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 
-export type TagInfo = {
-  name: string;
+export interface TagInfo {
   count: number;
   icon?: string;
-};
+  name: string;
+}
 
-export type PaginatedTagPosts = {
-  posts: PostListItem[];
+export interface PaginatedTagPosts {
   currentPage: number;
+  posts: PostListItem[];
   totalPages: number;
   totalPosts: number;
-};
+}
 
 export const TAG_LIST = [
   'other',

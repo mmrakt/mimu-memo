@@ -13,11 +13,11 @@ import { getAdjacentPosts } from '@/memo/services/post-service';
 import { getAllMemoSlugs, getMemoBySlug } from '@/memo/utils';
 import styles from './markdown.module.css';
 
-type MemoDetailPageProps = {
+interface MemoDetailPageProps {
   params: Promise<{
     id: string;
   }>;
-};
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllMemoSlugs();

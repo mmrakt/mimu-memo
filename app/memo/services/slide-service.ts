@@ -2,12 +2,12 @@ import slidesData from '@content/slides.json' with { type: 'json' };
 
 import type { PostListItem } from '@/memo/lib/types';
 
-type SlideEntry = {
-  title: string;
+interface SlideEntry {
+  link: string;
   pubDate: string;
   tag: string;
-  link: string;
-};
+  title: string;
+}
 
 export function getSlides(): PostListItem[] {
   const slides = slidesData as SlideEntry[];

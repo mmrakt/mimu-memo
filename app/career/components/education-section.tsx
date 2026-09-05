@@ -4,11 +4,11 @@ import { CAREER_CONFIG } from '@/career/config/constants';
 import type { CertificationItem, EducationItem } from '@/career/types';
 import { formatDateRangeForDisplay } from '@/career/utils/date';
 
-type EducationSectionProps = {
-  education: EducationItem[];
+interface EducationSectionProps {
   certifications: CertificationItem[];
+  education: EducationItem[];
   languages?: Array<{ name: string; level: string }>;
-};
+}
 
 export function EducationSection({ education, certifications, languages }: EducationSectionProps) {
   return (

@@ -12,11 +12,11 @@ import {
   ZENN_URL_PREFIX,
 } from '@/config';
 
-type ExternalLinkItem = {
-  name: string;
+interface ExternalLinkItem {
   href: string;
   icon: string;
-};
+  name: string;
+}
 
 const externalLinks: ExternalLinkItem[] = [
   {

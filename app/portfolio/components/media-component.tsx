@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-type MediaComponentProps = {
-  src: string;
+interface MediaComponentProps {
   alt: string;
-  width?: number;
-  height?: number;
   className?: string;
-  sizes?: string;
+  height?: number;
   priority?: boolean;
-};
+  sizes?: string;
+  src: string;
+  width?: number;
+}
 
 export default function MediaComponent({
   src,

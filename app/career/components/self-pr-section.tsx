@@ -1,10 +1,10 @@
-type SelfPRSectionProps = {
+interface SelfPRSectionProps {
   selfPR: {
     autonomy: { title: string; content: string };
     fullstack: { title: string; content: string };
     teamwork: { title: string; content: string };
   };
-};
+}
 
 export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
   const prItems = [

@@ -3,10 +3,10 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
-type CareerAnimationsProps = {
+interface CareerAnimationsProps {
   heroContent: React.ReactNode;
   restContent: React.ReactNode;
-};
+}
 
 const ELEMENT_VISIBLE_THRESHOLD = 50;
 const HERO_PARALLAX_FACTOR = 0.5;

@@ -1,7 +1,7 @@
-type XIconProps = {
+interface XIconProps {
   className?: string;
   size?: number;
-};
+}
 
 export function XIcon({ className, size = 20 }: XIconProps) {
   return (

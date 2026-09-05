@@ -9,9 +9,9 @@ import { SimpleTimeline } from '@/career/components/simple-timeline';
 import { SkillsMatrix } from '@/career/components/skills-matrix';
 import type { CareerData } from '@/career/types';
 
-type CareerClientProps = {
+interface CareerClientProps {
   careerData: CareerData;
-};
+}
 
 const TAG_ANIMATION_DELAY_INCREMENT_SECONDS = 0.1;
 
