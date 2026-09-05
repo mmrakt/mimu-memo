@@ -40,6 +40,7 @@ export function isValidTag(tag: string): boolean {
  * Validate a tag with improved error handling
  */
 export function validateTag(tag: string, filePath?: string): string {
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: 型はstringだが呼び出し側からnullが渡る場合をテストで担保している
   if (!tag?.trim()) {
     const error = new ValidationError(
       `No tag specified. Valid tags: ${TAG_LIST.join(', ')}`,
@@ -63,6 +64,7 @@ export function validateTag(tag: string, filePath?: string): string {
  * Safe tag validation that returns a default instead of throwing
  */
 export function validateTagSafe(tag: string, fallback = 'other'): string {
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: 型はstringだが呼び出し側からnullが渡る場合をテストで担保している
   if (!tag?.trim()) {
     return fallback;
   }
