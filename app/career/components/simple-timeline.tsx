@@ -29,7 +29,7 @@ export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
             className={`timeline-item group relative mb-16 scale-90 opacity-0 transition-all duration-700 md:w-1/2 ${
               isEven ? 'md:mr-auto md:pr-12' : 'md:left-1/2 md:pl-12'
             }`}
-            key={`timeline-${item.company}-${index}`}
+            key={`timeline-${item.company}-${item.summary}`}
             style={{
               transitionDelay: `${index * CAREER_CONFIG.ANIMATION.TIMELINE_DELAY_MULTIPLIER}s`,
             }}
@@ -82,10 +82,10 @@ export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
               {/* Achievements as bullet points */}
               {item.achievements.length > 0 && (
                 <ul className={`space-y-2 ${isEven ? 'md:text-left' : ''}`}>
-                  {item.achievements.map((achievement, achievementIndex) => (
+                  {item.achievements.map((achievement) => (
                     <li
                       className="flex items-start gap-2 text-slate-300 text-sm"
-                      key={`${item.company}-${achievement.description.slice(0, ACHIEVEMENT_KEY_SLICE_LENGTH)}-${achievementIndex}`}
+                      key={`${item.company}-${achievement.description.slice(0, ACHIEVEMENT_KEY_SLICE_LENGTH)}`}
                     >
                       <span className="mt-1 text-cyan-400">•</span>
                       <span>{achievement.description}</span>
