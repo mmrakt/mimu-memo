@@ -23,19 +23,20 @@ export async function getAllPosts(): Promise<PostListItem[]> {
     const postsDirectory = await getPostsDirectory();
     const filenames = await fs.readdir(postsDirectory);
 
-    const posts: PostListItem[] = [];
+    const postFilenames = filenames.filter(
+      (filename) =>
+        isPostFile(filename) &&
+        (filename.endsWith(FILE_EXTENSIONS.MARKDOWN) || filename.endsWith(FILE_EXTENSIONS.MDX))
+    );
 
-    for (const filename of filenames) {
-      if (!isPostFile(filename)) {
-        continue;
-      }
-
-      const slug = getSlugFromFilename(filename);
-
-      if (filename.endsWith(FILE_EXTENSIONS.MARKDOWN) || filename.endsWith(FILE_EXTENSIONS.MDX)) {
-        await processPostFile(filename, slug, postsDirectory, posts);
-      }
-    }
+    // 読み込みは並列化しつつ、結果はファイル名順のまま保つ。
+    // 同じ日付の記事の並びがビルドごとに変わらないようにするため。
+    const results = await Promise.all(
+      postFilenames.map((filename) =>
+        processPostFile(filename, getSlugFromFilename(filename), postsDirectory)
+      )
+    );
+    const posts = results.filter((post): post is PostListItem => post !== null);
 
     return sortPostsByDate(posts);
   } catch {
@@ -44,17 +45,16 @@ export async function getAllPosts(): Promise<PostListItem[]> {
 }
 
 /**
- * Process a post file (markdown or MDX) and add it to the posts array
+ * Process a post file (markdown or MDX) and return it, or null when it cannot be read
  */
-async function processPostFile(
+function processPostFile(
   filename: string,
   slug: string,
-  postsDirectory: string,
-  posts: PostListItem[]
-): Promise<void> {
+  postsDirectory: string
+): Promise<PostListItem | null> {
   const filePath = `${postsDirectory}/${filename}`;
 
-  const post = await safeAsync(
+  return safeAsync(
     async () => {
       const fileContent = await fs.readFile(filePath, 'utf-8');
       const { data } = matter(fileContent);
@@ -71,11 +71,6 @@ async function processPostFile(
     null,
     `Processing post file: ${filename}`
   );
-
-  // biome-ignore lint/suspicious/noUnnecessaryConditions: safeAsyncのフォールバックにnullを渡しており失敗時はnullが返る
-  if (post) {
-    posts.push(post);
-  }
 }
 
 export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | null> {

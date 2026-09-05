@@ -29,9 +29,8 @@ function resolveImagePath(imagePath?: string): string {
 
 function createPortfolioItem(
   data: PortfolioFrontmatter,
-  content: string,
-  id: number
-): PortfolioItem {
+  content: string
+): Omit<PortfolioItem, 'id'> {
   const category: CategoryKey = (data.category as CategoryKey) || DEFAULT_CATEGORY;
 
   return {
@@ -40,7 +39,6 @@ function createPortfolioItem(
     description: data.description || '',
     fullDescription: content.trim() || data.description || '',
     github: data.github || '',
-    id,
     image: resolveImagePath(data.image),
     isActive: data.isActive ?? true,
     startedAt: data.startedAt || undefined,
@@ -49,7 +47,7 @@ function createPortfolioItem(
   };
 }
 
-async function parsePortfolioFile(filePath: string, id: number): Promise<PortfolioItem | null> {
+async function parsePortfolioFile(filePath: string): Promise<Omit<PortfolioItem, 'id'> | null> {
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const { data, content } = matter(fileContent) as {
@@ -61,7 +59,7 @@ async function parsePortfolioFile(filePath: string, id: number): Promise<Portfol
       return null;
     }
 
-    return createPortfolioItem(data, content, id);
+    return createPortfolioItem(data, content);
   } catch {
     return null;
   }
@@ -95,38 +93,35 @@ async function resolvePortfolioFilePath(
     path.join(portfolioDirectory, `${slug}.mdx`),
   ];
 
-  for (const candidate of candidates) {
-    const exists = await fs
-      .access(candidate)
-      .then(() => true)
-      .catch(() => false);
+  const existences = await Promise.all(
+    candidates.map((candidate) =>
+      fs
+        .access(candidate)
+        .then(() => true)
+        .catch(() => false)
+    )
+  );
 
-    if (exists) {
-      return candidate;
-    }
-  }
+  // candidatesの順序が優先順位なので、先に見つかったものを返す。
+  const foundIndex = existences.indexOf(true);
 
-  return null;
+  return foundIndex === -1 ? null : candidates[foundIndex];
 }
 
 export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
   try {
     const portfolioDirectory = getPortfolioDirectory();
     const filenames = await fs.readdir(portfolioDirectory);
-    const portfolioItems: PortfolioItem[] = [];
+    const parsed = await Promise.all(
+      filenames
+        .filter(isPortfolioFile)
+        .map((filename) => parsePortfolioFile(path.join(portfolioDirectory, filename)))
+    );
 
-    for (const filename of filenames) {
-      if (!isPortfolioFile(filename)) {
-        continue;
-      }
-
-      const filePath = path.join(portfolioDirectory, filename);
-      const portfolioItem = await parsePortfolioFile(filePath, portfolioItems.length + 1);
-
-      if (portfolioItem) {
-        portfolioItems.push(portfolioItem);
-      }
-    }
+    // idはファイル名順の連番。URLの?item=Nが並列化で変わらないよう、解析後に採番する。
+    const portfolioItems = parsed
+      .filter((item): item is Omit<PortfolioItem, 'id'> => item !== null)
+      .map((item, index) => ({ ...item, id: index + 1 }));
 
     return portfolioItems.sort(sortByStartedAtDesc);
   } catch {
@@ -143,7 +138,9 @@ export async function getPortfolioItemBySlug(slug: string): Promise<PortfolioIte
       return null;
     }
 
-    return parsePortfolioFile(filePath, 1);
+    const item = await parsePortfolioFile(filePath);
+
+    return item ? { ...item, id: 1 } : null;
   } catch {
     return null;
   }
