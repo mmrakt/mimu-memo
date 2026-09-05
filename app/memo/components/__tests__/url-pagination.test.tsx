@@ -16,10 +16,10 @@ const OFFSET_TWO = 2;
 describe('UrlPagination utilities', () => {
   it('creates correct URLs for pages', () => {
     const cases = [
-      { page: FIRST_PAGE, expected: '/memo' },
-      { page: SECOND_PAGE, expected: '/memo/page/2' },
-      { page: FIFTH_PAGE, expected: '/memo/page/5' },
-      { page: TENTH_PAGE, expected: '/memo/page/10' },
+      { expected: '/memo', page: FIRST_PAGE },
+      { expected: '/memo/page/2', page: SECOND_PAGE },
+      { expected: '/memo/page/5', page: FIFTH_PAGE },
+      { expected: '/memo/page/10', page: TENTH_PAGE },
     ];
 
     for (const { page, expected } of cases) {

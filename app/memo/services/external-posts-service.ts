@@ -9,8 +9,8 @@ import {
 } from '@/memo/services/external-content/utils';
 
 export interface ExternalPostListItem extends PostListItem {
-  media: MediaType;
   link: string;
+  media: MediaType;
 }
 
 /**
@@ -18,16 +18,16 @@ export interface ExternalPostListItem extends PostListItem {
  */
 function convertFrontmatterToPostListItem(frontmatter: Frontmatter): ExternalPostListItem {
   return {
+    excerpt: '', // External posts don't have excerpts in the current implementation
     id: frontmatter.link, // Use link as ID for external posts
-    title: frontmatter.title,
-    tag: '', // External posts don't have tags in our system
+    link: frontmatter.link,
+    media: frontmatter.media,
     pubDate:
       typeof frontmatter.pubDate === 'string'
         ? frontmatter.pubDate
         : frontmatter.pubDate.toISOString().split('T')[0],
-    excerpt: '', // External posts don't have excerpts in the current implementation
-    media: frontmatter.media,
-    link: frontmatter.link,
+    tag: '', // External posts don't have tags in our system
+    title: frontmatter.title,
   };
 }
 
@@ -76,10 +76,10 @@ export async function getAllExternalPosts(): Promise<ExternalPostListItem[]> {
  */
 export function getMediaDisplayName(media: MediaType): string {
   const mediaMap: Record<MediaType, string> = {
+    note: 'note',
     owned: 'mimu-memo',
     qiita: 'Qiita',
     zenn: 'Zenn',
-    note: 'note',
   };
   return mediaMap[media] || media;
 }

@@ -46,8 +46,8 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
         }
       },
       {
-        threshold: 0.01,
         rootMargin: '0px 0px -100px 0px',
+        threshold: 0.01,
       }
     );
 
@@ -94,18 +94,18 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-900 text-slate-100">
       {/* Animated background */}
-      <div className="-z-10 fixed inset-0 opacity-5">
+      <div className="fixed inset-0 -z-10 opacity-5">
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-indigo-600 via-transparent to-transparent"
           style={{ animationDuration: '20s' }}
         />
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-cyan-600 via-transparent to-transparent"
-          style={{ animationDuration: '20s', animationDelay: '6.67s' }}
+          style={{ animationDelay: '6.67s', animationDuration: '20s' }}
         />
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-amber-600 via-transparent to-transparent"
-          style={{ animationDuration: '20s', animationDelay: '13.33s' }}
+          style={{ animationDelay: '13.33s', animationDuration: '20s' }}
         />
       </div>
 
@@ -117,7 +117,7 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
 
       {/* Scroll indicator */}
       <button
-        className="-translate-x-1/2 fixed bottom-8 left-1/2 z-50 animate-bounce cursor-pointer transition-opacity duration-300"
+        className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 animate-bounce cursor-pointer transition-opacity duration-300"
         onClick={scrollToTimeline}
         ref={scrollIndicatorRef}
         type="button"

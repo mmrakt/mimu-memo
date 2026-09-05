@@ -18,12 +18,12 @@ export function createPaginatedResult<T>(
   return {
     items,
     pagination: {
-      page,
-      limit,
-      total,
-      totalPages,
       hasNext: page < totalPages,
       hasPrev: page > 1,
+      limit,
+      page,
+      total,
+      totalPages,
     },
   };
 }
@@ -36,5 +36,5 @@ export function validatePaginationParams(params: PaginationParams): Required<Pag
   const page = Math.max(MIN_PAGE, params.page || DEFAULT_PAGE);
   const limit = Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, params.limit || DEFAULT_LIMIT));
 
-  return { page, limit };
+  return { limit, page };
 }

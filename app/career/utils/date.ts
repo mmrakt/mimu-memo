@@ -2,8 +2,8 @@ import { CAREER_CONFIG } from '@/career/config/constants';
 
 export function formatDateRange(start: string, end: string): { start: string; end: string } {
   return {
-    start: start || 'Unknown',
     end: end || 'Present',
+    start: start || 'Unknown',
   };
 }
 

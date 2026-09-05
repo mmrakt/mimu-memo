@@ -18,7 +18,7 @@ export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
   return (
     <div className="relative mx-auto max-w-6xl px-8">
       {/* Timeline line */}
-      <div className="-translate-x-1/2 absolute left-1/2 hidden h-full w-0.5 transform bg-gradient-to-b from-indigo-600 via-cyan-600 to-amber-600 md:block" />
+      <div className="absolute left-1/2 hidden h-full w-0.5 -translate-x-1/2 transform bg-gradient-to-b from-indigo-600 via-cyan-600 to-amber-600 md:block" />
 
       {/* Timeline items */}
       {timeline.map((item, index) => {
@@ -43,7 +43,7 @@ export function SimpleTimeline({ timeline }: SimpleTimelineProps) {
 
             {/* Content */}
             <div
-              className={`group-hover:-translate-y-1 rounded-xl border border-indigo-600/10 bg-gradient-to-br bg-slate-800 p-6 transition-all duration-300 group-hover:border-indigo-600/30 group-hover:shadow-xl ${item.gradientClass} ml-8 md:ml-0`}
+              className={`rounded-xl border border-indigo-600/10 bg-gradient-to-br bg-slate-800 p-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-indigo-600/30 group-hover:shadow-xl ${item.gradientClass} ml-8 md:ml-0`}
             >
               {/* Header */}
               <div className={`mb-4 ${isEven ? '' : 'md:text-left'}`}>

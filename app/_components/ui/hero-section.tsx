@@ -124,7 +124,7 @@ export const HeroSection = memo(function HeroSectionComponent() {
         {/* Enhanced Scroll Indicator */}
         <div
           aria-label="Scroll down indicator"
-          className={`-translate-x-1/2 absolute bottom-8 left-1/2 transform transition-all duration-1000 ${
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 transform transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
           }`}
           role="img"

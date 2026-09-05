@@ -27,7 +27,7 @@ export default function CareerClient({ careerData }: CareerClientProps) {
           <div className="flex flex-wrap justify-center gap-4">
             {careerData.tags.map((tag, index) => (
               <span
-                className="hover:-translate-y-0.5 animate-fadeInUp rounded-full border border-indigo-600/30 bg-indigo-600/10 px-6 py-2 text-sm transition-all hover:bg-indigo-600/20 hover:shadow-indigo-600/30 hover:shadow-lg"
+                className="animate-fadeInUp rounded-full border border-indigo-600/30 bg-indigo-600/10 px-6 py-2 text-sm transition-all hover:-translate-y-0.5 hover:bg-indigo-600/20 hover:shadow-indigo-600/30 hover:shadow-lg"
                 key={tag}
                 style={{ animationDelay: `${index * TAG_ANIMATION_DELAY_INCREMENT_SECONDS}s` }}
               >

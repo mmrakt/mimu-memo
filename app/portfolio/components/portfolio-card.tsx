@@ -24,7 +24,7 @@ export default function PortfolioCard({ item, index, onCardClick }: PortfolioCar
   return (
     <button
       aria-label={`View details for ${item.title}`}
-      className="group hover:-translate-y-2 animate-fadeInUp cursor-pointer overflow-hidden rounded-xl border border-indigo-600/10 bg-slate-800 text-left transition-all duration-300 hover:border-indigo-600/30 hover:shadow-2xl hover:shadow-indigo-600/20"
+      className="group animate-fadeInUp cursor-pointer overflow-hidden rounded-xl border border-indigo-600/10 bg-slate-800 text-left transition-all duration-300 hover:-translate-y-2 hover:border-indigo-600/30 hover:shadow-2xl hover:shadow-indigo-600/20"
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       style={{ animationDelay: `${index * CARD_ANIMATION_DELAY_MS}ms` }}

@@ -35,17 +35,17 @@ function createPortfolioItem(
   const category: CategoryKey = (data.category as CategoryKey) || DEFAULT_CATEGORY;
 
   return {
-    id,
-    title: data.title || '',
     category,
-    description: data.description || '',
-    image: resolveImagePath(data.image),
-    tech: data.tags || [],
     demo: data.url || '',
-    github: data.github || '',
+    description: data.description || '',
     fullDescription: content.trim() || data.description || '',
-    startedAt: data.startedAt || undefined,
+    github: data.github || '',
+    id,
+    image: resolveImagePath(data.image),
     isActive: data.isActive ?? true,
+    startedAt: data.startedAt || undefined,
+    tech: data.tags || [],
+    title: data.title || '',
   };
 }
 

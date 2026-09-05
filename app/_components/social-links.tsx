@@ -5,22 +5,22 @@ import { GITHUB_PROFILE_URL, LINKEDIN_PROFILE_URL, X_PROFILE_URL } from '@/confi
 
 const socialLinks = [
   {
-    name: 'GitHub',
+    ariaLabel: 'GitHub profile',
     href: GITHUB_PROFILE_URL,
     icon: GitHubIcon,
-    ariaLabel: 'GitHub profile',
+    name: 'GitHub',
   },
   {
-    name: 'LinkedIn',
+    ariaLabel: 'LinkedIn profile',
     href: LINKEDIN_PROFILE_URL,
     icon: LinkedInIcon,
-    ariaLabel: 'LinkedIn profile',
+    name: 'LinkedIn',
   },
   {
-    name: 'X',
+    ariaLabel: 'X profile',
     href: X_PROFILE_URL,
     icon: XIcon,
-    ariaLabel: 'X profile',
+    name: 'X',
   },
 ];
 
@@ -32,7 +32,7 @@ export default function SocialLinks() {
         return (
           <a
             aria-label={social.ariaLabel}
-            className="hover:-translate-y-1 flex h-10 w-10 items-center justify-center rounded-full border border-indigo-500/30 bg-indigo-500/10 text-slate-200 transition-all duration-300 hover:border-indigo-500 hover:bg-indigo-500 hover:shadow-indigo-500/30 hover:shadow-lg"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-indigo-500/30 bg-indigo-500/10 text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500 hover:bg-indigo-500 hover:shadow-indigo-500/30 hover:shadow-lg"
             href={social.href}
             key={social.name}
             rel="noopener noreferrer"

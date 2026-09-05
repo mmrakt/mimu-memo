@@ -14,10 +14,10 @@ export function getSlides(): PostListItem[] {
 
   return slides.map((slide, index) => ({
     id: `slide-${index}`,
-    title: slide.title,
-    tag: slide.tag,
-    pubDate: slide.pubDate,
     link: slide.link,
     media: 'owned' as const,
+    pubDate: slide.pubDate,
+    tag: slide.tag,
+    title: slide.title,
   }));
 }
