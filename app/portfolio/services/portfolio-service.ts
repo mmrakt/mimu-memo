@@ -57,7 +57,7 @@ async function parsePortfolioFile(filePath: string, id: number): Promise<Portfol
       content: string;
     };
 
-    if (!(data?.title && data?.description)) {
+    if (!(data.title && data.description)) {
       return null;
     }
 

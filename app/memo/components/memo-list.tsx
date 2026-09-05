@@ -26,7 +26,7 @@ export default function MemoList({ posts }: MemoListProps) {
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
     return { items, totalPages };
-  }, [posts, currentPage, postsPerPage]);
+  }, [posts, currentPage]);
   const paginatedPosts = pagination.items;
   const totalPageCount = pagination.totalPages;
 
