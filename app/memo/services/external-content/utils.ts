@@ -12,7 +12,7 @@ dayjs().format();
 const EXCERPT_MAX_LENGTH = 70;
 
 export const toTitleCase = (str: string) =>
-  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
 
 export const formatPostDate = (date: Date | string) => dayjs(date).format('YYYY-MM-DD');
 

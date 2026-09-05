@@ -38,7 +38,7 @@ export async function getAllPosts(): Promise<PostListItem[]> {
     }
 
     return sortPostsByDate(posts);
-  } catch (_error) {
+  } catch {
     return [];
   }
 }
@@ -109,7 +109,7 @@ export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | nu
         title: data.title || '',
       },
     };
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
@@ -120,7 +120,7 @@ export async function getAllMemoSlugs(): Promise<string[]> {
     const filenames = await fs.readdir(postsDirectory);
 
     return filenames.filter(isPostFile).map(getSlugFromFilename);
-  } catch (_error) {
+  } catch {
     return [];
   }
 }

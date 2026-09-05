@@ -62,7 +62,7 @@ async function parsePortfolioFile(filePath: string, id: number): Promise<Portfol
     }
 
     return createPortfolioItem(data, content, id);
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
@@ -129,7 +129,7 @@ export async function getAllPortfolioItems(): Promise<PortfolioItem[]> {
     }
 
     return portfolioItems.sort(sortByStartedAtDesc);
-  } catch (_error) {
+  } catch {
     return [];
   }
 }
@@ -144,7 +144,7 @@ export async function getPortfolioItemBySlug(slug: string): Promise<PortfolioIte
     }
 
     return parsePortfolioFile(filePath, 1);
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
