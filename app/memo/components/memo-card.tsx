@@ -28,6 +28,9 @@ interface MediaBadge {
 const MEDIA_BADGE_BASE_CLASSES = 'flex items-center gap-1 rounded-full px-3 py-1 text-xs';
 const SLIDE_BADGE_CLASSES = 'border border-amber-400/20 bg-amber-400/10 text-amber-400';
 
+// カード全体のリンクへ伝播させないためのハンドラ。何も捕捉しないのでモジュール定数にする。
+const stopPropagation = (event: React.MouseEvent) => event.stopPropagation();
+
 function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
   if (isExternal && post.link) {
     return {
@@ -102,7 +105,7 @@ export default function MemoCard({ post, index }: MemoCardProps) {
             <Link
               className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-400 text-xs transition-colors hover:border-cyan-400/30 hover:bg-cyan-400/20"
               href={`/memo/tag/${post.tag}`}
-              onClick={(event) => event.stopPropagation()}
+              onClick={stopPropagation}
             >
               {post.tag}
             </Link>

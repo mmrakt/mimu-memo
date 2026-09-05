@@ -13,6 +13,11 @@ const HERO_PARALLAX_FACTOR = 0.5;
 const HERO_OPACITY_DISTANCE = 600;
 const INDICATOR_OPACITY_DISTANCE = 300;
 
+// propsやstateを捕捉しないためコンポーネント外に置き、参照を安定させる。
+const scrollToTimeline = () => {
+  document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
+};
+
 export function CareerAnimations({ heroContent, restContent }: CareerAnimationsProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLButtonElement>(null);
@@ -88,10 +93,6 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
       }
     };
   }, []);
-
-  const scrollToTimeline = () => {
-    document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-900 text-slate-100">

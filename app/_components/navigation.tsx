@@ -40,6 +40,12 @@ export default function Navigation() {
     document.body.style.overflow = '';
   };
 
+  const closeMobileMenuOnEscape = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeMobileMenu();
+    }
+  };
+
   return (
     <>
       <header
@@ -130,11 +136,7 @@ export default function Navigation() {
           aria-label="Close mobile menu"
           className="fixed inset-0 z-30 cursor-default border-0 bg-black/50 p-0 md:hidden"
           onClick={closeMobileMenu}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') {
-              closeMobileMenu();
-            }
-          }}
+          onKeyDown={closeMobileMenuOnEscape}
           type="button"
         />
       )}
