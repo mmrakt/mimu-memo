@@ -7,10 +7,10 @@ import styles from '@/portfolio/components/markdown.module.css';
 import type { PortfolioItem } from '@/portfolio/types';
 import MediaComponent from './media-component';
 
-type PortfolioModalProps = {
+interface PortfolioModalProps {
   item: PortfolioItem | null;
   onClose: () => void;
-};
+}
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const titleId = useId();
@@ -113,7 +113,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           <div className="flex gap-4">
             {item.isActive !== false && (
               <a
-                className="hover:-translate-y-1 flex items-center gap-2 rounded-lg bg-indigo-500 px-6 py-3 font-medium text-white transition-all duration-300 hover:bg-indigo-600 hover:shadow-indigo-500/30 hover:shadow-lg"
+                className="flex items-center gap-2 rounded-lg bg-indigo-500 px-6 py-3 font-medium text-white transition-all duration-300 hover:-translate-y-1 hover:bg-indigo-600 hover:shadow-indigo-500/30 hover:shadow-lg"
                 href={item.demo}
                 rel="noopener noreferrer"
                 target="_blank"

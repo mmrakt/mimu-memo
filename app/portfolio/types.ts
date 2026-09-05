@@ -1,32 +1,32 @@
-export type PortfolioItem = {
-  id: number;
-  title: string;
+export interface PortfolioItem {
   category: string;
-  description: string;
-  image: string;
-  tech: string[];
   demo: string;
-  github: string;
+  description: string;
   fullDescription: string;
-  startedAt?: string;
+  github: string;
+  id: number;
+  image: string;
   isActive?: boolean;
-};
+  startedAt?: string;
+  tech: string[];
+  title: string;
+}
 
-export type FilterOption = {
+export interface FilterOption {
   key: string;
   label: string;
-};
+}
 
 export type CategoryKey = 'solo-development' | 'work';
 
-export type PortfolioFrontmatter = {
-  title?: string;
-  description?: string;
-  image?: string;
-  tags?: string[];
-  url?: string;
-  github?: string;
-  startedAt?: string;
-  isActive?: boolean;
+export interface PortfolioFrontmatter {
   category?: string;
-};
+  description?: string;
+  github?: string;
+  image?: string;
+  isActive?: boolean;
+  startedAt?: string;
+  tags?: string[];
+  title?: string;
+  url?: string;
+}

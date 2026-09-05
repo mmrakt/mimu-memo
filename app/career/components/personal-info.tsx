@@ -4,9 +4,9 @@ import { XIcon } from '@/_components/icons/x-icon';
 import { CAREER_CONFIG } from '@/career/config/constants';
 import type { RawCareerData } from '@/career/types';
 
-type PersonalInfoProps = {
+interface PersonalInfoProps {
   personalInfo: RawCareerData['personalInfo'];
-};
+}
 
 export function PersonalInfo({ personalInfo }: PersonalInfoProps) {
   return (

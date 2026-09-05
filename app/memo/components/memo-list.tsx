@@ -7,9 +7,9 @@ import MemoGrid from '@/memo/components/memo-grid';
 import UrlPagination from '@/memo/components/url-pagination';
 import type { PostListItem } from '@/memo/lib/types';
 
-type MemoListProps = {
+interface MemoListProps {
   posts: PostListItem[];
-};
+}
 
 export default function MemoList({ posts }: MemoListProps) {
   const searchParams = useSearchParams();
@@ -26,7 +26,7 @@ export default function MemoList({ posts }: MemoListProps) {
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
     return { items, totalPages };
-  }, [posts, currentPage, postsPerPage]);
+  }, [posts, currentPage]);
   const paginatedPosts = pagination.items;
   const totalPageCount = pagination.totalPages;
 

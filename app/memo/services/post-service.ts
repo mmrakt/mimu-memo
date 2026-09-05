@@ -13,68 +13,64 @@ import {
 import type { MemoBySlugResult, PostListItem } from '@/memo/lib/types';
 import { validateTag } from '@/memo/services/tag-service';
 
-export type AdjacentPostsResult = {
-  previous: PostListItem | null;
+export interface AdjacentPostsResult {
   next: PostListItem | null;
-};
+  previous: PostListItem | null;
+}
 
 export async function getAllPosts(): Promise<PostListItem[]> {
   try {
     const postsDirectory = await getPostsDirectory();
     const filenames = await fs.readdir(postsDirectory);
 
-    const posts: PostListItem[] = [];
+    const postFilenames = filenames.filter(
+      (filename) =>
+        isPostFile(filename) &&
+        (filename.endsWith(FILE_EXTENSIONS.MARKDOWN) || filename.endsWith(FILE_EXTENSIONS.MDX))
+    );
 
-    for (const filename of filenames) {
-      if (!isPostFile(filename)) {
-        continue;
-      }
-
-      const slug = getSlugFromFilename(filename);
-
-      if (filename.endsWith(FILE_EXTENSIONS.MARKDOWN) || filename.endsWith(FILE_EXTENSIONS.MDX)) {
-        await processPostFile(filename, slug, postsDirectory, posts);
-      }
-    }
+    // 読み込みは並列化しつつ、結果はファイル名順のまま保つ。
+    // 同じ日付の記事の並びがビルドごとに変わらないようにするため。
+    const results = await Promise.all(
+      postFilenames.map((filename) =>
+        processPostFile(filename, getSlugFromFilename(filename), postsDirectory)
+      )
+    );
+    const posts = results.filter((post): post is PostListItem => post !== null);
 
     return sortPostsByDate(posts);
-  } catch (_error) {
+  } catch {
     return [];
   }
 }
 
 /**
- * Process a post file (markdown or MDX) and add it to the posts array
+ * Process a post file (markdown or MDX) and return it, or null when it cannot be read
  */
-async function processPostFile(
+function processPostFile(
   filename: string,
   slug: string,
-  postsDirectory: string,
-  posts: PostListItem[]
-): Promise<void> {
+  postsDirectory: string
+): Promise<PostListItem | null> {
   const filePath = `${postsDirectory}/${filename}`;
 
-  const post = await safeAsync(
+  return safeAsync(
     async () => {
       const fileContent = await fs.readFile(filePath, 'utf-8');
       const { data } = matter(fileContent);
 
       return {
-        id: slug,
-        title: data.title || '',
-        tag: validateTag(data.tag || '', filePath),
-        pubDate: formatPubDate(data.pubDate),
         excerpt: data.excerpt || data.description || '',
+        id: slug,
         media: 'owned' as const,
+        pubDate: formatPubDate(data.pubDate),
+        tag: validateTag(data.tag || '', filePath),
+        title: data.title || '',
       };
     },
     null,
     `Processing post file: ${filename}`
   );
-
-  if (post) {
-    posts.push(post);
-  }
 }
 
 export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | null> {
@@ -100,16 +96,16 @@ export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | nu
     const { data, content } = matter(fileContent);
 
     return {
-      metadata: {
-        title: data.title || '',
-        tag: validateTag(data.tag || '', mdxFilePath),
-        pubDate: formatPubDate(data.pubDate),
-        id: slug,
-      },
       content,
       isMarkdown: true,
+      metadata: {
+        id: slug,
+        pubDate: formatPubDate(data.pubDate),
+        tag: validateTag(data.tag || '', mdxFilePath),
+        title: data.title || '',
+      },
     };
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
@@ -120,26 +116,26 @@ export async function getAllMemoSlugs(): Promise<string[]> {
     const filenames = await fs.readdir(postsDirectory);
 
     return filenames.filter(isPostFile).map(getSlugFromFilename);
-  } catch (_error) {
+  } catch {
     return [];
   }
 }
 
 export function getAdjacentPostsFromList(posts: PostListItem[], slug: string): AdjacentPostsResult {
   if (!posts.length) {
-    return { previous: null, next: null };
+    return { next: null, previous: null };
   }
 
   const currentIndex = posts.findIndex((post) => post.id === slug);
 
   if (currentIndex === -1) {
-    return { previous: null, next: null };
+    return { next: null, previous: null };
   }
 
   const previous = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
   const next = currentIndex > 0 ? posts[currentIndex - 1] : null;
 
-  return { previous, next };
+  return { next, previous };
 }
 
 export async function getAdjacentPosts(

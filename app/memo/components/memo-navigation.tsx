@@ -2,10 +2,10 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { PostListItem } from '@/memo/lib/types';
 
-type MemoNavigationProps = {
-  previous: PostListItem | null;
+interface MemoNavigationProps {
   next: PostListItem | null;
-};
+  previous: PostListItem | null;
+}
 
 export default function MemoNavigation({ previous, next }: MemoNavigationProps) {
   if (!(previous || next)) {

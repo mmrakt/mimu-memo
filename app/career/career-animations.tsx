@@ -3,15 +3,20 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
-type CareerAnimationsProps = {
+interface CareerAnimationsProps {
   heroContent: React.ReactNode;
   restContent: React.ReactNode;
-};
+}
 
 const ELEMENT_VISIBLE_THRESHOLD = 50;
 const HERO_PARALLAX_FACTOR = 0.5;
 const HERO_OPACITY_DISTANCE = 600;
 const INDICATOR_OPACITY_DISTANCE = 300;
+
+// propsやstateを捕捉しないためコンポーネント外に置き、参照を安定させる。
+const scrollToTimeline = () => {
+  document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
+};
 
 export function CareerAnimations({ heroContent, restContent }: CareerAnimationsProps) {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -46,8 +51,8 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
         }
       },
       {
-        threshold: 0.01,
         rootMargin: '0px 0px -100px 0px',
+        threshold: 0.01,
       }
     );
 
@@ -59,12 +64,14 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     // Parallax effect and scroll indicator visibility
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
+      // biome-ignore lint/suspicious/noUnnecessaryConditions: refはJSXで要素に接続済みで、実行時はnullになりうる
       if (heroRef.current) {
         heroRef.current.style.transform = `translateY(${scrolled * HERO_PARALLAX_FACTOR}px)`;
         heroRef.current.style.opacity = `${1 - scrolled / HERO_OPACITY_DISTANCE}`;
       }
 
       // Hide scroll indicator when scrolled
+      // biome-ignore lint/suspicious/noUnnecessaryConditions: refはJSXで要素に接続済みで、実行時はnullになりうる
       if (scrollIndicatorRef.current) {
         const opacity = Math.max(0, 1 - scrolled / INDICATOR_OPACITY_DISTANCE);
         scrollIndicatorRef.current.style.opacity = `${opacity}`;
@@ -87,25 +94,21 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
     };
   }, []);
 
-  const scrollToTimeline = () => {
-    document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-900 text-slate-100">
       {/* Animated background */}
-      <div className="-z-10 fixed inset-0 opacity-5">
+      <div className="fixed inset-0 -z-10 opacity-5">
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-indigo-600 via-transparent to-transparent"
           style={{ animationDuration: '20s' }}
         />
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-cyan-600 via-transparent to-transparent"
-          style={{ animationDuration: '20s', animationDelay: '6.67s' }}
+          style={{ animationDelay: '6.67s', animationDuration: '20s' }}
         />
         <div
           className="absolute inset-0 animate-pulse-slow bg-gradient-radial from-amber-600 via-transparent to-transparent"
-          style={{ animationDuration: '20s', animationDelay: '13.33s' }}
+          style={{ animationDelay: '13.33s', animationDuration: '20s' }}
         />
       </div>
 
@@ -117,7 +120,7 @@ export function CareerAnimations({ heroContent, restContent }: CareerAnimationsP
 
       {/* Scroll indicator */}
       <button
-        className="-translate-x-1/2 fixed bottom-8 left-1/2 z-50 animate-bounce cursor-pointer transition-opacity duration-300"
+        className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 animate-bounce cursor-pointer transition-opacity duration-300"
         onClick={scrollToTimeline}
         ref={scrollIndicatorRef}
         type="button"

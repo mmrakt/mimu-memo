@@ -34,9 +34,9 @@ describe('Date Utils', () => {
   describe('sortPostsByDate', () => {
     it('should sort posts by date in descending order (newest first)', () => {
       const posts = [
-        { id: '1', title: 'Post 1', pubDate: '2024-01-15', tag: 'test' },
-        { id: '2', title: 'Post 2', pubDate: '2024-03-15', tag: 'test' },
-        { id: '3', title: 'Post 3', pubDate: '2024-02-15', tag: 'test' },
+        { id: '1', pubDate: '2024-01-15', tag: 'test', title: 'Post 1' },
+        { id: '2', pubDate: '2024-03-15', tag: 'test', title: 'Post 2' },
+        { id: '3', pubDate: '2024-02-15', tag: 'test', title: 'Post 3' },
       ];
 
       const sorted = sortPostsByDate(posts);
@@ -52,15 +52,15 @@ describe('Date Utils', () => {
     });
 
     it('should handle single item', () => {
-      const posts = [{ id: '1', title: 'Post 1', pubDate: '2024-01-15', tag: 'test' }];
+      const posts = [{ id: '1', pubDate: '2024-01-15', tag: 'test', title: 'Post 1' }];
       const result = sortPostsByDate(posts);
       expect(result).toEqual(posts);
     });
 
     it('should handle same dates', () => {
       const posts = [
-        { id: '1', title: 'Post 1', pubDate: '2024-01-15', tag: 'test' },
-        { id: '2', title: 'Post 2', pubDate: '2024-01-15', tag: 'test' },
+        { id: '1', pubDate: '2024-01-15', tag: 'test', title: 'Post 1' },
+        { id: '2', pubDate: '2024-01-15', tag: 'test', title: 'Post 2' },
       ];
 
       const sorted = sortPostsByDate(posts);

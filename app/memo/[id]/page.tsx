@@ -13,11 +13,11 @@ import { getAdjacentPosts } from '@/memo/services/post-service';
 import { getAllMemoSlugs, getMemoBySlug } from '@/memo/utils';
 import styles from './markdown.module.css';
 
-type MemoDetailPageProps = {
+interface MemoDetailPageProps {
   params: Promise<{
     id: string;
   }>;
-};
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllMemoSlugs();
@@ -35,15 +35,15 @@ export async function generateMetadata({ params }: MemoDetailPageProps): Promise
   }
 
   return {
-    title: `${memo.metadata.title} | mimu-memo`,
     description: `Read about ${memo.metadata.title} on mimu-memo blog`,
     openGraph: {
-      title: memo.metadata.title,
-      description: `Read about ${memo.metadata.title} on mimu-memo blog`,
-      type: 'article',
-      publishedTime: memo.metadata.pubDate,
       authors: ['mimu'],
+      description: `Read about ${memo.metadata.title} on mimu-memo blog`,
+      publishedTime: memo.metadata.pubDate,
+      title: memo.metadata.title,
+      type: 'article',
     },
+    title: `${memo.metadata.title} | mimu-memo`,
   };
 }
 

@@ -4,11 +4,11 @@ import { CAREER_CONFIG } from '@/career/config/constants';
 import type { CertificationItem, EducationItem } from '@/career/types';
 import { formatDateRangeForDisplay } from '@/career/utils/date';
 
-type EducationSectionProps = {
-  education: EducationItem[];
+interface EducationSectionProps {
   certifications: CertificationItem[];
+  education: EducationItem[];
   languages?: Array<{ name: string; level: string }>;
-};
+}
 
 export function EducationSection({ education, certifications, languages }: EducationSectionProps) {
   return (
@@ -27,10 +27,10 @@ export function EducationSection({ education, certifications, languages }: Educa
               Education
             </h3>
             <div className="space-y-4">
-              {education.map((edu, index) => (
+              {education.map((edu) => (
                 <div
-                  className="hover:-translate-y-1 rounded-xl border border-purple-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-purple-600/30 hover:shadow-lg"
-                  key={`edu-${edu.institution}-${index}`}
+                  className="rounded-xl border border-purple-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-purple-600/30 hover:shadow-lg"
+                  key={`edu-${edu.institution}`}
                 >
                   <h4 className="mb-2 font-semibold text-lg text-white">
                     {edu.degree} in {edu.field}
@@ -71,18 +71,18 @@ export function EducationSection({ education, certifications, languages }: Educa
               Certifications
             </h3>
             <div className="space-y-4">
-              {certifications.map((cert, index) => (
+              {certifications.map((cert) => (
                 <div
-                  className="hover:-translate-y-1 rounded-xl border border-cyan-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-cyan-600/30 hover:shadow-lg"
-                  key={`cert-${cert.name}-${index}`}
+                  className="rounded-xl border border-cyan-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-600/30 hover:shadow-lg"
+                  key={`cert-${cert.name}`}
                 >
                   <h4 className="mb-2 font-semibold text-lg text-white">{cert.name}</h4>
                   <p className="mb-1 font-medium text-cyan-400">{cert.issuer}</p>
                   <p className="mb-2 text-slate-400 text-sm">
                     Issued:{' '}
                     {new Date(cert.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
                       month: 'long',
+                      year: 'numeric',
                     })}
                   </p>
 
@@ -90,8 +90,8 @@ export function EducationSection({ education, certifications, languages }: Educa
                     <p className="mb-2 text-slate-400 text-sm">
                       Expires:{' '}
                       {new Date(cert.expiryDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
                         month: 'long',
+                        year: 'numeric',
                       })}
                     </p>
                   )}
@@ -114,10 +114,10 @@ export function EducationSection({ education, certifications, languages }: Educa
                 Languages
               </h3>
               <div className="space-y-4">
-                {languages.map((lang, index) => (
+                {languages.map((lang) => (
                   <div
-                    className="hover:-translate-y-1 rounded-xl border border-emerald-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-emerald-600/30 hover:shadow-lg"
-                    key={`lang-${lang.name}-${index}`}
+                    className="rounded-xl border border-emerald-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-600/30 hover:shadow-lg"
+                    key={`lang-${lang.name}`}
                   >
                     <h4 className="mb-2 font-semibold text-lg text-white">{lang.name}</h4>
                     <p className="font-medium text-emerald-400">

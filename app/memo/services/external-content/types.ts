@@ -1,24 +1,24 @@
 import type { MEDIA_TYPE_LIST, MEDIA_TYPE_LIST_FOR_DISPLAY } from '@/config';
 import type { TAG_LIST } from '@/memo/services/tag-service';
 
-export type NavItems = {
+export interface NavItems {
   [key: string]: NavItem;
-};
+}
 
-export type NavItem = {
+export interface NavItem {
   path: string;
   title: string;
-};
+}
 
-export type Frontmatter = {
-  pubDate: string | Date;
-  title: string;
+export interface Frontmatter {
   link: string;
   media: MediaType; // TODO: 汎用化する
+  pubDate: string | Date;
   tag?: Tag;
-};
+  title: string;
+}
 
-export type PaginatedPost = {
+export interface PaginatedPost {
   entry: unknown; // FIXME
   next: {
     url: string;
@@ -28,17 +28,17 @@ export type PaginatedPost = {
     url: string;
     title: string;
   };
-};
+}
 
 export type MediaType = (typeof MEDIA_TYPE_LIST)[number];
 export type MediaTypeForDisplay = (typeof MEDIA_TYPE_LIST_FOR_DISPLAY)[number];
 
-export type QiitaTag = {
+export interface QiitaTag {
   name: string;
   versions: string[];
-};
+}
 
-export type QiitaUser = {
+export interface QiitaUser {
   description: string;
   facebook_id: string;
   followees_count: number;
@@ -55,10 +55,9 @@ export type QiitaUser = {
   team_only: boolean;
   twitter_screen_name: string;
   website_url: string;
-};
+}
 
-export type QiitaPost = {
-  rendered_body: string;
+export interface QiitaPost {
   body: string;
   coediting: boolean;
   comments_count: number;
@@ -66,23 +65,24 @@ export type QiitaPost = {
   group?: null;
   id: string;
   likes_count: number;
+  organization_url_name?: null;
+  page_views_count: number;
   private: boolean;
   reactions_count: number;
+  rendered_body: string;
+  slide: boolean;
   stocks_count: number;
   tags?: QiitaTag[];
+  team_membership?: null;
   title: string;
   updated_at: string;
   url: string;
   user: QiitaUser;
-  page_views_count: number;
-  team_membership?: null;
-  organization_url_name?: null;
-  slide: boolean;
-};
+}
 
 export type Tag = (typeof TAG_LIST)[number];
 
-export type TagCount = {
-  name: Tag;
+export interface TagCount {
   count: number;
-};
+  name: Tag;
+}

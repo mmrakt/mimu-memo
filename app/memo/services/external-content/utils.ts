@@ -12,7 +12,7 @@ dayjs().format();
 const EXCERPT_MAX_LENGTH = 70;
 
 export const toTitleCase = (str: string) =>
-  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
 
 export const formatPostDate = (date: Date | string) => dayjs(date).format('YYYY-MM-DD');
 
@@ -53,18 +53,18 @@ export const fetchPosts = async (endpoint: string, token: string) => {
 
 const mappingQiitaFeed = (posts: QiitaPost[]): Frontmatter[] =>
   posts.map((post) => ({
-    title: post.title ?? '',
-    pubDate: post.created_at ? dayjs(post.created_at).format('YYYY-MM-DD') : '',
     link: post.url ?? '',
     media: 'qiita',
+    pubDate: post.created_at ? dayjs(post.created_at).format('YYYY-MM-DD') : '',
+    title: post.title ?? '',
   }));
 
 const mappingFeed = (items: Parser.Item[], media: Exclude<MediaType, 'mimu-memo'>) =>
   items.map((item) => ({
-    title: item.title ?? '',
-    pubDate: item.pubDate ? dayjs(item.pubDate).format('YYYY-MM-DD') : '',
     link: item.link ?? '',
     media,
+    pubDate: item.pubDate ? dayjs(item.pubDate).format('YYYY-MM-DD') : '',
+    title: item.title ?? '',
   }));
 
 export const extractExcerptFromBody = async (body: string) => {

@@ -12,42 +12,42 @@ import {
   ZENN_URL_PREFIX,
 } from '@/config';
 
-type ExternalLinkItem = {
-  name: string;
+interface ExternalLinkItem {
   href: string;
   icon: string;
-};
+  name: string;
+}
 
 const externalLinks: ExternalLinkItem[] = [
   {
-    name: 'X (Twitter)',
     href: X_PROFILE_URL,
     icon: '𝕏',
+    name: 'X (Twitter)',
   },
   {
-    name: 'GitHub',
     href: `${GITHUB_URL_PREFIX}/${SNS_ID}`,
     icon: '⚡',
+    name: 'GitHub',
   },
   {
-    name: 'Scrapbox',
     href: `${SCRAPBOX_URL_PREFIX}/mimu`,
     icon: '📝',
+    name: 'Scrapbox',
   },
   {
-    name: 'Zenn',
     href: `${ZENN_URL_PREFIX}/${SNS_ID}`,
     icon: '📚',
+    name: 'Zenn',
   },
   {
-    name: 'Qiita',
     href: `${QIITA_URL_PREFIX}/${SNS_ID}`,
     icon: '💡',
+    name: 'Qiita',
   },
   {
-    name: 'Wantedly',
     href: `${WANTEDLY_URL_PREFIX}/id/mimura_akito`,
     icon: '🤝',
+    name: 'Wantedly',
   },
 ];
 
@@ -70,7 +70,7 @@ export const ExternalLinks = memo(function ExternalLinksComponent() {
             <a
               aria-label={`Visit ${link.name} profile (opens in new tab)`}
               className={
-                'group hover:-translate-y-1 block animate-fade-in-up rounded-xl border border-indigo-500/10 bg-slate-800/50 p-6 text-center opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-indigo-500/10 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900'
+                'group block animate-fade-in-up rounded-xl border border-indigo-500/10 bg-slate-800/50 p-6 text-center opacity-0 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-indigo-500/10 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900'
               }
               href={link.href}
               key={link.name}

@@ -8,32 +8,35 @@ import { getTagIconPath } from '@/memo/components/utils';
 import { getMediaDisplayName, getMediaStyles, isExternalMedia } from '@/memo/lib/media-utils';
 import type { PostListItem } from '@/memo/lib/types';
 
-type MemoCardProps = {
-  post: PostListItem;
+interface MemoCardProps {
   index: number;
-};
+  post: PostListItem;
+}
 
-type LinkProps = {
+interface LinkProps {
   href: string;
-  target?: string;
   rel?: string;
-};
+  target?: string;
+}
 
-type MediaBadge = {
-  show: boolean;
+interface MediaBadge {
   className: string;
   label: string;
-};
+  show: boolean;
+}
 
 const MEDIA_BADGE_BASE_CLASSES = 'flex items-center gap-1 rounded-full px-3 py-1 text-xs';
 const SLIDE_BADGE_CLASSES = 'border border-amber-400/20 bg-amber-400/10 text-amber-400';
+
+// カード全体のリンクへ伝播させないためのハンドラ。何も捕捉しないのでモジュール定数にする。
+const stopPropagation = (event: React.MouseEvent) => event.stopPropagation();
 
 function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
   if (isExternal && post.link) {
     return {
       href: post.link,
-      target: '_blank',
       rel: 'noopener noreferrer',
+      target: '_blank',
     };
   }
 
@@ -43,24 +46,24 @@ function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
 function buildMediaBadge(post: PostListItem, isSlide: boolean): MediaBadge {
   if (isSlide) {
     return {
-      show: true,
       className: `${MEDIA_BADGE_BASE_CLASSES} ${SLIDE_BADGE_CLASSES}`,
       label: 'Slide',
+      show: true,
     };
   }
 
   if (post.media && isExternalMedia(post.media)) {
     return {
-      show: true,
       className: `${MEDIA_BADGE_BASE_CLASSES} ${getMediaStyles(post.media)}`,
       label: getMediaDisplayName(post.media),
+      show: true,
     };
   }
 
   return {
-    show: false,
     className: MEDIA_BADGE_BASE_CLASSES,
     label: '',
+    show: false,
   };
 }
 
@@ -77,7 +80,7 @@ export default function MemoCard({ post, index }: MemoCardProps) {
   return (
     <LinkComponent
       {...linkProps}
-      className="hover:-translate-y-2 block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+      className="block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
       style={{
         animationDelay,
         animationFillMode: 'forwards',
@@ -102,7 +105,7 @@ export default function MemoCard({ post, index }: MemoCardProps) {
             <Link
               className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-400 text-xs transition-colors hover:border-cyan-400/30 hover:bg-cyan-400/20"
               href={`/memo/tag/${post.tag}`}
-              onClick={(event) => event.stopPropagation()}
+              onClick={stopPropagation}
             >
               {post.tag}
             </Link>

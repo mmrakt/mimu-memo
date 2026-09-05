@@ -17,33 +17,34 @@ export function transformTimelineData(rawData: RawCareerData): DetailedTimelineI
   rawData.workExperience.forEach((job, jobIndex) => {
     job.projects.forEach((project, projectIndex) => {
       timeline.push({
-        dateRange: formatDateRange(project.period.start, project.period.end),
-        title: project.role || job.role,
-        company: job.company,
-        location: rawData.personalInfo?.contact?.location || CAREER_CONFIG.DEFAULTS.LOCATION,
-        employmentType: CAREER_CONFIG.DEFAULTS.EMPLOYMENT_TYPE,
-        summary: project.name,
-        responsibilities: project.work || [`${project.name}の開発・実装`],
-        keyProjects: [
-          {
-            name: project.name,
-            description: project.teamType
-              ? `${project.teamType} (${project.teamSize}名)`
-              : `チーム規模: ${project.teamSize || 1}名`,
-            impact: project.achievements.join('、'),
-            technologies: project.techStacks,
-          },
-        ],
         achievements: project.achievements.map((achievement) => ({
-          metric: '',
           description: achievement,
+          metric: '',
         })),
-        technologies: project.techStacks,
-        teamSize: project.teamSize,
+        company: job.company,
+        dateRange: formatDateRange(project.period.start, project.period.end),
+        employmentType: CAREER_CONFIG.DEFAULTS.EMPLOYMENT_TYPE,
         gradientClass:
           CAREER_CONFIG.TIMELINE.GRADIENT_CLASSES[
             (jobIndex + projectIndex) % CAREER_CONFIG.TIMELINE.GRADIENT_CLASSES.length
           ],
+        keyProjects: [
+          {
+            description: project.teamType
+              ? `${project.teamType} (${project.teamSize}名)`
+              : `チーム規模: ${project.teamSize || 1}名`,
+            impact: project.achievements.join('、'),
+            name: project.name,
+            technologies: project.techStacks,
+          },
+        ],
+        // biome-ignore lint/suspicious/noUnnecessaryConditions: data.jsoncをas RawCareerDataで断定しており実データの欠損を型で保証できない
+        location: rawData.personalInfo?.contact?.location || CAREER_CONFIG.DEFAULTS.LOCATION,
+        responsibilities: project.work || [`${project.name}の開発・実装`],
+        summary: project.name,
+        teamSize: project.teamSize,
+        technologies: project.techStacks,
+        title: project.role || job.role,
       });
     });
   });
@@ -56,32 +57,32 @@ export function transformSkillsData(rawData: RawCareerData): SkillCategory[] {
     {
       category: 'Programming Languages',
       skills: rawData.skills.categories.programmingLanguages.map((skill) => ({
-        name: skill.name,
         level: convertNumericSkillLevel(skill.level),
+        name: skill.name,
         yearsOfExperience: skill.experience,
       })),
     },
     {
       category: 'Frontend',
       skills: rawData.skills.categories.frontend.map((skill) => ({
-        name: skill.name,
         level: convertNumericSkillLevel(skill.level),
+        name: skill.name,
         yearsOfExperience: skill.experience,
       })),
     },
     {
       category: 'Backend',
       skills: rawData.skills.categories.backend.map((skill) => ({
-        name: skill.name,
         level: convertNumericSkillLevel(skill.level),
+        name: skill.name,
         yearsOfExperience: skill.experience,
       })),
     },
     {
       category: 'Databases',
       skills: rawData.skills.categories.databases.map((skill) => ({
-        name: skill.name,
         level: convertNumericSkillLevel(skill.level),
+        name: skill.name,
         yearsOfExperience: skill.experience,
       })),
     },
@@ -89,13 +90,13 @@ export function transformSkillsData(rawData: RawCareerData): SkillCategory[] {
       category: 'DevOps & Tools',
       skills: [
         ...rawData.skills.categories.tools.map((skill) => ({
-          name: skill.name,
           level: convertNumericSkillLevel(skill.level),
+          name: skill.name,
           yearsOfExperience: skill.experience,
         })),
         ...rawData.skills.categories.infrastructure.map((skill) => ({
-          name: skill.name,
           level: convertNumericSkillLevel(skill.level),
+          name: skill.name,
           yearsOfExperience: skill.experience,
         })),
       ],
@@ -106,23 +107,23 @@ export function transformSkillsData(rawData: RawCareerData): SkillCategory[] {
 export function transformEducationData(rawData: RawCareerData): EducationItem[] {
   return [
     {
-      degree: rawData.personalInfo.education.degree,
-      field: rawData.personalInfo.education.major,
-      institution: rawData.personalInfo.education.university,
-      location: '大阪',
       dateRange: formatDateRange(
         rawData.personalInfo.education.period.start,
         rawData.personalInfo.education.period.end
       ),
+      degree: rawData.personalInfo.education.degree,
+      field: rawData.personalInfo.education.major,
+      institution: rawData.personalInfo.education.university,
+      location: '大阪',
     },
   ];
 }
 
 export function transformCertificationsData(rawData: RawCareerData): CertificationItem[] {
   return rawData.certifications.map((cert) => ({
-    name: cert.name,
-    issuer: cert.name.includes('AWS') ? 'Amazon Web Services' : 'PHP技術者認定機構',
     date: cert.date,
+    issuer: cert.name.includes('AWS') ? 'Amazon Web Services' : 'PHP技術者認定機構',
+    name: cert.name,
   }));
 }
 
@@ -140,10 +141,10 @@ export function calculateStats(
   }
 
   return [
-    { number: `${totalYearsExperience}+`, label: 'Years of Experience' },
-    { number: `${totalProjects}+`, label: 'Projects Completed' },
-    { number: `${uniqueTechnologies.size}+`, label: 'Technologies Used' },
-    { number: `${certifications.length}`, label: 'Certifications' },
+    { label: 'Years of Experience', number: `${totalYearsExperience}+` },
+    { label: 'Projects Completed', number: `${totalProjects}+` },
+    { label: 'Technologies Used', number: `${uniqueTechnologies.size}+` },
+    { label: 'Certifications', number: `${certifications.length}` },
   ];
 }
 
@@ -155,18 +156,18 @@ export function transformToCareerData(rawData: RawCareerData): CareerData {
   const stats = calculateStats(timeline, certifications);
 
   return {
-    title: rawData.personalInfo.nickName,
-    subtitle: rawData.personalInfo.fullName,
-    tags: [...CAREER_CONFIG.DEFAULTS.TAGS],
-    professionalSummary: rawData.personalInfo.summary,
-    timeline,
-    skills,
-    education,
+    aboutMe: rawData.aboutMe,
     certifications,
-    stats,
+    education,
     // Raw data access
     personalInfo: rawData.personalInfo,
-    aboutMe: rawData.aboutMe,
+    professionalSummary: rawData.personalInfo.summary,
     selfPR: rawData.selfPR,
+    skills,
+    stats,
+    subtitle: rawData.personalInfo.fullName,
+    tags: [...CAREER_CONFIG.DEFAULTS.TAGS],
+    timeline,
+    title: rawData.personalInfo.nickName,
   };
 }

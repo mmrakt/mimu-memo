@@ -3,18 +3,18 @@ import { handleCriticalError, ValidationError } from '@/memo/lib/error-handler';
 import type { PostListItem } from '@/memo/lib/types';
 import { getAllCombinedPosts } from '@/memo/services/combined-posts-service';
 
-export type TagInfo = {
-  name: string;
+export interface TagInfo {
   count: number;
   icon?: string;
-};
+  name: string;
+}
 
-export type PaginatedTagPosts = {
-  posts: PostListItem[];
+export interface PaginatedTagPosts {
   currentPage: number;
+  posts: PostListItem[];
   totalPages: number;
   totalPosts: number;
-};
+}
 
 export const TAG_LIST = [
   'other',
@@ -40,6 +40,7 @@ export function isValidTag(tag: string): boolean {
  * Validate a tag with improved error handling
  */
 export function validateTag(tag: string, filePath?: string): string {
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: 型はstringだが呼び出し側からnullが渡る場合をテストで担保している
   if (!tag?.trim()) {
     const error = new ValidationError(
       `No tag specified. Valid tags: ${TAG_LIST.join(', ')}`,
@@ -63,6 +64,7 @@ export function validateTag(tag: string, filePath?: string): string {
  * Safe tag validation that returns a default instead of throwing
  */
 export function validateTagSafe(tag: string, fallback = 'other'): string {
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: 型はstringだが呼び出し側からnullが渡る場合をテストで担保している
   if (!tag?.trim()) {
     return fallback;
   }
@@ -87,9 +89,9 @@ export async function getAllTags(): Promise<TagInfo[]> {
   }
 
   const tags: TagInfo[] = Array.from(tagCounts.entries()).map(([name, count]) => ({
-    name,
     count,
     icon: TAG_ICONS[name.toLowerCase() as keyof typeof TAG_ICONS],
+    name,
   }));
 
   return tags.sort((a, b) => b.count - a.count);
@@ -110,8 +112,8 @@ export async function getPostsByTagPaginated(tag: string, page = 1): Promise<Pag
   const posts = allPosts.slice(startIndex, endIndex);
 
   return {
-    posts,
     currentPage: page,
+    posts,
     totalPages,
     totalPosts,
   };

@@ -1,7 +1,7 @@
-type PageHeaderProps = {
-  title: string;
+interface PageHeaderProps {
   description: string;
-};
+  title: string;
+}
 
 export default function PageHeader({ title, description }: PageHeaderProps) {
   return (

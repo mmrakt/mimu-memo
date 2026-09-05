@@ -6,23 +6,31 @@ import MemoListWithPagination from '@/memo/components/memo-list-with-pagination'
 import { getTagIconPath } from '@/memo/components/utils';
 import { getAllTags, getPostsByTagPaginated } from '@/memo/services/tag-service';
 
-type PageProps = {
+interface PageProps {
   params: Promise<{
     tag: string;
     page: string;
   }>;
-};
+}
 
 export async function generateStaticParams() {
   const tags = await getAllTags();
+
+  // タグごとの件数取得は互いに独立しているため並列化する。
+  const pageCounts = await Promise.all(
+    tags.map(async (tag) => {
+      const { totalPages } = await getPostsByTagPaginated(tag.name, 1);
+      return { tag: tag.name, totalPages };
+    })
+  );
+
   const params: Array<{ tag: string; page: string }> = [];
 
-  for (const tag of tags) {
-    const { totalPages } = await getPostsByTagPaginated(tag.name, 1);
+  for (const { tag, totalPages } of pageCounts) {
     for (let page = 2; page <= totalPages; page += 1) {
       params.push({
-        tag: tag.name,
         page: page.toString(),
+        tag,
       });
     }
   }

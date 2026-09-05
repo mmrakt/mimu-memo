@@ -1,5 +1,10 @@
 // Raw data structure matching data.jsonc
-export type RawCareerData = {
+export interface RawCareerData {
+  aboutMe: {
+    blogUrl: string;
+    description: string;
+  };
+  certifications: Array<{ name: string; date: string }>;
   personalInfo: {
     fullName: string;
     nickName: string;
@@ -16,6 +21,22 @@ export type RawCareerData = {
       github: string;
       x?: string;
       location: string;
+    };
+  };
+  selfPR: {
+    autonomy: { title: string; content: string };
+    fullstack: { title: string; content: string };
+    teamwork: { title: string; content: string };
+  };
+  skills: {
+    levelDefinition: Record<string, string>;
+    categories: {
+      programmingLanguages: Array<{ name: string; level: number; experience: number }>;
+      frontend: Array<{ name: string; level: number; experience: number }>;
+      backend: Array<{ name: string; level: number; experience: number }>;
+      databases: Array<{ name: string; level: number; experience: number }>;
+      tools: Array<{ name: string; level: number; experience: number }>;
+      infrastructure: Array<{ name: string; level: number; experience: number }>;
     };
   };
   workExperience: Array<{
@@ -36,118 +57,97 @@ export type RawCareerData = {
       achievements: string[];
     }>;
   }>;
-  skills: {
-    levelDefinition: Record<string, string>;
-    categories: {
-      programmingLanguages: Array<{ name: string; level: number; experience: number }>;
-      frontend: Array<{ name: string; level: number; experience: number }>;
-      backend: Array<{ name: string; level: number; experience: number }>;
-      databases: Array<{ name: string; level: number; experience: number }>;
-      tools: Array<{ name: string; level: number; experience: number }>;
-      infrastructure: Array<{ name: string; level: number; experience: number }>;
-    };
-  };
-  certifications: Array<{ name: string; date: string }>;
-  aboutMe: {
-    blogUrl: string;
-    description: string;
-  };
-  selfPR: {
-    autonomy: { title: string; content: string };
-    fullstack: { title: string; content: string };
-    teamwork: { title: string; content: string };
-  };
-};
+}
 
 // Processed data for components
-export type CareerData = {
-  title: string;
-  subtitle: string;
-  tags: string[];
-  professionalSummary: string;
-  timeline: DetailedTimelineItem[];
-  skills: SkillCategory[];
-  education: EducationItem[];
+export interface CareerData {
+  aboutMe: RawCareerData['aboutMe'];
   certifications: CertificationItem[];
-  stats: StatItem[];
+  education: EducationItem[];
   // Raw data access
   personalInfo: RawCareerData['personalInfo'];
-  aboutMe: RawCareerData['aboutMe'];
+  professionalSummary: string;
   selfPR: RawCareerData['selfPR'];
-};
+  skills: SkillCategory[];
+  stats: StatItem[];
+  subtitle: string;
+  tags: string[];
+  timeline: DetailedTimelineItem[];
+  title: string;
+}
 
-export type DetailedTimelineItem = {
+export interface DetailedTimelineItem {
+  achievements: Achievement[];
+  company: string;
   // Basic information
   dateRange: {
     start: string; // "2023-01" format
     end: string; // "Present" or "2024-12"
   };
-  title: string;
-  company: string;
-  location: string;
   employmentType: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
-
-  // Detailed information
-  summary: string;
-  responsibilities: string[];
-  keyProjects: Project[];
-  achievements: Achievement[];
-  technologies: string[];
-  teamSize?: number;
-  reportsTo?: string;
 
   // Visual
   gradientClass: string;
-};
+  keyProjects: Project[];
+  location: string;
+  reportsTo?: string;
+  responsibilities: string[];
 
-export type Project = {
-  name: string;
+  // Detailed information
+  summary: string;
+  teamSize?: number;
+  technologies: string[];
+  title: string;
+}
+
+export interface Project {
   description: string;
   impact: string;
-  technologies: string[];
   link?: string;
-};
+  name: string;
+  technologies: string[];
+}
 
-export type Achievement = {
-  metric: string;
+export interface Achievement {
   description: string;
-};
+  metric: string;
+}
 
-export type SkillCategory = {
+export interface SkillCategory {
   category: string;
   skills: Skill[];
-};
+}
 
-export type Skill = {
-  name: string;
+export interface Skill {
   level: 'Expert' | 'Advanced' | 'Intermediate' | 'Beginner';
+  name: string;
   yearsOfExperience: number;
-};
+}
 
-export type EducationItem = {
-  degree: string;
-  field: string;
-  institution: string;
-  location: string;
+export interface EducationItem {
   dateRange: {
     start: string;
     end: string;
   };
+  degree: string;
+  field: string;
   gpa?: string;
   honors?: string[];
-};
+  institution: string;
+  location: string;
+}
 
-export type CertificationItem = {
-  name: string;
-  issuer: string;
+export interface CertificationItem {
+  credentialId?: string;
   date: string;
   expiryDate?: string;
-  credentialId?: string;
+  issuer: string;
   link?: string;
-};
+  name: string;
+}
 
-export type StatItem = {
-  number: string;
-  label: string;
+export interface StatItem {
   icon?: string;
-};
+  label: string;
+  number: string;
+}
