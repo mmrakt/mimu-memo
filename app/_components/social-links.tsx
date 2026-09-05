@@ -1,5 +1,5 @@
-import { Linkedin } from 'lucide-react';
 import { GitHubIcon } from '@/_components/icons/github-icon';
+import { LinkedInIcon } from '@/_components/icons/linkedin-icon';
 import { XIcon } from '@/_components/icons/x-icon';
 import { GITHUB_PROFILE_URL, LINKEDIN_PROFILE_URL, X_PROFILE_URL } from '@/config';
 
@@ -13,7 +13,7 @@ const socialLinks = [
   {
     name: 'LinkedIn',
     href: LINKEDIN_PROFILE_URL,
-    icon: Linkedin,
+    icon: LinkedInIcon,
     ariaLabel: 'LinkedIn profile',
   },
   {
