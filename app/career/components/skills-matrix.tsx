@@ -2,9 +2,9 @@
 
 import type { Skill, SkillCategory } from '@/career/types';
 
-type SkillsMatrixProps = {
+interface SkillsMatrixProps {
   skills: SkillCategory[];
-};
+}
 
 const TRANSITION_DELAY_STEP_SECONDS = 0.1;
 

@@ -1,8 +1,8 @@
 'use client';
 
-type AnimatedBackgroundProps = {
+interface AnimatedBackgroundProps {
   variant?: 'float' | 'pulse';
-};
+}
 
 export default function AnimatedBackground({ variant = 'float' }: AnimatedBackgroundProps) {
   const animationClass = variant === 'pulse' ? 'animate-pulse-slow' : 'animate-float';

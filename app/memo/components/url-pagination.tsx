@@ -1,11 +1,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-type UrlPaginationProps = {
+interface UrlPaginationProps {
+  basePath?: string;
   currentPage: number;
   totalPages: number;
-  basePath?: string;
-};
+}
 
 const FIRST_PAGE = 1;
 const NEIGHBOR_PAGE_RANGE = 2;

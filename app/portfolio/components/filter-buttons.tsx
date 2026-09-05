@@ -1,10 +1,10 @@
 import type { FilterOption } from '@/portfolio/types';
 
-type FilterButtonsProps = {
-  filterOptions: FilterOption[];
+interface FilterButtonsProps {
   activeFilter: string;
+  filterOptions: FilterOption[];
   onFilterChange: (filterKey: string) => void;
-};
+}
 
 export default function FilterButtons({
   filterOptions,

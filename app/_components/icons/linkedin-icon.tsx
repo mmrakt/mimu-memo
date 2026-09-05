@@ -1,7 +1,7 @@
-type LinkedInIconProps = {
+interface LinkedInIconProps {
   className?: string;
   size?: number;
-};
+}
 
 export function LinkedInIcon({ className, size = 20 }: LinkedInIconProps) {
   return (

@@ -6,12 +6,12 @@ import MemoListWithPagination from '@/memo/components/memo-list-with-pagination'
 import { getTagIconPath } from '@/memo/components/utils';
 import { getAllTags, getPostsByTagPaginated } from '@/memo/services/tag-service';
 
-type PageProps = {
+interface PageProps {
   params: Promise<{
     tag: string;
     page: string;
   }>;
-};
+}
 
 export async function generateStaticParams() {
   const tags = await getAllTags();

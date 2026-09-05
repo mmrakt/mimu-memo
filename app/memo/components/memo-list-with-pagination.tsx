@@ -4,12 +4,12 @@ import MemoGrid from '@/memo/components/memo-grid';
 import UrlPagination from '@/memo/components/url-pagination';
 import type { PostListItem } from '@/memo/lib/types';
 
-type MemoListWithPaginationProps = {
-  posts: PostListItem[];
-  currentPage: number;
-  totalPages: number;
+interface MemoListWithPaginationProps {
   basePath?: string;
-};
+  currentPage: number;
+  posts: PostListItem[];
+  totalPages: number;
+}
 
 export default function MemoListWithPagination({
   posts,
