@@ -23,7 +23,7 @@ export async function parseMdFile(filePath: string): Promise<MemoContent | null>
         title: data.title || '',
       },
     };
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
