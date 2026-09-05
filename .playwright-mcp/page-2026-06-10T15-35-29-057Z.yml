@@ -1,0 +1,10 @@
+- generic [ref=e2]:
+  - link [ref=e3] [cursor=pointer]:
+    - /url: https://with.is
+    - img [ref=e4]
+  - generic [ref=e5]:
+    - heading "ページが見つかりません" [level=1] [ref=e6]
+    - paragraph [ref=e7]: お探しのページは一時的にアクセスできない状況にあるか、移動もしくは削除された可能性があります。
+    - link "トップへ戻る" [ref=e8] [cursor=pointer]:
+      - /url: https://with.is
+  - paragraph [ref=e9]: ©with
