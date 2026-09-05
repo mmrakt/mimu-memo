@@ -21,7 +21,7 @@ export async function getAllCombinedPosts(): Promise<PostListItem[]> {
 
     // Sort by publication date (newest first)
     return sortPostsByDate(allPosts);
-  } catch (_error) {
+  } catch {
     // If external posts or slides fail, at least return internal posts
     return getAllInternalPosts();
   }
