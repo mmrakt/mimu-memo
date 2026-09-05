@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - img "Pairs(ペアーズ) - 恋活・婚活マッチングアプリ" [ref=e9]
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - link "LINEでサインイン" [ref=e15] [cursor=pointer]:
+            - /url: /login/line
+            - img [ref=e19]
+            - generic [ref=e21]: LINEでサインイン
+          - link "Appleでサインイン" [ref=e22] [cursor=pointer]:
+            - /url: /login/apple
+            - img [ref=e26]
+            - generic [ref=e28]: Appleでサインイン
+          - link "Googleでサインイン" [ref=e29] [cursor=pointer]:
+            - /url: /login/google
+            - img [ref=e33]
+            - generic [ref=e38]: Googleでサインイン
+          - link "メールアドレスでサインイン" [ref=e39] [cursor=pointer]:
+            - /url: /login/email
+            - img [ref=e43]
+            - generic [ref=e46]: メールアドレスでサインイン
+          - link "その他の方法でサインイン" [ref=e47] [cursor=pointer]:
+            - /url: /login/sms
+        - paragraph [ref=e48]:
+          - text: ※18歳未満の方はご登録いただけません。
+          - link "サインイン・新規登録でお困りの方" [ref=e49] [cursor=pointer]:
+            - /url: https://support.pairs.lv/hc/ja/categories/34530568287385
+    - button "利用規約、プライバシーポリシーなど" [ref=e52] [cursor=pointer]
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - alert
+  - dialog "プライバシー" [ref=e54]:
+    - generic [ref=e56]:
+      - generic [ref=e59]:
+        - text: Pairs はお客様のプライバシーを尊重いたします。Pairs およびそのパートナーは、お客様の情報を測定し、サービスの利便性を向上したり、お客様の興味や好みに合ったコンテンツやキャンペーンを提供するために、追跡ツールを使用しております。
+        - link "クッキーポリシー, 新しいタブで開く" [ref=e60] [cursor=pointer]:
+          - /url: https://pairs.lv/static/cookie_policy
+          - text: 詳細情報
+      - generic [ref=e62]:
+        - button "詳細設定, 環境設定センターダイアログを開きます。" [ref=e63] [cursor=pointer]: 詳細設定
+        - button "はい" [ref=e64] [cursor=pointer]
