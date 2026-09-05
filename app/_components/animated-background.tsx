@@ -10,13 +10,13 @@ export default function AnimatedBackground({ variant = 'float' }: AnimatedBackgr
   return (
     <div className="fixed inset-0 z-0 opacity-5">
       <div
-        className={`-top-24 -left-24 absolute h-96 w-96 rounded-full bg-indigo-500 blur-3xl ${animationClass}`}
+        className={`absolute -top-24 -left-24 h-96 w-96 rounded-full bg-indigo-500 blur-3xl ${animationClass}`}
       />
       <div
-        className={`-bottom-24 -right-24 absolute h-80 w-80 rounded-full bg-cyan-400 blur-3xl ${animationClass} animation-delay-1000`}
+        className={`absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-cyan-400 blur-3xl ${animationClass} animation-delay-1000`}
       />
       <div
-        className={`-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-96 w-96 transform rounded-full bg-amber-500 blur-3xl ${animationClass} animation-delay-2000`}
+        className={`absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-amber-500 blur-3xl ${animationClass} animation-delay-2000`}
       />
     </div>
   );

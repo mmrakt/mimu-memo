@@ -14,25 +14,25 @@ type QuickNavItem = {
 
 const quickNavItems: QuickNavItem[] = [
   {
-    href: '/memo',
-    title: 'Memo',
-    description: '技術的な学びや知見を共有',
-    icon: FileText,
     color: 'from-cyan-500 to-blue-600',
+    description: '技術的な学びや知見を共有',
+    href: '/memo',
+    icon: FileText,
+    title: 'Memo',
   },
   {
-    href: '/career',
-    title: 'Career',
-    description: '経歴とスキルセット',
-    icon: Briefcase,
     color: 'from-purple-500 to-pink-600',
+    description: '経歴とスキルセット',
+    href: '/career',
+    icon: Briefcase,
+    title: 'Career',
   },
   {
-    href: '/portfolio',
-    title: 'Portfolio',
-    description: '個人開発などの成果物',
-    icon: Code,
     color: 'from-indigo-500 to-cyan-500',
+    description: '個人開発などの成果物',
+    href: '/portfolio',
+    icon: Code,
+    title: 'Portfolio',
   },
 ];
 
@@ -57,7 +57,7 @@ export const QuickNavigation = memo(function QuickNavigationComponent() {
               <Link
                 aria-label={`Navigate to ${item.title}: ${item.description}`}
                 className={
-                  'group hover:-translate-y-2 block animate-fade-in-up rounded-2xl border border-indigo-500/10 bg-slate-800/50 p-8 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900'
+                  'group block animate-fade-in-up rounded-2xl border border-indigo-500/10 bg-slate-800/50 p-8 opacity-0 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900'
                 }
                 href={item.href}
                 key={item.href}

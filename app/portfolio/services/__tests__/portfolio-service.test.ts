@@ -9,15 +9,15 @@ vi.mock('node:fs', () => {
   return {
     default: {
       promises: {
+        access: mockAccess,
         readdir: mockReaddir,
         readFile: mockReadFile,
-        access: mockAccess,
       },
     },
     promises: {
+      access: mockAccess,
       readdir: mockReaddir,
       readFile: mockReadFile,
-      access: mockAccess,
     },
   };
 });
@@ -75,9 +75,9 @@ This is test content.
       expect(mockReadFile).toHaveBeenCalledTimes(2); // Only .md and .mdx files
       expect(result).toHaveLength(2);
       expect(result[0]).toMatchObject({
-        title: 'Test Project',
         category: 'solo-development',
         description: 'Test description',
+        title: 'Test Project',
       });
     });
 
@@ -103,14 +103,14 @@ This is a work project.
 
       expect(result).toHaveLength(1);
       expect(result[0]).toMatchObject({
-        title: 'Work Project',
         category: 'work',
-        description: 'Work project description',
-        tech: ['Next.js', 'TypeScript'],
         demo: 'https://work-example.com',
+        description: 'Work project description',
         github: 'https://github.com/work/project',
-        startedAt: '2024.05',
         isActive: false,
+        startedAt: '2024.05',
+        tech: ['Next.js', 'TypeScript'],
+        title: 'Work Project',
       });
     });
 
@@ -136,14 +136,14 @@ This is a solo development project.
 
       expect(result).toHaveLength(1);
       expect(result[0]).toMatchObject({
-        title: 'Solo Project',
         category: 'solo-development',
-        description: 'Solo project description',
-        tech: ['Rust', 'CLI'],
         demo: 'https://solo-example.com',
+        description: 'Solo project description',
         github: 'https://github.com/solo/project',
-        startedAt: '2023.12',
         isActive: true,
+        startedAt: '2023.12',
+        tech: ['Rust', 'CLI'],
+        title: 'Solo Project',
       });
     });
 
@@ -168,9 +168,9 @@ This project has no category defined.
 
       expect(result).toHaveLength(1);
       expect(result[0]).toMatchObject({
-        title: 'No Category Project',
         category: 'solo-development', // Should fallback to default
         description: 'Project without category',
+        title: 'No Category Project',
       });
     });
 

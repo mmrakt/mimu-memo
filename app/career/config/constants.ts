@@ -1,11 +1,39 @@
 export const CAREER_CONFIG = {
   // Animation delays
   ANIMATION: {
-    HERO_DELAY: '0.3s',
-    TIMELINE_DELAY_MULTIPLIER: 0.2,
-    SECTION_DELAY: '0.1s',
     EDUCATION_DELAY: '0.2s',
+    HERO_DELAY: '0.3s',
     LANGUAGES_DELAY: '0.3s',
+    SECTION_DELAY: '0.1s',
+    TIMELINE_DELAY_MULTIPLIER: 0.2,
+  },
+
+  // Default values
+  DEFAULTS: {
+    EMPLOYMENT_TYPE: 'Full-time' as const,
+    LOCATION: '東京',
+    START_YEAR: 2020,
+    TAGS: ['Full-Stack Developer', 'Team Leader', 'Problem Solver'],
+  },
+
+  // Language level display mapping
+  LANGUAGE_LEVELS: {
+    ネイティブ: 'Native',
+    ビジネス会話レベル: 'Business Level',
+  } as const,
+
+  // Month names for date formatting
+  MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+  // Skills level mapping
+  SKILLS: {
+    LEVEL_MAPPING: {
+      1: 'Beginner' as const,
+      2: 'Intermediate' as const,
+      3: 'Advanced' as const,
+      4: 'Expert' as const,
+      5: 'Expert' as const,
+    },
   },
 
   // Timeline configuration
@@ -19,32 +47,4 @@ export const CAREER_CONFIG = {
     ],
     VISIBLE_THRESHOLD: 50,
   },
-
-  // Skills level mapping
-  SKILLS: {
-    LEVEL_MAPPING: {
-      5: 'Expert' as const,
-      4: 'Expert' as const,
-      3: 'Advanced' as const,
-      2: 'Intermediate' as const,
-      1: 'Beginner' as const,
-    },
-  },
-
-  // Default values
-  DEFAULTS: {
-    LOCATION: '東京',
-    EMPLOYMENT_TYPE: 'Full-time' as const,
-    TAGS: ['Full-Stack Developer', 'Team Leader', 'Problem Solver'],
-    START_YEAR: 2020,
-  },
-
-  // Month names for date formatting
-  MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-
-  // Language level display mapping
-  LANGUAGE_LEVELS: {
-    ネイティブ: 'Native',
-    ビジネス会話レベル: 'Business Level',
-  } as const,
 } as const;

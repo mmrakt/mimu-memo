@@ -14,14 +14,14 @@ export async function parseMdFile(filePath: string): Promise<MemoContent | null>
     const { data, content } = matter(fileContent);
 
     return {
-      metadata: {
-        title: data.title || '',
-        tag: validateTag(data.tag || '', filePath),
-        pubDate: formatPubDate(data.pubDate),
-        id: path.basename(filePath, FILE_EXTENSIONS.MARKDOWN),
-      },
       content,
       isMarkdown: true,
+      metadata: {
+        id: path.basename(filePath, FILE_EXTENSIONS.MARKDOWN),
+        pubDate: formatPubDate(data.pubDate),
+        tag: validateTag(data.tag || '', filePath),
+        title: data.title || '',
+      },
     };
   } catch (_error) {
     return null;

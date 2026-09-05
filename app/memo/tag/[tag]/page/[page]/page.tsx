@@ -21,8 +21,8 @@ export async function generateStaticParams() {
     const { totalPages } = await getPostsByTagPaginated(tag.name, 1);
     for (let page = 2; page <= totalPages; page += 1) {
       params.push({
-        tag: tag.name,
         page: page.toString(),
+        tag: tag.name,
       });
     }
   }

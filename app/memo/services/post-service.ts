@@ -60,12 +60,12 @@ async function processPostFile(
       const { data } = matter(fileContent);
 
       return {
-        id: slug,
-        title: data.title || '',
-        tag: validateTag(data.tag || '', filePath),
-        pubDate: formatPubDate(data.pubDate),
         excerpt: data.excerpt || data.description || '',
+        id: slug,
         media: 'owned' as const,
+        pubDate: formatPubDate(data.pubDate),
+        tag: validateTag(data.tag || '', filePath),
+        title: data.title || '',
       };
     },
     null,
@@ -100,14 +100,14 @@ export async function getMemoBySlug(slug: string): Promise<MemoBySlugResult | nu
     const { data, content } = matter(fileContent);
 
     return {
-      metadata: {
-        title: data.title || '',
-        tag: validateTag(data.tag || '', mdxFilePath),
-        pubDate: formatPubDate(data.pubDate),
-        id: slug,
-      },
       content,
       isMarkdown: true,
+      metadata: {
+        id: slug,
+        pubDate: formatPubDate(data.pubDate),
+        tag: validateTag(data.tag || '', mdxFilePath),
+        title: data.title || '',
+      },
     };
   } catch (_error) {
     return null;
@@ -127,19 +127,19 @@ export async function getAllMemoSlugs(): Promise<string[]> {
 
 export function getAdjacentPostsFromList(posts: PostListItem[], slug: string): AdjacentPostsResult {
   if (!posts.length) {
-    return { previous: null, next: null };
+    return { next: null, previous: null };
   }
 
   const currentIndex = posts.findIndex((post) => post.id === slug);
 
   if (currentIndex === -1) {
-    return { previous: null, next: null };
+    return { next: null, previous: null };
   }
 
   const previous = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
   const next = currentIndex > 0 ? posts[currentIndex - 1] : null;
 
-  return { previous, next };
+  return { next, previous };
 }
 
 export async function getAdjacentPosts(

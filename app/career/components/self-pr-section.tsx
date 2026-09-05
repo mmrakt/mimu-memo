@@ -8,9 +8,9 @@ type SelfPRSectionProps = {
 
 export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
   const prItems = [
-    { ...selfPR.autonomy, icon: '🚀', gradient: 'from-cyan-600 to-blue-600' },
-    { ...selfPR.fullstack, icon: '💻', gradient: 'from-purple-600 to-pink-600' },
-    { ...selfPR.teamwork, icon: '👥', gradient: 'from-indigo-600 to-purple-600' },
+    { ...selfPR.autonomy, gradient: 'from-cyan-600 to-blue-600', icon: '🚀' },
+    { ...selfPR.fullstack, gradient: 'from-purple-600 to-pink-600', icon: '💻' },
+    { ...selfPR.teamwork, gradient: 'from-indigo-600 to-purple-600', icon: '👥' },
   ];
   const TRANSITION_DELAY_STEP_SECONDS = 0.1;
 
@@ -28,7 +28,7 @@ export function SelfPRSection({ selfPR }: SelfPRSectionProps) {
               key={item.title}
               style={{ transitionDelay: `${index * TRANSITION_DELAY_STEP_SECONDS}s` }}
             >
-              <div className="hover:-translate-y-1 h-full rounded-xl border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-slate-600 hover:shadow-xl">
+              <div className="h-full rounded-xl border border-slate-700 bg-slate-800/50 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-600 hover:shadow-xl">
                 <div
                   className={`mb-4 bg-gradient-to-br text-4xl ${item.gradient} inline-block bg-clip-text text-transparent`}
                 >

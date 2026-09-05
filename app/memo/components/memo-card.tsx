@@ -32,8 +32,8 @@ function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
   if (isExternal && post.link) {
     return {
       href: post.link,
-      target: '_blank',
       rel: 'noopener noreferrer',
+      target: '_blank',
     };
   }
 
@@ -43,24 +43,24 @@ function buildLinkProps(post: PostListItem, isExternal: boolean): LinkProps {
 function buildMediaBadge(post: PostListItem, isSlide: boolean): MediaBadge {
   if (isSlide) {
     return {
-      show: true,
       className: `${MEDIA_BADGE_BASE_CLASSES} ${SLIDE_BADGE_CLASSES}`,
       label: 'Slide',
+      show: true,
     };
   }
 
   if (post.media && isExternalMedia(post.media)) {
     return {
-      show: true,
       className: `${MEDIA_BADGE_BASE_CLASSES} ${getMediaStyles(post.media)}`,
       label: getMediaDisplayName(post.media),
+      show: true,
     };
   }
 
   return {
-    show: false,
     className: MEDIA_BADGE_BASE_CLASSES,
     label: '',
+    show: false,
   };
 }
 
@@ -77,7 +77,7 @@ export default function MemoCard({ post, index }: MemoCardProps) {
   return (
     <LinkComponent
       {...linkProps}
-      className="hover:-translate-y-2 block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+      className="block animate-fade-in-up cursor-pointer overflow-hidden rounded-2xl border border-indigo-500/10 bg-slate-800/50 opacity-0 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
       style={{
         animationDelay,
         animationFillMode: 'forwards',

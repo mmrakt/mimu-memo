@@ -29,7 +29,7 @@ export function EducationSection({ education, certifications, languages }: Educa
             <div className="space-y-4">
               {education.map((edu, index) => (
                 <div
-                  className="hover:-translate-y-1 rounded-xl border border-purple-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-purple-600/30 hover:shadow-lg"
+                  className="rounded-xl border border-purple-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-purple-600/30 hover:shadow-lg"
                   key={`edu-${edu.institution}-${index}`}
                 >
                   <h4 className="mb-2 font-semibold text-lg text-white">
@@ -73,7 +73,7 @@ export function EducationSection({ education, certifications, languages }: Educa
             <div className="space-y-4">
               {certifications.map((cert, index) => (
                 <div
-                  className="hover:-translate-y-1 rounded-xl border border-cyan-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-cyan-600/30 hover:shadow-lg"
+                  className="rounded-xl border border-cyan-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-600/30 hover:shadow-lg"
                   key={`cert-${cert.name}-${index}`}
                 >
                   <h4 className="mb-2 font-semibold text-lg text-white">{cert.name}</h4>
@@ -81,8 +81,8 @@ export function EducationSection({ education, certifications, languages }: Educa
                   <p className="mb-2 text-slate-400 text-sm">
                     Issued:{' '}
                     {new Date(cert.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
                       month: 'long',
+                      year: 'numeric',
                     })}
                   </p>
 
@@ -90,8 +90,8 @@ export function EducationSection({ education, certifications, languages }: Educa
                     <p className="mb-2 text-slate-400 text-sm">
                       Expires:{' '}
                       {new Date(cert.expiryDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
                         month: 'long',
+                        year: 'numeric',
                       })}
                     </p>
                   )}
@@ -116,7 +116,7 @@ export function EducationSection({ education, certifications, languages }: Educa
               <div className="space-y-4">
                 {languages.map((lang, index) => (
                   <div
-                    className="hover:-translate-y-1 rounded-xl border border-emerald-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:border-emerald-600/30 hover:shadow-lg"
+                    className="rounded-xl border border-emerald-600/10 bg-slate-800/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-600/30 hover:shadow-lg"
                     key={`lang-${lang.name}-${index}`}
                   >
                     <h4 className="mb-2 font-semibold text-lg text-white">{lang.name}</h4>

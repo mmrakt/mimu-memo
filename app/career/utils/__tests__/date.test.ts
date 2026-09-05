@@ -5,17 +5,17 @@ describe('Date Utils', () => {
   describe('formatDateRange', () => {
     it('should format date range with both dates', () => {
       const result = formatDateRange('2023-01', '2024-12');
-      expect(result).toEqual({ start: '2023-01', end: '2024-12' });
+      expect(result).toEqual({ end: '2024-12', start: '2023-01' });
     });
 
     it('should handle empty end date', () => {
       const result = formatDateRange('2023-01', '');
-      expect(result).toEqual({ start: '2023-01', end: 'Present' });
+      expect(result).toEqual({ end: 'Present', start: '2023-01' });
     });
 
     it('should handle empty start date', () => {
       const result = formatDateRange('', '2024-12');
-      expect(result).toEqual({ start: 'Unknown', end: '2024-12' });
+      expect(result).toEqual({ end: '2024-12', start: 'Unknown' });
     });
   });
 
@@ -38,13 +38,13 @@ describe('Date Utils', () => {
 
   describe('formatDateRangeForDisplay', () => {
     it('should format complete date range for display', () => {
-      const dateRange = { start: '2023-01', end: '2024-12' };
+      const dateRange = { end: '2024-12', start: '2023-01' };
       const result = formatDateRangeForDisplay(dateRange);
       expect(result).toBe('Jan 2023 - Dec 2024');
     });
 
     it('should handle Present end date', () => {
-      const dateRange = { start: '2023-01', end: 'Present' };
+      const dateRange = { end: 'Present', start: '2023-01' };
       const result = formatDateRangeForDisplay(dateRange);
       expect(result).toBe('Jan 2023 - Present');
     });
